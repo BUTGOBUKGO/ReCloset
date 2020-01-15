@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product-mapper">
+
+	<resultMap id="reusltproduct" type="Goods">
+      <result column="GOODSNO" property="goodsno"/>
+      <result column="CATEGORYCODE" property="categorycode"/>
+      <result column="USERNO" property="userno"/>
+      <result column="GNAME" property="gname"/>
+      <result column="GPRICE" property="gprice"/>
+      <result column="GCOLOR" property="gcolor"/>
+      <result column="GSIZE" property="gsize"/>
+      <result column="GSIMPLE" property="gsimple"/>
+      <result column="GDETAIL" property="gdetail"/>
+      <result column="GSTATUS" property="gstatus"/>
+      <result column="GDATE" property="gdate"/>
+</resultMap>
+
+	
+
+<insert id="insertProduct" parameterType="Goods">
+		INSERT INTO GOODS 
+		VALUES(SEQ_GOODSNO.NEXTVAL, 
+				#{categorycode},
+		       #{userno}, 
+		       #{gname},
+		       #{gprice},
+		       #{gcolor},
+		       #{gsize},
+		       #{gsimple},
+		       #{gdetail},
+		       DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+	<insert id="insertAttachment" parameterType="Attachment">
+		<selectKey keyProperty="goodsno" resultType="int" order="BEFORE">
+			SELECT SEQ_GOODSNO.CURRVAL FROM DUAL
+		</selectKey>
+		INSERT INTO GATTACHMENT
+		VALUES (SEQ_GATTACH.NEXTVAL,
+				 #{goodsno},
+				#{originname}, 
+				#{changename},
+				DEFAULT, #{agrade}, DEFAULT)
+	</insert>
+	
+	<select id="selectList" resultType="Goods">
+	SELECT G.*, GA.CHANGENAME FROM GOODS G JOIN GATTACHMENT GA 
+	ON(G.GOODSNO = GA.GOODSNO AND AGRADE = 0)
+	</select>
+	 
+	<select id="selectOnePro" parameterType="_int" resultType="Goods">
+		SELECT * FROM GOODS WHERE GOODSNO = #{goodsNo}
+	</select>
+	
+	<select id="selectAttachment" parameterType="_int" resultType="Attachment">
+		SELECT * FROM GATTACHMENT WHERE GOODSNO = #{goodsNo}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+

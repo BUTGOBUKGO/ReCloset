@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="post-mapper">
+
+<resultMap id="reusltpost" type="Post">
+      <result column="PSNANO" property="psnano"/>
+      <result column="USERNO" property="userno"/>
+      <result column="PSTITLE" property="pstitle"/>
+      <result column="PSCONTENT" property="pscontent"/>
+      <result column="PSDATE" property="psdate"/>
+      <result column="PSCHECK" property="pscheck"/>
+      <result column="USERID" property="userId"/>
+      
+</resultMap>
+
+	<insert id="insertPOST" parameterType="Post">
+		INSERT INTO PSNA
+		VALUES(SEQ_PSNA.NEXTVAL, 
+				#{userno},
+		       #{pstitle}, 
+		       #{pscontent},
+		       DEFAULT, DEFAULT)
+	</insert>
+	
+		<select id="postList" resultMap="reusltpost">
+	SELECT M.USERID, PS.*, (SELECT COUNT(*) 
+             FROM GATTACHMENT 
+             WHERE PS.PSNANO = PSNANO) FILECOUNT 
+		FROM PSNA PS
+        JOIN MEMBER M ON(M.USERNO=PS.USERNO)
+		ORDER BY PSDATE DESC
+	</select>
+	
+	
+</mapper>
+
+
