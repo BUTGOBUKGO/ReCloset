@@ -93,7 +93,10 @@
 		</div>
 	</section>
 
+				<a href="${pageContext.request.contextPath}/seller_Statistics/seller_Statistics.do">통계페이지 이동1</a>
+				<a href="${pageContext.request.contextPath}/admin_Statistics/admin_Statistics.do">통계페이지 이동2</a>
 
+	<li></li>
 	<!-- Banner -->
 	<div class="sec-banner bg0 p-t-80 p-b-50">
 		<div class="container">
