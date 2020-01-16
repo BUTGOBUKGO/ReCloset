@@ -48,61 +48,52 @@ public class ProductService {
 	}
 
 
-
-	
 	public List selectList() {
 		
 		return productDAO.selectList();
 	}
 
-
-
-	
-	 public Goods selectOne(int goodsno) {
+	 public Goods selectOne(int goodsNo) {
 	  
-	  return productDAO.selectOne(goodsno); 
+	  return productDAO.selectOne(goodsNo); 
 	  }
 	  
+	 public List<Attachment> selectAttachment(int goodsNo) {
 	  
-	 
-	  
-	 public List<Attachment> selectAttachment(int goodsno) {
-	  
-	  return productDAO.selectAttachment(goodsno); 
+	  return productDAO.selectAttachment(goodsNo); 
 	  }
 
-	
 
-	 
+	public int updateProduct(Goods originProduct, List<Attachment> list) {
+		int result = 0;
+		
+		List<Attachment> originList
+		= productDAO.selectAttachment(originProduct.getGoodsNo());
+		
+		result = productDAO.updateProduct(originProduct);
+		
+		if(result > 0) {
+		if(originList.size() > 0) {
+			result = productDAO.deleteAttachment(originProduct.getGoodsNo());
+			
+		}
+		
+		if(list.size() > 0) {
+			
+			for(Attachment a : list) {
+				result = productDAO.updateAttachment(a);
+				}
+			}
+		}
+		return result;
+	}
 
 
+	public int deleteProduct(int goodsNo) {
+		
+		return productDAO.deleteGoods(goodsNo);
+	}
 
-
-	
-	/* return boardDAO.selectOne(boardNo); */
-	
-	
-
-	/*
-	 * public List selectList() { return productDAO.selectList(); }
-	 */
-
-	
-	
-
-	/*
-	 * public int insertPro(Goods goods) {
-	 * 
-	 * int result = 0;
-	 * 
-	 * // 1. 게시글 추가 result = productDAO.insertPro(goods); if (result < 1) throw new
-	 * HelpAndFAQException("게시글 추가 중 에러 발생");
-	 * 
-	 * return result;
-	 * 
-	 * 
-	 * }
-	 */
 	
 	
 }

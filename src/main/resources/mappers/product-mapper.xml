@@ -58,6 +58,38 @@
 	<select id="selectAttachment" parameterType="_int" resultType="Attachment">
 		SELECT * FROM GATTACHMENT WHERE GOODSNO = #{goodsNo}
 	</select>
+	
+	<update id="updateProduct" parameterType="Goods">
+		UPDATE GOODS
+		SET CATEGORYCODE = #{categoryCode},
+			GNAME = #{gName},
+			GPRICE = #{gPrice},
+		    GCOLOR = #{gColor},
+		    GSIZE = #{gSize},
+		    GSIMPLE = #{gSimple},
+		    GDETAIL = #{gDetail}
+		WHERE GOODSNO = #{goodsNo}
+	
+	</update>
+	
+	<insert id="updateAttachment" parameterType="Goods">
+		INSERT INTO GATTACHMENT
+		VALUES (SEQ_GATTACH.NEXTVAL, 
+				#{goodsNo},
+				#{originName},
+				#{changeName},
+				DEFAULT, #{aGrade}, DEFAULT)
+	
+	</insert>
+	
+	<delete id="deleteGoods" parameterType="_int">
+		DELETE FROM GOODS WHERE GOODSNO = #{goodsNo}
+	</delete>
+	
+	<delete id="daleteAttachment" parameterType="_int">
+		DELETE FROM GATTACHMENT WHERE GOODSNO = #{goodsNo}
+	</delete>
+	
 </mapper>
 
 
