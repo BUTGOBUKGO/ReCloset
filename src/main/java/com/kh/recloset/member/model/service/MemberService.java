@@ -15,16 +15,12 @@ public class MemberService {
 	MemberDAO memberDAO;
 
 	public int insertMember(Member member) {
-		
-		System.out.println(member);
-		
 		return memberDAO.insertMember(member);
 	}
 
 	public Member selectOneMember(Member member) {
 		return memberDAO.selectOneMember(member);
 	}
-
 	public Member memberView(String userId) {
 		return memberDAO.selectMemberView(userId);
 	}
@@ -37,20 +33,24 @@ public class MemberService {
 		return memberDAO.deleteMember(userId);
 	}
 
+	public Member selectuserName(String userName) {
+		return memberDAO.selectuserName(userName);
+	}
+
 	public int checkIdDuplicate(String userId) {
 		HashMap<String, Object> hmap = new HashMap();
-//		HashMap<String, Object> hmap = new HashMap<>();
 		
 		hmap.put("userId", userId);
 		
 		return memberDAO.checkIdDuplicate(hmap);
 	}
+
+
+
+
+
+
+	
+	
+	
 }
-
-
-
-
-
-
-
-

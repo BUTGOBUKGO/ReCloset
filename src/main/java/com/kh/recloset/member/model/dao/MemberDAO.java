@@ -8,19 +8,18 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.recloset.member.model.vo.Member;
 
-
 @Repository
 public class MemberDAO {
-
+	
 	@Autowired
 	SqlSessionTemplate sqlSession;
 
 	public int insertMember(Member member) {
-		return sqlSession.insert("member-mapper.insertMember", member);
+		return sqlSession.insert("member-mapper.insertMember",member);
 	}
 
 	public Member selectOneMember(Member member) {
-		return sqlSession.selectOne("member-mapper.selectOneMember", member);
+		return sqlSession.selectOne("member-mapper.selectOneMember",member);
 	}
 
 	public Member selectMemberView(String userId) {
@@ -34,20 +33,20 @@ public class MemberDAO {
 	public int deleteMember(String userId) {
 		return sqlSession.delete("member-mapper.deleteMember", userId);
 	}
-	
-		public int checkIdDuplicate(HashMap<String, Object> hmap) {
+
+	public int checkIdDuplicate(HashMap<String, Object> hmap) {
+		sqlSession.selectOne("member-mapper.checkIdDuplicate", hmap);
 		
-			
-			// mapper에서 보내는 값이 result라서 get뒤에 result가 들어감
-			return 	sqlSession.selectOne("member-mapper.checkIdDuplicate", hmap);
-		}
+		return (Integer)hmap.get("result");
+	}
+
+	public Member selectuserName(String userName) {
+		return sqlSession.selectOne("member-mapper.selectuserName",userName);
+		
+	}
+
+	
+	
 	
 	
 }
-
-
-
-
-
-
-

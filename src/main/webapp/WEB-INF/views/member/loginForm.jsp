@@ -55,7 +55,7 @@
 						&nbsp;&nbsp;
 						<button type="button"
 							class="stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10"
-							onclick="location.href='${pageContext.request.contextPath}/member/signUp.do'">
+							onclick="location.href='${pageContext.request.contextPath}/member/memberEnroll.do'">
 							회원가입</button>
 					</div>
 					<div class="col-2 p-b-7"></div>
