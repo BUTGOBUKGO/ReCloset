@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="help-mapper">
+
+<resultMap id="reuslthelp" type="HelpAndFAQ">
+      <result column="QNANO" property="qnaNo"/>
+      <result column="USERNO" property="userNo"/>
+      <result column="QTITLE" property="qTitle"/>
+      <result column="QCONTENT" property="qContent"/>
+      <result column="QDATE" property="qDate"/>
+      <result column="QCHECK" property="qCheck"/>
+      <result column="USERID" property="userId"/>
+</resultMap>
+
+	<insert id="insertFAQ" parameterType="HelpAndFAQ">
+		INSERT INTO QNA
+		VALUES(SEQ_QNA.NEXTVAL, 
+				#{userNo},
+		       #{qTitle}, 
+		       #{qContent},
+		       DEFAULT, DEFAULT)
+	</insert>
+	
+	<select id="faqList" resultMap="reuslthelp">
+	SELECT M.USERID,Q.*, (SELECT COUNT(*) 
+             FROM GATTACHMENT 
+             WHERE Q.QNANO = QNANO) FILECOUNT 
+		FROM QNA Q
+		JOIN MEMBER M ON (M.USERNO=Q.USERNO)
+		ORDER BY QDATE DESC
+	</select>
+	
+
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+

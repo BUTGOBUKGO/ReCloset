@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE configuration PUBLIC
+"-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="com.kh.recloset.cart.model.vo.Cart" alias="Cart"/>
+		<typeAlias type="com.kh.recloset.product.model.vo.Goods" alias="Goods"/>
+		<typeAlias type="com.kh.recloset.helpAndFAQ.model.vo.HelpAndFAQ" alias="HelpAndFAQ"/>
+		<typeAlias type="com.kh.recloset.helpAndFAQ.model.vo.Post" alias="Post"/>
+		<typeAlias type="com.kh.recloset.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.recloset.product.model.vo.Attachment" alias="Attachment"/>
+		<typeAlias type="com.kh.recloset.order.model.vo.Delivery" alias="Delivery"/>
+		<typeAlias type="com.kh.recloset.order.model.vo.Order" alias="Order"/>
+		<typeAlias type="com.kh.recloset.order.model.vo.OrderGoods" alias="OrderGoods"/>
+	</typeAliases>
+</configuration>
+
+
+
+
+
+
+
+
+
+
