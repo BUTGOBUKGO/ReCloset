@@ -18,6 +18,14 @@
 		<typeAlias type="com.kh.recloset.order.model.vo.Delivery" alias="Delivery"/>
 		<typeAlias type="com.kh.recloset.order.model.vo.Order" alias="Order"/>
 		<typeAlias type="com.kh.recloset.order.model.vo.OrderGoods" alias="OrderGoods"/>
+		<typeAlias type="com.kh.recloset.seller_statistics.model.vo.GenderRatio" alias="GenderRatio"/>
+		<typeAlias type="com.kh.recloset.seller_statistics.model.vo.MonthRevenue" alias="MonthRevenue"/>
+		<typeAlias type="com.kh.recloset.seller_statistics.model.vo.SelectRevenue" alias="SelectRevenue"/>
+		<typeAlias type="com.kh.recloset.admin_statistics.model.vo.SelectAgeRatio" alias="SelectAgeRatio"/>
+		<typeAlias type="com.kh.recloset.admin_statistics.model.vo.AdminSelectTOP3" alias="AdminSelectTOP3"/>
+		<typeAlias type="com.kh.recloset.searchRank.model.vo.SearchRank" alias="SearchRank"/>
+		<typeAlias type="com.kh.recloset.search.model.vo.Search" alias="Search"/>
+		<typeAlias type="com.kh.recloset.search.model.vo.SearchValue" alias="SearchValue"/>
 	</typeAliases>
 </configuration>
 

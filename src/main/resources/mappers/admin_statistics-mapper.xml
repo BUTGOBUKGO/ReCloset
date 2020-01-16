@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin_statistics-mapper">
+
+	<select id="adminSelectAllRevenue" resultType="SelectRevenue">	
+	<!-- 관리자 페이지 홈페이지 총 매출액 확인 쿼리  -->
+		SELECT SUM(GPRICE) TOTALCOST
+		FROM GOODS 
+		WHERE GSOLDOUT = 'O'
+
+	</select>
+	
+	<select id="adminSelectMonthRevenue" resultType="MonthRevenue">
+	<!-- 1년 내 월별 페이지 총 매출액 확인 -->
+		SELECT SUBSTR(ODATE,1,5) MON, SUM(G.GPRICE) TOTALCOST
+		FROM GORDER GO, GOODS G, ORDERGOODS OG
+        WHERE G.GOODSNO = OG.GOODSNO
+        AND GO.ORDERNO = OG.ORDERNO
+        AND GSOLDOUT = 'O'
+        <![CDATA[
+        AND SYSDATE - GO.ODATE < 365
+         ]]>
+		GROUP BY SUBSTR(GO.ODATE,1,5) 
+		ORDER BY MON ASC
+	</select>
+	
+	<select id="adminSelectGenderRatio" resultType="GenderRatio">
+	<!-- 관리자 홈페이지 전체 성비 조회 -->
+	SELECT GENDER,  ROUND( 
+	RATIO_TO_REPORT(COUNT(GENDER)) OVER() * 100, 1) PCT
+	FROM MEMBER
+	GROUP BY GENDER
+	</select>
+	
+	<select id="adminSelectAgeRatio" resultType="SelectAgeRatio">
+	<!-- 관리자 페이지 연령대 조회 -->
+	SELECT SUBSTR(EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM BIRTHDAY)+1,1,1)*10 AGERANGE, 
+          ROUND(RATIO_TO_REPORT(COUNT(SUBSTR(EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM BIRTHDAY)+1,1,1))) OVER() * 100, 1) PCT
+	FROM MEMBER
+	GROUP BY SUBSTR(EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM BIRTHDAY)+1,1,1)
+	ORDER BY AGERANGE ASC
+	</select>
+	
+	<!-- 1년 내 월별 매출액 TOP 3 쇼핑몰 조회 -->
+	<select id="adminSelectTOP3" resultType="AdminSelectTOP3">
+	SELECT * FROM (
+	SELECT ROW_NUMBER() OVER(PARTITION BY SUBSTR(ODATE,1, 5) ORDER BY  SUM(GPRICE)  DESC) RANK10, SUBSTR(ODATE,1, 5) MON, SUM(GPRICE) total, MARKETNAME USERNAME 
+	FROM GORDER
+	LEFT JOIN ORDERGOODS USING(ORDERNO)
+	LEFT JOIN GOODS USING(GOODSNO)
+	LEFT JOIN MEMBER ON(GOODS.USERNO = MEMBER.USERNO)
+	 <![CDATA[
+	WHERE (SYSDATE - ODATE) <= 365
+	]]>
+	GROUP BY SUBSTR(ODATE,1, 5), GORDER.USERNO, MARKETNAME)
+	 <![CDATA[
+	WHERE RANK10 <4
+	]]>
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
