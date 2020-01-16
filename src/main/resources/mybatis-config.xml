@@ -14,6 +14,7 @@
 		<typeAlias type="com.kh.recloset.helpAndFAQ.model.vo.HelpAndFAQ" alias="HelpAndFAQ"/>
 		<typeAlias type="com.kh.recloset.helpAndFAQ.model.vo.Post" alias="Post"/>
 		<typeAlias type="com.kh.recloset.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.recloset.email.model.vo.Email" alias="Email"/>
 		<typeAlias type="com.kh.recloset.product.model.vo.Attachment" alias="Attachment"/>
 		<typeAlias type="com.kh.recloset.order.model.vo.Delivery" alias="Delivery"/>
 		<typeAlias type="com.kh.recloset.order.model.vo.Order" alias="Order"/>
