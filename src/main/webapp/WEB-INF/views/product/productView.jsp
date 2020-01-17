@@ -107,8 +107,8 @@
 						<!-- 카트 , 구매 버튼 -->
 						<div>
 							<center>
-					<input type="submit" class="btn btn-outline-info" id="gocart" value="Add to cart" formaction=""  /> 
-					<input type="submit" class="btn btn-outline-info" id="gobuy" value="Buy Now" formaction="/product/payGo.do" />
+					<input type="button" class="btn btn-outline-info" id="gocart" value="Add to cart" onclick="addCart();" /> 
+               <input type="button" class="btn btn-outline-info" id="gobuy" value="Buy Now" onclick="goOrderForm();" />
 							</center>
 						</div>	
 					</div>
@@ -170,24 +170,42 @@
 	
 	
 	<script>
-	
-	/* $("feat").on("click", function(){
-		$.ajax({
-			url: "${pageContext.request.contextPath}",
-			data: {
-				"누른사람 정보" : //
-				"해당 상품 정보" : //
-			}, success: function(data){
-				// data 는 성공했으면 1 실패했으면 0 이런식으로 갖고오게하셔서 그에 따른 알럿창을 띄우시거나 필요없음 없애도 되요
-				if(data == 1){
-					alert("장바구니에 추가됨");
-					// 버튼 색깔 바꿔주시면 될듯용? 핑요없음 말구용
-				} 
-			}
-		});
-	}); */
-	
-	
+	   var userNo = '${member.userNo }'
+           var goodsNo = '${goods.goodsNo }'
+           
+           function addCart(){
+              $.ajax({
+                 url: "${pageContext.request.contextPath}/cart/insertCart.do",
+                 dataType: "json",
+                 data: { userNo : userNo, 
+                       goodsNo : goodsNo },
+                 success: function(data){
+                    if(data == 1){
+                       alert("상품이 장바구니에 추가되었습니다!");                                 
+                    } else {
+                       alert("이미 장바구니에 추가되어있는 상품입니다.");
+                    }
+                    $.ajax({
+                       url: "/recloset/cart/cartQty.do",
+                        dataType: "json",
+                        data: { userNo : userNo },
+                        success : function(data){
+                           console.log(data);
+                           $('.js-show-cart').attr("data-notify", data);
+                        }
+                    });
+                 }
+              });
+              
+              
+              
+           }
+           
+           function goOrderForm(){
+              location.href = '${pageContext.request.contextPath}/order/orderFormOne.do?userNo='+userNo+'&goodsNo='+goodsNo;
+           }
+
+
 	
 	$(function(){
 		$('#fileArea').hide();
