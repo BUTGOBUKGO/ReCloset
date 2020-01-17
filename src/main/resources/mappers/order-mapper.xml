@@ -46,10 +46,6 @@
 		SELECT * FROM DELIVERY WHERE ORDERNO = #{orderNo}
 	</select>
 	
-	<delete id="deleteCart" >
-	
-	</delete>
-	
 </mapper>
 
 

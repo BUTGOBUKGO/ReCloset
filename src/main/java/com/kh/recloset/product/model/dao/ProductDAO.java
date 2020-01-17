@@ -26,11 +26,7 @@ public class ProductDAO {
 		return sqlSession.insert("product-mapper.insertAttachment", a);
 	}
 
-	/*
-	 * public List<Attachment> selectAttahment(int goodsno) {
-	 * 
-	 * return sqlSession.selectList("product-mapper.selectAttahment", goodsno); }
-	 */
+	
 
 	public List selectList() {
 
@@ -38,15 +34,35 @@ public class ProductDAO {
 	}
 
 	
-	  public Goods selectOne(int goodsno) {
+	  public Goods selectOne(int goodsNo) {
 	  
-	  return sqlSession.selectOne("product-mapper.selectOnePro", goodsno); 
+	  return sqlSession.selectOne("product-mapper.selectOnePro", goodsNo); 
 	  }
 	  
-	  public List<Attachment> selectAttachment(int goodsno) {
+	  public List<Attachment> selectAttachment(int goodsNo) {
 	  
-	  return sqlSession.selectList("product-mapper.selectAttachment", goodsno); 
+	  return sqlSession.selectList("product-mapper.selectAttachment", goodsNo); 
 	  }
+
+	public int updateProduct(Goods originProduct) {
+		
+		return sqlSession.update("product-mapper.updateProduct", originProduct);
+	}
+
+	public int deleteAttachment(int goodsNo) {
+		
+		return sqlSession.delete("product-mapper.daleteAttachment", goodsNo);
+	}
+
+	public int updateAttachment(Attachment a) {
+		
+		return sqlSession.insert("product-mapper.updateAttachment", a);
+	}
+
+	public int deleteGoods(int goodsNo) {
+		
+		return sqlSession.delete("product-mapper.deleteGoods", goodsNo);
+	}
 	 
 
 	

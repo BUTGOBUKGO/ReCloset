@@ -53,18 +53,6 @@
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Returns 
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Shipping
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
 								FAQs
 							</a>
 						</li>
@@ -73,11 +61,14 @@
 
 				<div class="col-sm-6 col-lg-3 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
-						GET IN TOUCH
+						Call
 					</h4>
 
 					<p class="stext-107 cl7 size-201">
-						Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on (+1) 96 716 6879
+					고객 센터 / 전자 금융 거래 분쟁 처리 담당 <br />
+					Tel. (02) 2222 - 3333 <br />
+					파트너 센터 <br />
+					Tel. (02) 1111 - 4374 <br />
 					</p>
 
 					<div class="p-t-27">

@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,7 @@ public class ProductController {
 	public String selectProuctList(Model model) {
 
 		List<Goods> list = productService.selectList();
+	
 
 		model.addAttribute("goods", list);
 
@@ -151,6 +153,175 @@ public class ProductController {
 		}
 
 	}
+	
+	@RequestMapping("/product/productUpdateForm.do")
+	public String productUpdateView(@RequestParam("goodsNo") int goodsNo, Model model) {
+		
+		model.addAttribute("goods", productService.selectOne(goodsNo))
+			.addAttribute("attachmentList", productService.selectAttachment(goodsNo));
+		
+		return "product/productUpdateForm";
+		
+	}
+	
+	@RequestMapping("/product/productUpdate.do")
+	public String productUpdate(@RequestParam("goodsNo") int goodsNo, Goods goods, Model model,
+								@RequestParam(value="productImgFile", required=false)
+	MultipartFile[] upFiles,
+	HttpServletRequest request) {
+		
+		// 원본 게시글 수정
+		Goods originProduct
+			= productService.selectOne(goodsNo);
+		originProduct.setgName(goods.getgName());
+		originProduct.setCategoryCode(goods.getCategoryCode());
+		originProduct.setgPrice(goods.getgPrice());
+		originProduct.setgColor(goods.getgColor());
+		originProduct.setgSize(goods.getgSize());
+		originProduct.setgSimple(goods.getgSimple());
+		originProduct.setgDetail(goods.getgDetail());
+				
+				// 첨부파일 부분
+				// 1. 저장할 폴더 설정
+				String savePath = request.getSession().getServletContext().getRealPath("/resources/uploadimg");
+				System.out.println("저장경로 "+savePath);
+				// 2. 예전 사진파일 정보 
+				List<Attachment> list
+				= productService.selectAttachment(goodsNo);
+		
+				// 만약 사진이 없다면 
+				if(list == null) list = new ArrayList();
+				
+				// 첨부파일 저장 위치 존재 확인
+				File dir = new File(savePath);
+				
+				// 현재 폴더가 생성 되어있는지 확인
+				if(dir.exists() == false) dir.mkdirs();
+				
+				int idx = 0;
+				for(MultipartFile f : upFiles) {
+					Attachment att = null;
+					
+					if( ! f.isEmpty()) {
+						// 원본 사진 삭제
+						if(list.size() > idx) {
+							boolean isDelete
+							= new File(savePath + "/" + list.get(idx).getChangeName()).delete();
+							
+							System.out.println("원본 사진 삭제 되었읍니까? : " + isDelete);
+							
+							att = list.get(idx);
+						}else {
+							att = new Attachment();
+							att.setGoodsNo(goodsNo);
+							
+							list.add(att);
+							
+						}
+						// 정상적인 사진 추가 과정
+						// 원본 사진 이름 가져오기
+						
+						String originalFileName = f.getOriginalFilename();
+						String ext
+						= originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+						
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+						
+						int rndNum = (int)(Math.random() * 1000);
+						
+						String renamedFileName = sdf.format(new Date(System.currentTimeMillis())) + "_" + rndNum + "." + ext;
+						// --> 20191230_154500_1.jpg
 
+						try {
+
+							f.transferTo(new File(savePath + "/" + renamedFileName));
+
+						} catch (IllegalStateException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						
+						att.setOriginName(originalFileName);
+						att.setChangeName(renamedFileName);
+						
+						list.set(idx, att);
+					}
+					
+					idx++;
+					
+				}
+				int result = productService.updateProduct(originProduct, list);
+				
+				String msg = "";
+				String loc = "/product/productList.do";
+				
+				if(result > 0)	{
+					msg = "게시글 수정 성공!";
+				} else {
+					msg = "게시글 수정 실패!";
+				}
+				
+				model.addAttribute("msg", msg)
+				     .addAttribute("loc", loc);
+				
+		
+				return "common/msg";
+		
+	}
+	
+	
+	@RequestMapping("/product/productDelete.do")
+	public String GoodsDelete(@RequestParam("goodsNo")int goodsNo, Model model, HttpSession session) {
+		
+		// 게시글 삭제 시 게시글에 담긴 첨부파일도 삭제해야 한다.
+		String savePath
+		    = session.getServletContext().getRealPath("/resources/upload");
+		
+		List<Attachment> list = productService.selectAttachment(goodsNo);
+		
+		for(Attachment a : list) {
+			new File(savePath + "/" + a.getChangeName()).delete();
+		}
+		
+		int result = productService.deleteProduct(goodsNo);
+		
+		String msg = "";
+		String loc = "/product/productList.do";
+		
+		if(result > 0) {
+			msg = "게시글 삭제 성공!";
+		} else {
+			msg = "게시글 삭제 실패!";
+		}
+		
+		model.addAttribute("msg", msg)
+		     .addAttribute("loc", loc);
+		
+		return "common/msg";
+	}
+	
+
+	/* Lee_Y Filed */
+	/* Order Controller */
+	@RequestMapping("/product/orderView.do")
+	public String orderView() {
+		return "product/orderView";
+	}
+
+	@RequestMapping("/product/payGo.do")
+	public String payGo() {
+		return "product/payGo";
+	}
+
+	@RequestMapping("/product/orderSuccess.do")
+	public String orderSuccess() {
+		return "product/orderSuccess";
+	}
+
+	@RequestMapping("/product/orderHistory.do")
+	public String orderHistory() {
+		return "product/orderHistory";
+	}
 
 }

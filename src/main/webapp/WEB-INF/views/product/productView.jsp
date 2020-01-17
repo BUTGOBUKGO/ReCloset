@@ -43,7 +43,7 @@
 						</div>
 					</div>
 				</div>
-				<input type="hidden" name="userNo" value="${member.userNo}"/>	
+				<input type="hidden" name="userno" value="${member.userNo}"/>	
 				<div class="bor10 col-md-6 col-lg-5 p-b-30">
 					<div class="p-r-50 p-t-30 p-lr-0-lg">
 						<div class="flex-w flex-r-m p-b-10">
@@ -52,7 +52,7 @@
 								</div>
 								<div class="size-204 respon6-next">
 									<h4 class="mtext-105 cl2 js-name-detail p-b-5">
-										<input type="text" name="gName" style="font-size:13pt;" value="${goods.gName}" readonly required/>
+										<input type="text" id="gName" name="gName" style="font-size:13pt;" value="${goods.gName}" readonly required/>
 									</h4>
 								</div>
 							</div>
@@ -108,49 +108,11 @@
 						<div>
 							<center>
 					<input type="button" class="btn btn-outline-info" id="gocart" value="Add to cart" onclick="addCart();" /> 
-					<input type="button" class="btn btn-outline-info" id="gobuy" value="Buy Now" onclick="goOrderForm();" />
+               <input type="button" class="btn btn-outline-info" id="gobuy" value="Buy Now" onclick="goOrderForm();" />
 							</center>
 						</div>	
 					</div>
 						<!-- 카트 버튼 끝 -->
-						
-						<script>
-							var userNo = '${member.userNo }'
-							var goodsNo = '${goods.goodsNo }'
-							
-							function addCart(){
-								$.ajax({
-									url: "${pageContext.request.contextPath}/cart/insertCart.do",
-									dataType: "json",
-									data: { userNo : userNo, 
-											goodsNo : goodsNo },
-									success: function(data){
-										if(data == 1){
-											alert("상품이 장바구니에 추가되었습니다!");											
-										} else {
-											alert("이미 장바구니에 추가되어있는 상품입니다.");
-										}
-										$.ajax({
-											url: "/recloset/cart/cartQty.do",
-								    		dataType: "json",
-								    		data: { userNo : userNo },
-								    		success : function(data){
-								    			console.log(data);
-								    			$('.js-show-cart').attr("data-notify", data);
-								    		}
-										});
-									}
-								});
-								
-								
-								
-							}
-							
-							function goOrderForm(){
-								location.href = '${pageContext.request.contextPath}/order/orderFormOne.do?userNo='+userNo+'&goodsNo='+goodsNo;
-							}
-						</script>
-						
 						
 						
 						<!-- sns 태그들 -->
@@ -180,7 +142,7 @@
 				<div class="flex-w flex-r-m p-b-10">
 					<div class="col-12 p-b-5">
 					   <h3 class="ltext-106 cl5 txt-center">제품 상세 설명</h3>
-		              <div class="ContentArea" style="margin-top:20px; "name="gDetail">
+		              <div class="ContentArea" style="margin-top:20px;" name="gDetail">
 		                  
 		                  ${goods.gDetail}
 		              </div>
@@ -188,9 +150,11 @@
 		             
                     </div>
                </div>
-               
+               	
                
 			</div>
+			<!-- formaction은 IE9버전에서는 작동안합니다. 주의 -->
+			<input type="submit" class="btn btn-outline-info" id="goupdate" value="수정 하기" formaction="${pageContext.request.contextPath }/product/productUpdateForm.do?goodsNo=${goods.goodsNo}" />
 			
 			
 			</form>
@@ -206,24 +170,42 @@
 	
 	
 	<script>
-	
-	/* $("feat").on("click", function(){
-		$.ajax({
-			url: "${pageContext.request.contextPath}",
-			data: {
-				"누른사람 정보" : //
-				"해당 상품 정보" : //
-			}, success: function(data){
-				// data 는 성공했으면 1 실패했으면 0 이런식으로 갖고오게하셔서 그에 따른 알럿창을 띄우시거나 필요없음 없애도 되요
-				if(data == 1){
-					alert("장바구니에 추가됨");
-					// 버튼 색깔 바꿔주시면 될듯용? 핑요없음 말구용
-				} 
-			}
-		});
-	}); */
-	
-	
+	   var userNo = '${member.userNo }'
+           var goodsNo = '${goods.goodsNo }'
+           
+           function addCart(){
+              $.ajax({
+                 url: "${pageContext.request.contextPath}/cart/insertCart.do",
+                 dataType: "json",
+                 data: { userNo : userNo, 
+                       goodsNo : goodsNo },
+                 success: function(data){
+                    if(data == 1){
+                       alert("상품이 장바구니에 추가되었습니다!");                                 
+                    } else {
+                       alert("이미 장바구니에 추가되어있는 상품입니다.");
+                    }
+                    $.ajax({
+                       url: "/recloset/cart/cartQty.do",
+                        dataType: "json",
+                        data: { userNo : userNo },
+                        success : function(data){
+                           console.log(data);
+                           $('.js-show-cart').attr("data-notify", data);
+                        }
+                    });
+                 }
+              });
+              
+              
+              
+           }
+           
+           function goOrderForm(){
+              location.href = '${pageContext.request.contextPath}/order/orderFormOne.do?userNo='+userNo+'&goodsNo='+goodsNo;
+           }
+
+
 	
 	$(function(){
 		$('#fileArea').hide();
