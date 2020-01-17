@@ -86,7 +86,7 @@ public class MemberController {
 			loc = "/";
 		} else {
 			msg = "회원가입 실패!";
-			loc = "/";
+			loc = "/member/memberEnrollEnd.do";
 		}
 		
 		model.addAttribute("msg", msg);
@@ -109,17 +109,19 @@ public class MemberController {
 			Member m = memberService.selectOneMember(member);
 			
 			String msg = "";
-			String loc = "/";
+			String loc = "";
 			
 			if(m != null && bcryptPasswordEncoder.matches(member.getUserPwd(), m.getUserPwd())) {
 				msg = "로그인 성공!";
-				
+				loc = "/";
 				session.setAttribute("member", m);
 				mv.addObject("member", m);
 			} else if(m != null) {
 				msg = "비밀번호 틀렸습니다.";
+				loc = "/member/loginForm.do";
 			} else {
 				msg = "로그인 실패!";
+				loc = "/member/loginForm.do";
 			}
 			
 			mv.addObject("msg",msg).addObject("loc", loc);

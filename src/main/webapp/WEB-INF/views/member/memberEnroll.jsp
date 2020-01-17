@@ -112,7 +112,7 @@
 													<label class="stext-102 cl3" for="userPwd">Password</label>
 												</div>
 												<div class="col-6 p-b-7">
-													<input class="size-102 bor8 stext-102 cl2 p-lr-10" id="userPwd_" type="password" name="userPwd">
+													<input class="size-102 bor8 stext-102 cl2 p-lr-10" id="userPwd_" type="password" name="userPwd" required>
 												</div>
 												<div class="col-2 p-b-7"></div>	
 												<!--  -->
