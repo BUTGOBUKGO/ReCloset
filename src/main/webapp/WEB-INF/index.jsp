@@ -13,7 +13,7 @@
 <body class="animsition">
 	<c:import url="views/common/header.jsp"/>
 	<c:import url="views/common/cart.jsp"/>
-	
+	<!-- Master Merge -->
 	<!-- Slider -->
 	<section class="section-slide">
 		<div class="wrap-slick1">
