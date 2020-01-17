@@ -27,6 +27,7 @@
 		<typeAlias type="com.kh.recloset.searchRank.model.vo.SearchRank" alias="SearchRank"/>
 		<typeAlias type="com.kh.recloset.search.model.vo.Search" alias="Search"/>
 		<typeAlias type="com.kh.recloset.search.model.vo.SearchValue" alias="SearchValue"/>
+		<typeAlias type="com.kh.recloset.myPage.model.vo.MyPage" alias="MyPage"/>
 	</typeAliases>
 </configuration>
 

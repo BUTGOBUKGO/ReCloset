@@ -36,9 +36,15 @@
 							</a>
 						</c:if>
 						
+						
 						<a href="${pageContext.request.contextPath }/myPage.do" class="flex-c-m trans-04 p-lr-25">
 								My Page
 						</a>
+						
+						<a href="${pageContext.request.contextPath }/reportMgr.do" class="flex-c-m trans-04 p-lr-25">
+							report
+						</a>
+						
 						
 						<a href="${pageContext.request.contextPath }/help.do" class="flex-c-m trans-04 p-lr-25">
 							Help & FAQs
