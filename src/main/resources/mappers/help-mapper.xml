@@ -32,8 +32,25 @@
 		ORDER BY QDATE DESC
 	</select>
 	
+	<select id="selectHelp" parameterType="_int" resultType="HelpAndFAQ">
+	SELECT * FROM QNA WHERE QNANO = #{qnaNo}
+	</select>
 
+	<update id="updateHelp" parameterType="HelpAndFAQ">
+	UPDATE QNA
+	SET QTITLE = #{qTitle},
+		QCONTENT = #{qContent}
+		WHERE QNANO = #{qnaNo}
+	</update>
 	
+	<delete id="deleteHelp" parameterType="_int" >
+		DELETE FROM QNA WHERE QNANO = #{qnaNo}
+	</delete>
+		
+	<select id="selectTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM QNA
+	</select>	
+		
 </mapper>
 
 

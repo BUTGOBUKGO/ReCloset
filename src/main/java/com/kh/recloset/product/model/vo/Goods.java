@@ -18,14 +18,18 @@ public class Goods implements Serializable{
 	private Date gDate;
 	private String gSoldout;
 	private String changeName;
+	private String userId;
 	
 	public Goods() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	public Goods(int goodsNo, int categoryCode, int userNo, String gName, int gPrice, String gColor, String gSize,
-			String gSimple, String gDetail, String gStatus, Date gDate, String gSoldout, String changeName) {
+			String gSimple, String gDetail, String gStatus, Date gDate, String gSoldout, String changeName,
+			String userId) {
 		super();
 		this.goodsNo = goodsNo;
 		this.categoryCode = categoryCode;
@@ -40,14 +44,31 @@ public class Goods implements Serializable{
 		this.gDate = gDate;
 		this.gSoldout = gSoldout;
 		this.changeName = changeName;
+		this.userId = userId;
 	}
+
+
+
+	
 
 	@Override
 	public String toString() {
 		return "Goods [goodsNo=" + goodsNo + ", categoryCode=" + categoryCode + ", userNo=" + userNo + ", gName="
 				+ gName + ", gPrice=" + gPrice + ", gColor=" + gColor + ", gSize=" + gSize + ", gSimple=" + gSimple
 				+ ", gDetail=" + gDetail + ", gStatus=" + gStatus + ", gDate=" + gDate + ", gSoldout=" + gSoldout
-				+ ", changeName=" + changeName + "]";
+				+ ", changeName=" + changeName + ", userId=" + userId + "]";
+	}
+
+
+
+	public String getUserId() {
+		return userId;
+	}
+
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public int getGoodsNo() {

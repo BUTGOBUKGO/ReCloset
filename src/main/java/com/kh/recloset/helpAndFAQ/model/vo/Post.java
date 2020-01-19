@@ -5,12 +5,12 @@ import java.sql.Date;
 
 public class Post implements Serializable{
 
-	private int psnano;
-	private int userno;
-	private String pstitle;
-	private String pscontent ;
-	private Date psdate;
-	private String pscheck;
+	private int psnaNo;
+	private int userNo;
+	private String psTitle;
+	private String psContent;
+	private Date psDate;
+	private String psCheck;
 	private String userId;
 	
 	public Post() {
@@ -18,74 +18,63 @@ public class Post implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Post(int psnano, int userno, String pstitle, String pscontent, Date psdate, String pscheck) {
+	public Post(int psnaNo, int userNo, String psTitle, String psContent, Date psDate, String psCheck, String userId) {
 		super();
-		this.psnano = psnano;
-		this.userno = userno;
-		this.pstitle = pstitle;
-		this.pscontent = pscontent;
-		this.psdate = psdate;
-		this.pscheck = pscheck;
-	}
-	
-
-	public Post(int psnano, int userno, String pstitle, String pscontent, Date psdate, String pscheck, String userId) {
-		super();
-		this.psnano = psnano;
-		this.userno = userno;
-		this.pstitle = pstitle;
-		this.pscontent = pscontent;
-		this.psdate = psdate;
-		this.pscheck = pscheck;
+		this.psnaNo = psnaNo;
+		this.userNo = userNo;
+		this.psTitle = psTitle;
+		this.psContent = psContent;
+		this.psDate = psDate;
+		this.psCheck = psCheck;
 		this.userId = userId;
 	}
 
-	public int getPsnano() {
-		return psnano;
+	public int getPsnaNo() {
+		return psnaNo;
 	}
 
-	public void setPsnano(int psnano) {
-		this.psnano = psnano;
+	public void setPsnaNo(int psnaNo) {
+		this.psnaNo = psnaNo;
 	}
 
-	public int getUserno() {
-		return userno;
+	public int getUserNo() {
+		return userNo;
 	}
 
-	public void setUserno(int userno) {
-		this.userno = userno;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
-	public String getPstitle() {
-		return pstitle;
+	public String getPsTitle() {
+		return psTitle;
 	}
 
-	public void setPstitle(String pstitle) {
-		this.pstitle = pstitle;
+	public void setPsTitle(String psTitle) {
+		this.psTitle = psTitle;
 	}
 
-	public String getPscontent() {
-		return pscontent;
+	public String getPsContent() {
+		return psContent;
 	}
 
-	public void setPscontent(String pscontent) {
-		this.pscontent = pscontent;
+	public void setPsContent(String psContent) {
+		this.psContent = psContent;
 	}
 
-	public Date getPsdate() {
-		return psdate;
+	public Date getPsDate() {
+		return psDate;
 	}
 
-	public void setPsdate(Date psdate) {
-		this.psdate = psdate;
+	public void setPsDate(Date psDate) {
+		this.psDate = psDate;
 	}
 
-	public String getPscheck() {
-		return pscheck;
+	public String getPsCheck() {
+		return psCheck;
 	}
 
-	public void setPscheck(String pscheck) {
-		this.pscheck = pscheck;
+	public void setPsCheck(String psCheck) {
+		this.psCheck = psCheck;
 	}
 
 	public String getUserId() {
@@ -98,10 +87,11 @@ public class Post implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Post [psnano=" + psnano + ", userno=" + userno + ", pstitle=" + pstitle + ", pscontent=" + pscontent
-				+ ", psdate=" + psdate + ", pscheck=" + pscheck + ", userId=" + userId + "]";
+		return "Post [psnaNo=" + psnaNo + ", userNo=" + userNo + ", psTitle=" + psTitle + ", psContent=" + psContent
+				+ ", psDate=" + psDate + ", psCheck=" + psCheck + ", userId=" + userId + "]";
 	}
 
+	
 	
 	
 	

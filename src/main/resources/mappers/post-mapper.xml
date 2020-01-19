@@ -5,12 +5,12 @@
 <mapper namespace="post-mapper">
 
 <resultMap id="reusltpost" type="Post">
-      <result column="PSNANO" property="psnano"/>
-      <result column="USERNO" property="userno"/>
-      <result column="PSTITLE" property="pstitle"/>
-      <result column="PSCONTENT" property="pscontent"/>
-      <result column="PSDATE" property="psdate"/>
-      <result column="PSCHECK" property="pscheck"/>
+      <result column="PSNANO" property="psnaNo"/>
+      <result column="USERNO" property="userNo"/>
+      <result column="PSTITLE" property="psTitle"/>
+      <result column="PSCONTENT" property="psContent"/>
+      <result column="PSDATE" property="psDate"/>
+      <result column="PSCHECK" property="psCheck"/>
       <result column="USERID" property="userId"/>
       
 </resultMap>
@@ -18,9 +18,9 @@
 	<insert id="insertPOST" parameterType="Post">
 		INSERT INTO PSNA
 		VALUES(SEQ_PSNA.NEXTVAL, 
-				#{userno},
-		       #{pstitle}, 
-		       #{pscontent},
+				#{userNo},
+		       #{psTitle}, 
+		       #{psContent},
 		       DEFAULT, DEFAULT)
 	</insert>
 	
@@ -33,6 +33,20 @@
 		ORDER BY PSDATE DESC
 	</select>
 	
+	<select id="selectPost" parameterType="_int" resultType="Post">
+	SELECT * FROM PSNA WHERE PSNANO = #{psnaNo}
+	</select>
+	
+	<update id="updatePost" parameterType="Post">
+	UPDATE PSNA
+	SET PSTITLE = #{psTitle},
+		PSCONTENT = #{psContent}
+		WHERE PSNANO = #{psnaNo}
+	</update>
+	
+	<delete id="deletePost" parameterType="_int" >
+		DELETE FROM PSNA WHERE PSNANO = #{psnaNo}
+	</delete>
 	
 </mapper>
 

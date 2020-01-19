@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.recloset.product.model.service.ProductService;
@@ -33,12 +34,24 @@ public class ProductController {
 	@RequestMapping("/product/productList.do")
 	public String selectProuctList(Model model) {
 
-		List<Goods> list = productService.selectList();
+		int limit = 12;
+		
+		List<Goods> list = productService.selectList(limit);
 	
-
 		model.addAttribute("goods", list);
 
 		return "product/productList";
+	}
+	
+	@RequestMapping("/product/productLoadMore.do")
+	@ResponseBody
+	public List<Goods> selectProuctList(@RequestParam(value="currentPage", defaultValue = "1") int currentPage, Model model) {
+
+		int limit = 12;
+		
+		List<Goods> list = productService.selectList4LoadMore(currentPage, limit);
+	
+		return list;
 	}
 
 	

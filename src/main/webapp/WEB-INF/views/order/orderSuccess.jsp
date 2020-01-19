@@ -63,7 +63,7 @@
 					<table id="orderDetail">
 						<tr style="height:50px;">
 							<td style="width: 120px;"><strong>주문번호</strong></td>
-							<td style="color: #9EA6E1;"><h3><strong>${order.orderNo }</strong></h3></td>
+							<td style="color: #9EA6E1;"><h3><strong>${order.orderNo}</strong></h3></td>
 						</tr>
 						<tr style="height:130px;">
 							<td><strong>배송지정보</strong></td>

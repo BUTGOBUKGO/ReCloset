@@ -11,7 +11,7 @@ public class Member implements Serializable{
 		private String userId;
 		private String userPwd;
 		private String userName;    // 회원이름
-		private   Date birthday;
+		private Date birthday;
 		private String zipCode;
 		private String address1;
 		private String address2;

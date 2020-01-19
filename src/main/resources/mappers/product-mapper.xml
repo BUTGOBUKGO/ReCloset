@@ -16,6 +16,7 @@
       <result column="GDETAIL" property="gDetail"/>
       <result column="GSTATUS" property="gStatus"/>
       <result column="GDATE" property="gDate"/>
+       <result column="USERID" property="userID"/>
 </resultMap>
 
 	
@@ -52,7 +53,9 @@
 	</select>
 	 
 	<select id="selectOnePro" parameterType="_int" resultType="Goods">
-		SELECT * FROM GOODS WHERE GOODSNO = #{goodsNo}
+		SELECT M.USERID, G.* FROM GOODS G
+		JOIN MEMBER M ON (M.USERNO=G.USERNO)
+        WHERE G.GOODSNO = #{goodsNo}
 	</select>
 	
 	<select id="selectAttachment" parameterType="_int" resultType="Attachment">
@@ -89,6 +92,15 @@
 	<delete id="daleteAttachment" parameterType="_int">
 		DELETE FROM GATTACHMENT WHERE GOODSNO = #{goodsNo}
 	</delete>
+	
+	<select id="totalCount" resultType="int">
+		SELECT COUNT(*) FROM GOODS
+	</select>
+	
+	<select id="selectList4LoadMore" resultType="Goods">
+		SELECT G.*, GA.CHANGENAME FROM GOODS G JOIN GATTACHMENT GA 
+		ON(G.GOODSNO = GA.GOODSNO AND AGRADE = 0)
+	</select>
 	
 </mapper>
 

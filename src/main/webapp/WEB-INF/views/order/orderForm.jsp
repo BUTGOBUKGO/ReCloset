@@ -139,7 +139,7 @@
 							<div class="flex-w flex-m m-r-20 m-tb-5">
 								<span>이름</span>								
 								<div class="">
-									<input type="text" id="orderName" name="orderName" value="${member.userName }" readonly>
+									<input type="text" id="orderName" name="orderName" value="${member.userName}" readonly>
 								</div>
 							</div>
 						</div>
@@ -148,7 +148,7 @@
 							<div class="flex-w flex-m m-r-20 m-tb-5">
 								<span>연락처</span>							
 								<div class="">
-									<input type="text" id="orderPhone" name="orderPhone" value="${member.phone }" readonly>
+									<input type="text" id="orderPhone" name="orderPhone" value="${member.phone}" readonly>
 								</div>
 							</div>
 						</div>
@@ -157,7 +157,7 @@
 							<div class="flex-w flex-m m-r-20 m-tb-5">
 								<span>주소</span>							
 								<div class="">
-									<input type="text" class="orderZipCode add" value="${member.zipCode }" readonly>
+									<input type="text" class="orderZipCode add" value="${member.zipCode}" readonly>
 									<input type="text" class="orderAddress1 add" value="${member.address1 }"style="width:450px;" readonly>
 									<input type="text" class="orderAddress2 add" value="${member.address2 }"style="width:350px;" readonly>
 								</div>
