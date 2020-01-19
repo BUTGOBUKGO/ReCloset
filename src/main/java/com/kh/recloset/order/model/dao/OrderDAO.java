@@ -52,8 +52,12 @@ public class OrderDAO {
 		return sqlSession.selectOne("order-mapper.selectDelivery", orderNo);
 	}
 
-	public int deleteCart(Cart c) {
-		return sqlSession.selectOne("order-mapper.deleteCart", c);
+	public int deleteCart(int userNo) {
+		return sqlSession.delete("order-mapper.deleteCart", userNo);
+	}
+
+	public int updateGsoldout(int goodsNo) {
+		return sqlSession.update("order.mapper.updateGsoldout", goodsNo);
 	}
 
 	

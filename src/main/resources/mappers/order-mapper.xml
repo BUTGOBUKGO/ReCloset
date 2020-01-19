@@ -46,6 +46,14 @@
 		SELECT * FROM DELIVERY WHERE ORDERNO = #{orderNo}
 	</select>
 	
+	<delete id="deleteCart" parameterType="int">
+		DELETE FROM CART WHERE USERNO = #{userNo}
+	</delete>
+	
+	<update id="updateGsoldout" parameterType="int">
+		UPDATE GOODS SET GSOLDOUT = 'O' WHERE GOODSNO = #{goodsNo}
+	</update>
+	
 </mapper>
 
 
