@@ -39,20 +39,21 @@
            
         </div>
         <div class="mb-2" align="center">
-            <form id="insertPost" action="${ pageContext.request.contextPath }/post/postInsert.do" method="post">
+            <form id="insertPost" action="${pageContext.request.contextPath}/post/postUpdateForm.do?psnaNo=${post.psnaNo}" method="post">
                 <div class="input-group mb-3" style="width:900px;">
                     <br />
-                <input type="hidden" name="userno" value="${member.userNo}" />
-                    <input type="text" class="form-control" aria-label="Text input with dropdown button" name="pstitle" placeholder="제목을 입력">
+                <input type="hidden" name="userNo" value="${member.userNo}" />
+                    <input type="text" class="form-control" aria-label="Text input with dropdown button" name="psTitle" value="${post.psTitle}" placeholder="제목을 입력">
                 </div>
 
-                <div class="editorArea" style="margin-top:20px;">
-                    <textarea id="summernote" name="pscontent"></textarea>
+                <div class="editorArea" style="margin-top:20px;" >
+                    <textarea id="summernote" name="psContent">${post.psContent}</textarea> 
                 </div>
 				<br />
                 <div align="center">
-                    <button type="reset" class="btn btn-primary" onclick="cancelbtn();">취소</button>
-                    <button type="submit" class="btn btn-primary" onclick="insertbtn();">작성</button>
+                    <button type="reset" class="btn btn-outline-info" onclick="cancelbtn();">취소</button>
+                    <button type="submit" class="btn btn-outline-info" onclick="insertbtn();">작성</button>
+                    <input type="submit" class="btn btn-outline-info" id="godelete" value="삭제 하기" formaction="${pageContext.request.contextPath }/post/postDelete.do?psnaNo=${post.psnaNo}" />
                 </div>
                 
             </form>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.recloset.helpAndFAQ.model.vo.HelpAndFAQ;
 import com.kh.recloset.helpAndFAQ.model.vo.Post;
+import com.kh.recloset.product.model.vo.Attachment;
 
 @Repository
 public class HelpAndFAQDAO {
@@ -35,7 +36,30 @@ public class HelpAndFAQDAO {
 		
 		return sqlSession.selectList("post-mapper.postList");
 	}
-
+	public HelpAndFAQ selectHelp(int qnaNo) {
+		
+		return sqlSession.selectOne("help-mapper.selectHelp", qnaNo);
+	}
+	public Post selectPost(int psnaNo) {
+		
+		return sqlSession.selectOne("post-mapper.selectPost", psnaNo);
+	}
+	public int updateHelp(HelpAndFAQ originHelp) {
+	
+		return sqlSession.update("help-mapper.updateHelp", originHelp);
+	}
+	public int updatePost(Post originpost) {
+		
+		return sqlSession.update("post-mapper.updatePost", originpost);
+	}
+	public int deleteHelp(int qnaNo) {
+		
+		return sqlSession.delete("help-mapper.deleteHelp", qnaNo);
+	}
+	public int deletePost(int psnaNo) {
+		
+		return sqlSession.delete("post-mapper.deletePost", psnaNo);
+	}
 	
 	
 	
@@ -43,15 +67,7 @@ public class HelpAndFAQDAO {
 	
 	
 	
-	/*
-	 * public List<Map<String, String>> selectList(int cPage, int numPerPage) {
-	 * 
-	 * RowBounds rows = new RowBounds((cPage-1) * numPerPage, numPerPage); //
-	 * "매퍼의 실행할 SQL 명", 파라미터로 받을 값, RowBounds 전용 공간 return
-	 * sqlSession.selectList("help-mapper.selectList", null, rows); }
-	 * 
-	 * public int selectTotalContents() { // TODO Auto-generated method stub return
-	 * sqlSession.selectOne("help-mapper.selectTotalContents"); }
-	 */
+	
+	
 
 }

@@ -11,6 +11,7 @@ import com.kh.recloset.helpAndFAQ.exception.HelpAndFAQException;
 import com.kh.recloset.helpAndFAQ.model.dao.HelpAndFAQDAO;
 import com.kh.recloset.helpAndFAQ.model.vo.HelpAndFAQ;
 import com.kh.recloset.helpAndFAQ.model.vo.Post;
+import com.kh.recloset.product.model.vo.Attachment;
 
 
 
@@ -54,6 +55,38 @@ public class HelpAndFAQService {
 		return helpDAO.pselectList();
 	}
 
+	public HelpAndFAQ selectHelp(int qnaNo) {
+		
+		return helpDAO.selectHelp(qnaNo);
+	}
+
+	public Post selectPost(int psnaNo) {
+		
+		return helpDAO.selectPost(psnaNo);
+	}
+	
+	public int updateHelp(HelpAndFAQ originHelp) {
+
+		return helpDAO.updateHelp(originHelp);
+	}
+
+	public int updatePost(Post originpost) {
+		
+		return helpDAO.updatePost(originpost);
+	}
+	public int deleteHelp(int qnaNo) {
+	
+		return helpDAO.deleteHelp(qnaNo);
+	}
+
+	public int deletePost(int psnaNo) {
+		
+		return helpDAO.deletePost(psnaNo);
+	}
+
+
+
+	
 	
 		
 

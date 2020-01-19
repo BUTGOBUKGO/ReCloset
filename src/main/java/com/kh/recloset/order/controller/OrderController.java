@@ -104,38 +104,49 @@ public class OrderController {
 		Delivery d = new Delivery();
 		
 		Order o = (Order)session.getAttribute("order");
-		System.out.println("o : " + o);
 		o.setUserNo(userNo);
-		int result = orderService.insertOrder(o);
+		System.out.println("o : " + o);
+		int result = orderService.insertOrder(o); // 주문 추가
 		
 		if(result > 0) {
-			o = orderService.selectOrder(userNo);
+			o = orderService.selectOrder(userNo); // 추가된 주문 조회
+			System.out.println("o2 : " + o);
 		}
 		
 		for(Goods good : glist) {
 			
 			og.setOrderNo(o.getOrderNo());
 			og.setGoodsNo(good.getGoodsNo());
+			System.out.println("og : " + og);
+			result = orderService.insertOrderGoods(og); // 주문상품 추가
 			
-			result = orderService.insertOrderGoods(og);
+			orderService.updateGsoldout(good.getGoodsNo()); // 주문한 상품들 판매여부 변경
 		}
 		
 		if(result > 0) {
+			
+			for(Goods good : glist) {
+				
+				result = orderService.updateGsoldout(good.getGoodsNo()); // 주문한 상품들 판매여부 변경
+			}
+			
 			d = (Delivery)session.getAttribute("delivery");
 			
-			d.setOrderChkNo(o.getOrderNo());
+			d.setOrderNo(o.getOrderNo());
 			d.setUserNo(userNo);
 		}
 		
-		result = orderService.insertDelivery(d);
+		result = orderService.insertDelivery(d); // 배송정보 추가
 		
 		if(result > 0) {
-			d = orderService.selectDelivery(o.getOrderNo());
-			
+			d = orderService.selectDelivery(o.getOrderNo()); // 추가된 배송정보 조회
+			System.out.println("d : " + d);
 		}
 		
-		c.setUserNo(userNo);
-		result = orderService.deleteCart(c);
+		result = orderService.deleteCart(userNo); // 주문한 상품들 장바구니에서 삭제
+		System.out.println(result);
+		
+		
 		
 		model.addAttribute("order", o);
 		model.addAttribute("goodsList", glist);

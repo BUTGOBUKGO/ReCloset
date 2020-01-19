@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ import com.kh.recloset.common.util.Utils;
 import com.kh.recloset.helpAndFAQ.model.service.HelpAndFAQService;
 import com.kh.recloset.helpAndFAQ.model.vo.HelpAndFAQ;
 import com.kh.recloset.helpAndFAQ.model.vo.Post;
+import com.kh.recloset.product.model.vo.Attachment;
 
 
 @Controller
@@ -226,32 +228,137 @@ public class HelpAndFAQController {
 	   return list;
 	   }
 	   
-	/*
-	 * @RequestMapping("/help.do") public String selectBoardList(
-	 * 
-	 * @RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
-	 * Model model) {
-	 * 
-	 * // 한 페이지당 보여줄 게시글 수 int numPerPage = 10;
-	 * 
-	 * // 페이지 처리된 리스트 가져오기 List<Map<String,String>> list =
-	 * helpService.selectList(cPage, numPerPage);
-	 * 
-	 * // 전체 게시글 수 가져오기 int totalContents = helpService.selectTotalContents();
-	 * 
-	 * // 페이지 계산 HTML을 추가하기 String pageBar = Utils.getPageBar(totalContents, cPage,
-	 * numPerPage, "help.do");
-	 * 
-	 * System.out.println(pageBar);
-	 * 
-	 * model.addAttribute("list", list) .addAttribute("totalContents",
-	 * totalContents) .addAttribute("numPerPage", numPerPage)
-	 * .addAttribute("pageBar", pageBar);
-	 * 
-	 * return "/helpAndFAQ/help"; }
-	 */
-	 
+	   @RequestMapping("/help/helpView.do")
+	   public String selectOneHelp(@RequestParam("no") int qnaNo, Model model) {
+	   
+	   HelpAndFAQ h = helpService.selectHelp(qnaNo);
+	   
+	   model.addAttribute("helpandfaq" , h);
+	   		
+	   return "helpAndFAQ/faqView";
+	   }
+	   
+	   @RequestMapping("/post/postView.do")
+	   public String selectOnePost(@RequestParam("no") int psnaNo, Model model) {
+		   
+		   Post p = helpService.selectPost(psnaNo);
+		   
+		   model.addAttribute("post", p);
+		   
+		   
+		return "helpAndFAQ/postView";
+	   }
+	   
+	   @RequestMapping("/help/faqUpdateView.do")
+	   public String helpUpdateView(@RequestParam("qnaNo") int qnaNo, Model model)
+	   {
+		   model.addAttribute("help", helpService.selectHelp(qnaNo));
+		   
+		   return "helpAndFAQ/faqUpdateForm";
+	   }
+	   
+	   @RequestMapping("/post/postUpdateView.do")
+	   public String postUpdateView(@RequestParam("psnaNo") int psnaNo, Model model)
+	   {
+		   
+		   model.addAttribute("post", helpService.selectPost(psnaNo));
+		   
+		   return "helpAndFAQ/postUpdateForm";
+	   }
 	   
 	   
+	   @RequestMapping("/help/faqUpdateForm.do")
+	   public String helpUpdate(@RequestParam("qnaNo") int qnaNo,
+			   					HelpAndFAQ helpAndFAQ, Model model, HttpServletRequest request) {
+		   
+		   HelpAndFAQ originHelp
+		   = helpService.selectHelp(qnaNo);
+		   originHelp.setqTitle(helpAndFAQ.getqTitle());
+		   originHelp.setqContent(helpAndFAQ.getqContent());
+		   
+		   int result = helpService.updateHelp(originHelp);
+		   
+			String msg = "";
+			String loc = "/help.do";
+			
+			if(result > 0)	{
+				msg = "게시글 수정 성공!";
+			} else {
+				msg = "게시글 수정 실패!";
+			}
+			
+			model.addAttribute("msg", msg)
+			     .addAttribute("loc", loc);
+		   
+		   return "common/msg";
+	   }
+	   
+	   @RequestMapping("/post/postUpdateForm.do")
+	   public String postUpdate(@RequestParam("psnaNo") int psnaNo,
+			   					Post post, Model model, HttpServletRequest request) {
+		   Post originpost
+		   = helpService.selectPost(psnaNo);
+		   originpost.setPsTitle(post.getPsTitle());
+		   originpost.setPsContent(post.getPsContent());
+		   
+		   int result = helpService.updatePost(originpost);
+		   
+		   String msg = "";
+			String loc = "/help.do";
+			
+			if(result > 0)	{
+				msg = "게시글 수정 성공!";
+			} else {
+				msg = "게시글 수정 실패!";
+			}
+			
+			model.addAttribute("msg", msg)
+			     .addAttribute("loc", loc);
+		   
+		   return "common/msg";
+	   }
+	   
+	   
+	   
+	   @RequestMapping("/help/helpDelete.do")
+	   public String helpDelete(@RequestParam("qnaNo")int qnaNo, Model model, HttpSession session) {
+		   
+		   int result = helpService.deleteHelp(qnaNo);
+		   
+		   String msg = "";
+			String loc = "/help.do";
+			
+			if(result > 0)	{
+				msg = "게시글 삭제 성공!";
+			} else {
+				msg = "게시글 삭제 실패!";
+			}
+			
+			model.addAttribute("msg", msg)
+			     .addAttribute("loc", loc);
+		   
+		   return "common/msg";
+	   }
+	   
+	   @RequestMapping("/post/postDelete.do")
+	   public String postDelete(@RequestParam("psnaNo") int psnaNo, Model model, HttpSession session) {
+		   
+		   	int result = helpService.deletePost(psnaNo);
+		   
+		   String msg = "";
+			String loc = "/help.do";
+			
+			if(result > 0)	{
+				msg = "게시글 삭제 성공!";
+			} else {
+				msg = "게시글 삭제 실패!";
+			}
+			
+			model.addAttribute("msg", msg)
+			     .addAttribute("loc", loc);
+		   
+		   return "common/msg";
+		   
+	   }
 
 }

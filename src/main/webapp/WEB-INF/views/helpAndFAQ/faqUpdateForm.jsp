@@ -40,20 +40,21 @@
             </div>
         </div>
         <div class="mb-2" align="center">
-            <form id="insertForm" action="${ pageContext.request.contextPath }/help/helpInsert.do" method="post">
+            <form id="insertForm" action="${ pageContext.request.contextPath }/help/faqUpdateForm.do?qnaNo=${help.qnaNo}" method="post" >
                 <div class="input-group mb-3" style="width:900px;">
                     <br />
                 <input type="hidden" name="userNo" value="${member.userNo}" />
-                    <input type="text" class="form-control" aria-label="Text input with dropdown button" name="qTitle" placeholder="제목을 입력">
+                    <input type="text" class="form-control" aria-label="Text input with dropdown button" name="qTitle" placeholder="제목을 입력"value="${help.qTitle}">
                 </div>
 
                 <div class="editorArea" style="margin-top:20px;">
-                    <textarea id="summernote" name="qContent"></textarea>
+                    <textarea id="summernote" name="qContent"> ${help.qContent}</textarea>
                 </div>
 
                 <div align="center">
                     <button type="reset" class="btn btn-primary" onclick="cancelbtn();">취소</button>
                     <button type="submit" class="btn btn-primary" onclick="insertbtn();">작성</button>
+                	<input type="submit" class="btn btn-outline-info" id="godelete" value="삭제 하기" formaction="${pageContext.request.contextPath }/help/helpDelete.do?qnaNo=${help.qnaNo}" />
                 </div>
                 
             </form>

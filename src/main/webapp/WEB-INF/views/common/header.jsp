@@ -36,15 +36,9 @@
 							</a>
 						</c:if>
 						
-						
 						<a href="${pageContext.request.contextPath }/myPage.do" class="flex-c-m trans-04 p-lr-25">
 								My Page
 						</a>
-						
-						<a href="${pageContext.request.contextPath }/reportMgr.do" class="flex-c-m trans-04 p-lr-25">
-							report
-						</a>
-						
 						
 						<a href="${pageContext.request.contextPath }/help.do" class="flex-c-m trans-04 p-lr-25">
 							Help & FAQs
@@ -82,7 +76,9 @@
 							</li>
 
 							<li>
-								<a href="${pageContext.request.contextPath }/default.do">Default</a>
+								<%-- <a href="${pageContext.request.contextPath }/sellerInfo.do">Seller</a> --%>
+								<c:set var="sellerUserNo" value="1"/>
+								<a href="${pageContext.request.contextPath }/default2.do?sellerUserNo=${sellerUserNo}">Seller</a>
 							</li>
 
 							<li>

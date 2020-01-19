@@ -48,9 +48,9 @@ public class ProductService {
 	}
 
 
-	public List selectList() {
+	public List selectList(int limit) {
 		
-		return productDAO.selectList();
+		return productDAO.selectList(limit);
 	}
 
 	 public Goods selectOne(int goodsNo) {
@@ -94,6 +94,17 @@ public class ProductService {
 		return productDAO.deleteGoods(goodsNo);
 	}
 
+
+	public int totalCount() {
+		
+		return productDAO.totalCount();
+	}
+
+
+	public List<Goods> selectList4LoadMore(int currentPage, int limit) {
+
+		return productDAO.selectList4LoadMore(currentPage, limit);
+	}
 	
 	
 }

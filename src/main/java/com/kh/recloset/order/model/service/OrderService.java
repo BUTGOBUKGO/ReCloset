@@ -51,8 +51,12 @@ public class OrderService {
 		return orderDAO.selectDelivery(orderNo);
 	}
 
-	public int deleteCart(Cart c) {
-		return orderDAO.deleteCart(c);
+	public int deleteCart(int userNo) {
+		return orderDAO.deleteCart(userNo);
+	}
+
+	public int updateGsoldout(int goodsNo) {
+		return orderDAO.updateGsoldout(goodsNo);
 	}
 
 	

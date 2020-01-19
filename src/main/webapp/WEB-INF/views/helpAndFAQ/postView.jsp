@@ -24,44 +24,29 @@
 	<div id="container">
 		
 		<div id="board-container">
-			<input type="text" class="form-control" placeholder="제목" name="qTitle" id="qTitle" value="${helpandfaq.qTitle}" readonly required>
+			<input type="text" class="form-control" placeholder="제목" name="psTitle" id="psTitle" value="${post.psTitle}" readonly required>
 			<input type="text" class="form-control" name="userId" value="${member.userId}" readonly required>
 		
 			
-		   <div class="ContentArea" style="margin-top:20px;" name="qContent">
-		                  
-		                  ${helpandfaq.qContent}
+		   <div class="ContentArea" style="margin-top:20px;" name="psContent">
+		                  ${post.psContent}
 		              </div>
 		    <br>
-		    <center>
 		    <button class="btn btn-outline-info" type="button" onclick="location.href ='${pageContext.request.contextPath}/help.do'">리스트로</button>
-		    <c:if test="${member.userNo eq helpandfaq.userNo}">
+		    <c:if test="${member.userNo eq post.userNo}">
 		    &nbsp;
-			<button class="btn btn-outline-info" type="button" onclick="location.href = '${pageContext.request.contextPath}/help/faqUpdateView.do?qnaNo=${helpandfaq.qnaNo}'">수정 페이지</button>
-			</center>
+			<button class="btn btn-outline-info" type="button" onclick="location.href ='${pageContext.request.contextPath}/post/postUpdateView.do?psnaNo=${post.psnaNo}'">수정 페이지</button>
 			</c:if>
 		</div>
-		
-		<br />
-		<br />
-		<br />
+	<br />
+	<br />
+	<br />
+	
 		<c:import url="../common/footer.jsp"/>
 	</div>
-
 </body>
 
-	<script>
-	function goHelpList(){
-		
-		location.href = "${pageContext.request.contextPath}/help/help.do";
-	}
 	
-	function goHelpUpdate(){
-		
-		location.href = "${pageContext.request.contextPath}/help/faqUpdateForm.do?qnaNo=${HelpAndFAQ.qnaNo}";
-	}
-	
-	</script>
 		
 
 </html>

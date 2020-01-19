@@ -13,7 +13,7 @@
 <body class="animsition">
 	<c:import url="views/common/header.jsp"/>
 	<c:import url="views/common/cart.jsp"/>
-	<!-- Master Merge -->
+	
 	<!-- Slider -->
 	<section class="section-slide">
 		<div class="wrap-slick1">
@@ -436,7 +436,7 @@
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
-							<img src="${pageContext.request.contextPath}/resources/images/product-01.jpg" alt="IMG-PRODUCT">
+							<img src="${pageContext.request.contextPath}/resources/uploadimg/${goods.changeName}">
 
 							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 								Quick View

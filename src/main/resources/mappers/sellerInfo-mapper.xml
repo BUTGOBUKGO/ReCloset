@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sellerInfo-mapper">
+
+
+	 
+	<select id="selectReview" parameterType="_int" resultType="Review">
+		SELECT R.*, G.* 
+		FROM REVIEW R 
+		JOIN ORDERGOODS OG ON(R.ORDERGOODSNO = OG.ORDERGOODSNO) 
+		JOIN GOODS G ON(OG.GOODSNO = G.GOODSNO) 
+		JOIN MEMBER M ON(G.USERNO = M.USERNO) 
+		WHERE G.USERNO = #{userNo} 
+		AND G.GSOLDOUT = 'O'
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+

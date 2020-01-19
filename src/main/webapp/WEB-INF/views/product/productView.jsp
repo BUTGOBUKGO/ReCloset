@@ -10,6 +10,13 @@
 		<c:param name="titleName" value="제품 상세 페이지"/>
 	</c:import>
 	
+	<style>
+	#userId {
+		cursor : pointer;
+	}
+
+</style>
+	
 </head>
 <body class="animsition">
 	<c:import url="../common/header.jsp"/>
@@ -99,8 +106,17 @@
 						<div class="flex-w flex-r-m p-b-10">
 							<div class="col-12 p-b-5">
 								<label class="stext-102 cl3" for="gSimple" align="left">참고사항</label>
-								<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="gEtc" type="text" name="gSimple" placeholder="간단 설명 (EX. 옷의 재질등과 이염 여부)" 
-								value="${goods.gSimple }" readonly required/>
+								<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="gEtc" type="text" name="gSimple" 
+								value="${goods.gSimple }" readonly required />
+							</div>
+						</div>
+						<br />
+						
+						<div class="flex-w flex-r-m p-b-10">
+							<div class="col-12 p-b-5">
+								<label class="stext-102 cl3" for="userId" align="left">작성자</label>
+								<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="userId" type="submit" name="userId" 
+								value="${goods.userId}" formaction="#" readonly required />
 							</div>
 						</div>
 						<br />
@@ -153,10 +169,13 @@
                	
                
 			</div>
+			<br /><br />
+			<center>
+			<c:if test="${member.userNo eq goods.userNo}">
 			<!-- formaction은 IE9버전에서는 작동안합니다. 주의 -->
 			<input type="submit" class="btn btn-outline-info" id="goupdate" value="수정 하기" formaction="${pageContext.request.contextPath }/product/productUpdateForm.do?goodsNo=${goods.goodsNo}" />
-			
-			
+			</c:if>
+			</center>
 			</form>
 		</div>
 	</section>

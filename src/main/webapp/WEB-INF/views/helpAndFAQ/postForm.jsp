@@ -39,15 +39,15 @@
            
         </div>
         <div class="mb-2" align="center">
-            <form id="insertPost" action="${ pageContext.request.contextPath }/post/postInsert.do" method="post">
+            <form id="insertPost" action="${pageContext.request.contextPath}/post/postInsert.do" method="post">
                 <div class="input-group mb-3" style="width:900px;">
                     <br />
-                <input type="hidden" name="userno" value="${member.userNo}" />
-                    <input type="text" class="form-control" aria-label="Text input with dropdown button" name="pstitle" placeholder="제목을 입력">
+                <input type="hidden" name="userNo" value="${member.userNo}" />
+                    <input type="text" class="form-control" aria-label="Text input with dropdown button" name="psTitle" placeholder="제목을 입력">
                 </div>
 
                 <div class="editorArea" style="margin-top:20px;">
-                    <textarea id="summernote" name="pscontent"></textarea>
+                    <textarea id="summernote" name="psContent"></textarea>
                 </div>
 				<br />
                 <div align="center">

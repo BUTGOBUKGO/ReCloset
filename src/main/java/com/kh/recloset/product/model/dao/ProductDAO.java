@@ -2,6 +2,7 @@ package com.kh.recloset.product.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,9 +29,11 @@ public class ProductDAO {
 
 	
 
-	public List selectList() {
+	public List selectList(int limit) {
 
-		return sqlSession.selectList("product-mapper.selectList");
+		RowBounds rows = new RowBounds(0, limit);
+		
+		return sqlSession.selectList("product-mapper.selectList", null, rows);
 	}
 
 	
@@ -62,6 +65,18 @@ public class ProductDAO {
 	public int deleteGoods(int goodsNo) {
 		
 		return sqlSession.delete("product-mapper.deleteGoods", goodsNo);
+	}
+
+	public int totalCount() {
+		
+		return sqlSession.selectOne("product-mapper.totalCount");
+	}
+
+	public List<Goods> selectList4LoadMore(int currentPage, int limit) {
+		
+		RowBounds rows = new RowBounds((currentPage - 1) * limit -1, limit);
+		
+		return sqlSession.selectList("product-mapper.selectList4LoadMore", null, rows);
 	}
 	 
 
