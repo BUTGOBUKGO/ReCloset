@@ -114,11 +114,6 @@
             height: 150px;
 		 }
 		 
-		 .img-wrap2{
-		 	width: 60px;
-            height: 60px;
-		 }
-		 
 
 		 
 
@@ -156,15 +151,18 @@
 	<ul class="list-group">
   
   		<li class="list-group-item d-flex justify-content-between align-items-center">
-    	<a href="${pageContext.request.contextPath }/myPage_O.do" class="myInfoSide">주문내역상세조회</a>
+  		<button class="myInfoSide" id="orderDetail"> 주문내역상세조회 </button>
+    	<span class="badge badge-primary badge-pill">14</span>
  		</li>
  		
   		<li class="list-group-item d-flex justify-content-between align-items-center">
-  		<a href="" class="myInfoSide">취소/교환/환불</a>
+  		<button class="myInfoSide" id="cancleThing"> 취소/교환/환불 </button>
+    	<span class="badge badge-primary badge-pill">2</span>
   		</li>
   		
   		<li class="list-group-item d-flex justify-content-between align-items-center">
-  		<a href="" class="myInfoSide">내정보관리</a>
+  		<button class="myInfoSide" id="myInfo"> 내정보관리 </button>
+    	<span class="badge badge-primary badge-pill">2</span>
   		</li>
   		
  	</ul>
@@ -174,13 +172,13 @@
   	<div class="col-md-9 content">
   	<div class="panel panel-default">
 	<div class="panel-heading">
-		${member.userName } 님 어서오세요~*
+		이서안님 어서오세요~*
 	</div>
 	<hr>
 	<div class="panel-body">
-	 &nbsp;&nbsp;
+	
 	 <button class="myInfoBar" id="cupon"> 내쿠폰 </button>
-	 &nbsp;&nbsp;
+ 	 <button class="myInfoBar" id="myorder"> 주문내역조회 </button>
  	 <button class="myInfoBar" id="saving"> 적립금 </button>
 	
 	</div>
@@ -200,9 +198,7 @@
  <button class="orderSearch" id="myorder6m"> 6개월 </button>
  </div>
 
- &nbsp;&nbsp;
- 
- <input type="date" id="startDate"> ~ <input type="date" id="endDate"> 
+ &nbsp;&nbsp;<input type="date" id="startDate"> ~ <input type="date" id="endDate"> 
  <button class="orderSearch" id="myorderS">날짜 직접 입력</button>
  </div>
  </div>
@@ -212,7 +208,10 @@
  <div class="container col-9">
  <br>  
  
- <p class="text-center"> 주문내역 </p>
+ <p class="text-center">
+ More bootstrap 4 components on 
+ <a href="http://bootstrap-ecommerce.com/" target="_blank">
+ Bootstrap-ecommerce.com</a> </p>
  
  <hr>
 
@@ -220,36 +219,23 @@
 <table class="table table-hover shopping-cart-wrap">
 <thead class="text-muted">
 <tr>
-  <th scope="col" width="100">주문번호</th>
   <th scope="col">Product</th>
   <th scope="col" width="120">Quantity</th>
   <th scope="col" width="120">Total Price</th>
   <th scope="col" width="200" class="text-right">Action</th>
 </tr>
 </thead>
-
 <tbody>
 <c:forEach var="MyPage" items="${myList}">
-
 <tr>
 <td>
 
-	<div class="orderNo-wrap">
-		<var class="orderNo">${MyPage.orderNo}</var> 
-	</div>
-</td>	
-
-<td>
 <figure class="media">
-
-	<div class="img-wrap">
-	<img src="${ pageContext.request.contextPath }/resources/uploadimg/${MyPage.changeName }" class="img-wrap2">
-	</div>
-
+	<div class="img-wrap"><img src="http://bootstrap-ecommerce.com/main/images/items/2.jpg" class="img-thumbnail img-sm"></div>
 	<figcaption class="media-body">
 		<h6 class="title text-truncate">${MyPage.gName}</h6>
 		<dl class="param param-inline small">
-		  <dt>${MyPage.gName}</dt>
+		  <dt>뭐냐: </dt>
 		</dl>
 <!-- 		<dl class="param param-inline small">
 		  <dt>Color: </dt>
@@ -257,24 +243,22 @@
 	</figcaption>
 </figure> 
 	</td>
-	
 	<td></td>
-	
 	<td> 
 		<div class="price-wrap"> 
 			<var class="price"><fmt:formatNumber value="${MyPage.gPrice}" pattern="#,###" /></var> 
+			<!-- <small class="text-muted">(USD5 each)</small>  -->
 		</div> <!-- price-wrap .// -->
 	</td>
 	
 	
 	<td class="text-right"> 
-	
+	<!-- <a href="" class="btn btn-outline-danger myButton1"> 배송조회</a> -->
 	
 	<!-- 배송조회 Modal Start -->
 
 	<button class="btn btn-outline-danger shipBtn" name="${ MyPage.trackingNo }"> 배송조회 </button>
-	<input type="hidden" class="trCodeValue" value="${ MyPage.trCode}">
-	<input type="hidden" class="trNameValue" value="${ MyPage.trName}">
+	<%-- <input type="hidden" value="${ MyPage.shipCompnay}"> --%>
 	&nbsp;&nbsp;
 	<a href="" class="btn btn-outline-danger"> 취소/반품 </a>
 	</td>
@@ -285,7 +269,7 @@
 
 	</c:forEach>
 </tbody>
-
+<%-- </c:forEach> --%>
 </table>
 </div> <!-- card.// -->
 
@@ -301,24 +285,21 @@
       <div class="modal-content">
         <span class="close">&times;</span>
         
-		<label id="tekbeLabel" for="tekbeCompanyName">택배 회사 명 : <span id="tekbeCompanyName"></span></label>
-		<br/><br/>
+<span id="tekbeCompnayName">택배회사명: </span>
+<select id="tekbeCompnayList" name="tekbeCompnayList"></select><br/><br/>
 
-		<label id="invoiceLabel" for="invoiceNumber">운송장 번호 : <span id="invoiceNumber"></span></label>
-		<br/><br/>
-		<input type="hidden" id="tekbeCompanyCode"/>
-		<button id="myButton1">택배 정보 재조회</button>
-	<br/>
-	<br/>
-	<div>
-	
+<span id="invoiceNumber">운송장번호: </span>
+<input type="text" id="invoiceNumberText" name="invoiceNumberText"><br/><br/>
+<button id="myButton1">택배 조회하기 </button>
+<br/>
+<br/>
+<div>
 	<table id="myPtag"></table>
-	</div>
-	<br/>
-	
-	<div>
+</div>
+<br/>
+<div>
 	<table id="myPtag2"></table>
-	</div> 
+</div> 
         
       </div>
  		
@@ -351,104 +332,18 @@ var modal = document.getElementById('myModal');
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];                                          
 
-
-
-/* 배송조회 */
-  
- 
-//스마트 택배 배송조회에서 발급 받은 APIKEY를 Parameter값에 추가
-var myKey = "L9BDBCkGfZb1iAXf07ssLg";
-
-function searchShipment(myKey, trCode, trackingNo){
-	if(trackingNo == '' || trCode == ''){
-		
-		alert('아직 판매자가 상품을 준비 중이에요!');
-		
-	} else {
-		$.ajax({
-	        type:"GET",
-	        dataType : "json",
-	        url:"http://info.sweettracker.co.kr/api/v1/trackingInfo?t_key="+myKey+"&t_code="+trCode+"&t_invoice="+trackingNo,
-	        success:function(data){
-	            console.log(data);
-	            var myInvoiceData = "";
-	            if(data.status == false){
-	                myInvoiceData += ('<p>'+data.msg+'<p>');
-	            }else{
-	                myInvoiceData += ('<tr>');                
-	                myInvoiceData += ('<th>'+"보내는사람"+'</td>');                     
-	                myInvoiceData += ('<th>'+data.senderName+'</td>');                     
-	                myInvoiceData += ('</tr>');     
-	                myInvoiceData += ('<tr>');                
-	                myInvoiceData += ('<th>'+"제품정보"+'</td>');                     
-	                myInvoiceData += ('<th>'+data.itemName+'</td>');                     
-	                myInvoiceData += ('</tr>');     
-	                myInvoiceData += ('<tr>');                
-	                myInvoiceData += ('<th>'+"송장번호"+'</td>');                     
-	                myInvoiceData += ('<th>'+data.invoiceNo+'</td>');                     
-	                myInvoiceData += ('</tr>');     
-	                myInvoiceData += ('<tr>');                
-	                myInvoiceData += ('<th>'+"송장번호"+'</td>');                     
-	                myInvoiceData += ('<th>'+data.receiverAddr+'</td>');                     
-	                myInvoiceData += ('</tr>');                                       
-	            }
-	            
-	            
-	            $("#myPtag").html(myInvoiceData)
-	            
-	            var trackingDetails = data.trackingDetails;
-	            
-	            
-	            var myTracking="";
-	            var header ="";
-	            header += ('<tr>');                
-	            header += ('<th>'+"시간"+'</th>');
-	            header += ('<th>'+"장소"+'</th>');
-	            header += ('<th>'+"유형"+'</th>');
-	            header += ('<th>'+"전화번호"+'</th>');                     
-	            header += ('</tr>');     
-	            
-	            $.each(trackingDetails,function(key,value) {
-	                myTracking += ('<tr>');                
-	                myTracking += ('<td>'+value.timeString+'</td>');
-	                myTracking += ('<td>'+value.where+'</td>');
-	                myTracking += ('<td>'+value.kind+'</td>');
-	                myTracking += ('<td>'+value.telno+'</td>');                     
-	                myTracking += ('</tr>');                                    
-	            });['']
-	            
-	            $("#myPtag2").html(header+myTracking);
-	            
-	        }
-	    });
-	}
-}
-
+// When the user clicks on the button, open the modal 
 $(function(){
 	$('.shipBtn').on('click', function(){
 		//console.log($(this).attr('name'));
-		var trackingNo = $(this).attr('name');
-		var trCode = $(this).siblings('.trCodeValue').val();
-		var trName = $(this).siblings('.trNameValue').val();
-		
-		console.log(trCode);
-		console.log(trName);
-		
-		if(trackingNo == '') {
-			$('#tekbeCompanyName').text('배송 준비 중');
-			$('#invoiceNumber').text('배송 준비 중');
-			
-		} else {
-			$('#tekbeCompanyCode').val(trCode);
-			$('#tekbeCompanyName').text(trName);
-			$('#invoiceNumber').text(trackingNo);
-            
-			searchShipment(myKey, trCode, trackingNo);
-		}
-		
+		 
+		$('#invoiceNumberText').val($(this).attr('name'));
+		 
 		//$('#invoiceNumberText').each(function(){
 		//	alert($(this).attr('name') + $(this).attr('value'));
 		//});
+		
+		
 		
 		modal.style.display = 'block';
 		 
@@ -471,24 +366,40 @@ window.onclick = function(event) {
 /* 배송조회 */
 
  $(document).ready(function(){
+	 // 스마트 택배 배송조회에서 발급 받은 APIKEY를 Parameter값에 추가
+    var myKey = "L9BDBCkGfZb1iAXf07ssLg";
+    
+        // 스마트 택배 배송조회 API 에서 제공받은 택배사 목록 코드를 form 창에 mapping
+        // 택배사 목록 조회 api
+        
+        
+        $.ajax({
+            type:"GET",
+            dataType : "json",
+            url:"http://info.sweettracker.co.kr/api/v1/companylist?t_key="+myKey,
+            success:function(data){
+            	
+                    
+                    // 방법 1. JSON.parse 이용하기
+                    var parseData = JSON.parse(JSON.stringify(data));
+                     console.log(parseData.Company); // 그중 Json Array에 접근하기 위해 Array명 Company 입력
+                    
+                    // 방법 2. Json으로 가져온 데이터에 Array로 바로 접근하기
+                    var CompanyArray = data.Company; // Json Array에 접근하기 위해 Array명 Company 입력
+                    console.log(CompanyArray); 
+                    
+                    var myData="";
+                    $.each(CompanyArray,function(key,value) {
+                            myData += ('<option value='+value.Code+'>' +'key:'+key+', Code:'+value.Code+',Name:'+value.Name + '</option>');                        
+                    });
+                    $("#tekbeCompnayList").html(myData);
+            }
+        });
         
         // 택배사 코드와 운송장 번호를 Parameter(파리미터)값에 추가
         // POST 방식으로 URL을 호출
 
 		// 완성된 form 에서 택배회사를 선택하고 운송장 번호를 입력하면 배송정보를 확인가능
-    
-        // 배송정보와 배송추적 tracking-api
-        $("#myButton1").click(function() {
-        	var trCode = $('#tekbeCompanyCode').val();
-			var trName = $('#tekbeCompanyName').text();
-			var trackingNo = $('#invoiceNumber').text();
-			
-            searchShipment(myKey, trCode, trackingNo);
-
-        });
-        
-}); 
-
     
         // 배송정보와 배송추적 tracking-api
         $("#myButton1").click(function() {
@@ -549,64 +460,48 @@ window.onclick = function(event) {
                     
                     $("#myPtag2").html(header+myTracking);
                     
-    	        }
-    	    });
-    	})
-    
+                }
+            });
+        });
+        
+}); 
 
 	$('#myorder1m').click(function(){
 		$.ajax({
 			url : '${pageContext.request.contextPath}/myPage/myorder1m.do',
 			dataType : 'json',
 			success : function(data){
-	
-				
-				
-				console.log('1개월' + data);
-				
-				
+				console.log(data);
 				var tbody = $('tbody');
 				
 				tbody.empty();
 				
 				for(var i in data){
 					var tr1 = $('<tr>');
-					
-					var td1_0 = $('<td>');
-					
-					td1_0.append(
-						'<div class="orderNo-wrap">'
-						+ '<var class="orderNo">' + data[i].orderNo + '</var></div>'
-					);
-			
-					
 					var td1_1 = $('<td>');
-					
-					td1_1.append('<figure class="media">'
-							+ '<div class="img-wrap"><img src="${ pageContext.request.contextPath }/resources/uploadimg/' + data[i].changeName + '"class="img-wrap2"></div>'
-							+ '<figcaption class="media-body">'
-							+ '<h6 class="title text-truncate">' + data[i].gName + '</h6>'
-							+ '<dl class="param param-inline small">'
-							+ '<dt>뭐냐: </dt>'
-							+ '</dl>'
-							+ '</figcaption>'
-							+ '</figure>');
+					td1_1.append('<figure class="media">'+
+							'<div class="img-wrap"><img src="http://bootstrap-ecommerce.com/main/images/items/2.jpg" class="img-thumbnail img-sm"></div>'+
+							'<figcaption class="media-body">'+
+								'<h6 class="title text-truncate">' + data[i].gName + '</h6>'+
+								'<dl class="param param-inline small">'+
+								 '<dt>뭐냐: </dt>'+
+								'</dl>'+
+							'</figcaption>'+
+						'</figure>');
 					
 					var td1_2 = $('<td>');
-					
-					td1_2.append('<div class="price-wrap">'
-							+ '<var class="price">' + numberWithCommas(data[i].gPrice) + '</var>'
-							+ '</div>');
+					td1_2.append('<div class="price-wrap">'+
+						'<var class="price">' + numberWithCommas(data[i].gPrice) + '</var>'+
+					'</div>');
 					
 					var td1_3 = $('<td>');
 					
 					var td1_4 = $('<td class="text-right">');
+					td1_4.append('<button class="btn btn-outline-danger shipBtn" name="' + data[i].trackingNo + '"> 배송조회 </button>' +
+							'&nbsp;&nbsp;' +
+							'<a href="" class="btn btn-outline-danger"> 취소/반품 </a>');
 					
-					td1_4.append('<button class="btn btn-outline-danger shipBtn" name="' + data[i].trackingNo + '"> 배송조회 </button>' 
-							+ '&nbsp;&nbsp;' 
-							+ '<a href="" class="btn btn-outline-danger"> 취소/반품 </a>');
-					
-					tr1.append(td1_0).append(td1_1).append(td1_2).append(td1_3).append(td1_4);
+					tr1.append(td1_1).append(td1_2).append(td1_3).append(td1_4);
 					
 					tbody.append(tr1);
 				}
@@ -637,42 +532,30 @@ window.onclick = function(event) {
 				
 				for(var i in data){
 					var tr1 = $('<tr>');
-					
-					var td1_0 = $('<td>');
-					
-					td1_0.append(
-						'<div class="orderNo-wrap">'
-						+ '<var class="orderNo">' + data[i].orderNo + '</var></div>'
-					);
-			
-					
 					var td1_1 = $('<td>');
-					
-					td1_1.append('<figure class="media">'
-							+ '<div class="img-wrap"><img src="${ pageContext.request.contextPath }/resources/uploadimg/' + data[i].changeName + '"class="img-wrap2"></div>'
-							+ '<figcaption class="media-body">'
-							+ '<h6 class="title text-truncate">' + data[i].gName + '</h6>'
-							+ '<dl class="param param-inline small">'
-							+ '<dt>뭐냐: </dt>'
-							+ '</dl>'
-							+ '</figcaption>'
-							+ '</figure>');
+					td1_1.append('<figure class="media">'+
+							'<div class="img-wrap"><img src="http://bootstrap-ecommerce.com/main/images/items/2.jpg" class="img-thumbnail img-sm"></div>'+
+							'<figcaption class="media-body">'+
+								'<h6 class="title text-truncate">' + data[i].gName + '</h6>'+
+								'<dl class="param param-inline small">'+
+								 '<dt>뭐냐: </dt>'+
+								'</dl>'+
+							'</figcaption>'+
+						'</figure>');
 					
 					var td1_2 = $('<td>');
-					
-					td1_2.append('<div class="price-wrap">'
-							+ '<var class="price">' + numberWithCommas(data[i].gPrice) + '</var>'
-							+ '</div>');
+					td1_2.append('<div class="price-wrap">'+
+						'<var class="price">' + numberWithCommas(data[i].gPrice) + '</var>'+
+					'</div>');
 					
 					var td1_3 = $('<td>');
 					
 					var td1_4 = $('<td class="text-right">');
+					td1_4.append('<button class="btn btn-outline-danger shipBtn" name="' + data[i].trackingNo + '"> 배송조회 </button>' +
+							'&nbsp;&nbsp;' +
+							'<a href="" class="btn btn-outline-danger"> 취소/반품 </a>');
 					
-					td1_4.append('<button class="btn btn-outline-danger shipBtn" name="' + data[i].trackingNo + '"> 배송조회 </button>' 
-							+ '&nbsp;&nbsp;' 
-							+ '<a href="" class="btn btn-outline-danger"> 취소/반품 </a>');
-					
-					tr1.append(td1_0).append(td1_1).append(td1_2).append(td1_3).append(td1_4);
+					tr1.append(td1_1).append(td1_2).append(td1_3).append(td1_4);
 					
 					tbody.append(tr1);
 				}
@@ -703,42 +586,30 @@ window.onclick = function(event) {
 				
 				for(var i in data){
 					var tr1 = $('<tr>');
-					
-					var td1_0 = $('<td>');
-					
-					td1_0.append(
-						'<div class="orderNo-wrap">'
-						+ '<var class="orderNo">' + data[i].orderNo + '</var></div>'
-					);
-			
-					
 					var td1_1 = $('<td>');
-					
-					td1_1.append('<figure class="media">'
-							+ '<div class="img-wrap"><img src="${ pageContext.request.contextPath }/resources/uploadimg/' + data[i].changeName + '"class="img-wrap2"></div>'
-							+ '<figcaption class="media-body">'
-							+ '<h6 class="title text-truncate">' + data[i].gName + '</h6>'
-							+ '<dl class="param param-inline small">'
-							+ '<dt>뭐냐: </dt>'
-							+ '</dl>'
-							+ '</figcaption>'
-							+ '</figure>');
+					td1_1.append('<figure class="media">'+
+							'<div class="img-wrap"><img src="http://bootstrap-ecommerce.com/main/images/items/2.jpg" class="img-thumbnail img-sm"></div>'+
+							'<figcaption class="media-body">'+
+								'<h6 class="title text-truncate">' + data[i].gName + '</h6>'+
+								'<dl class="param param-inline small">'+
+								 '<dt>뭐냐: </dt>'+
+								'</dl>'+
+							'</figcaption>'+
+						'</figure>');
 					
 					var td1_2 = $('<td>');
-					
-					td1_2.append('<div class="price-wrap">'
-							+ '<var class="price">' + numberWithCommas(data[i].gPrice) + '</var>'
-							+ '</div>');
+					td1_2.append('<div class="price-wrap">'+
+						'<var class="price">' + numberWithCommas(data[i].gPrice) + '</var>'+
+					'</div>');
 					
 					var td1_3 = $('<td>');
 					
 					var td1_4 = $('<td class="text-right">');
+					td1_4.append('<button class="btn btn-outline-danger shipBtn" name="' + data[i].trackingNo + '"> 배송조회 </button>' +
+							'&nbsp;&nbsp;' +
+							'<a href="" class="btn btn-outline-danger"> 취소/반품 </a>');
 					
-					td1_4.append('<button class="btn btn-outline-danger shipBtn" name="' + data[i].trackingNo + '"> 배송조회 </button>' 
-							+ '&nbsp;&nbsp;' 
-							+ '<a href="" class="btn btn-outline-danger"> 취소/반품 </a>');
-					
-					tr1.append(td1_0).append(td1_1).append(td1_2).append(td1_3).append(td1_4);
+					tr1.append(td1_1).append(td1_2).append(td1_3).append(td1_4);
 					
 					tbody.append(tr1);
 				}
@@ -775,42 +646,30 @@ window.onclick = function(event) {
 				
 				for(var i in data){
 					var tr1 = $('<tr>');
-					
-					var td1_0 = $('<td>');
-					
-					td1_0.append(
-						'<div class="orderNo-wrap">'
-						+ '<var class="orderNo">' + data[i].orderNo + '</var></div>'
-					);
-			
-					
 					var td1_1 = $('<td>');
-					
-					td1_1.append('<figure class="media">'
-							+ '<div class="img-wrap"><img src="${ pageContext.request.contextPath }/resources/uploadimg/' + data[i].changeName + '"class="img-wrap2"></div>'
-							+ '<figcaption class="media-body">'
-							+ '<h6 class="title text-truncate">' + data[i].gName + '</h6>'
-							+ '<dl class="param param-inline small">'
-							+ '<dt>뭐냐: </dt>'
-							+ '</dl>'
-							+ '</figcaption>'
-							+ '</figure>');
+					td1_1.append('<figure class="media">'+
+							'<div class="img-wrap"><img src="http://bootstrap-ecommerce.com/main/images/items/2.jpg" class="img-thumbnail img-sm"></div>'+
+							'<figcaption class="media-body">'+
+								'<h6 class="title text-truncate">' + data[i].gName + '</h6>'+
+								'<dl class="param param-inline small">'+
+								 '<dt>뭐냐: </dt>'+
+								'</dl>'+
+							'</figcaption>'+
+						'</figure>');
 					
 					var td1_2 = $('<td>');
-					
-					td1_2.append('<div class="price-wrap">'
-							+ '<var class="price">' + numberWithCommas(data[i].gPrice) + '</var>'
-							+ '</div>');
+					td1_2.append('<div class="price-wrap">'+
+						'<var class="price">' + numberWithCommas(data[i].gPrice) + '</var>'+
+					'</div>');
 					
 					var td1_3 = $('<td>');
 					
 					var td1_4 = $('<td class="text-right">');
+					td1_4.append('<button class="btn btn-outline-danger shipBtn" name="' + data[i].trackingNo + '"> 배송조회 </button>' +
+							'&nbsp;&nbsp;' +
+							'<a href="" class="btn btn-outline-danger"> 취소/반품 </a>');
 					
-					td1_4.append('<button class="btn btn-outline-danger shipBtn" name="' + data[i].trackingNo + '"> 배송조회 </button>' 
-							+ '&nbsp;&nbsp;' 
-							+ '<a href="" class="btn btn-outline-danger"> 취소/반품 </a>');
-					
-					tr1.append(td1_0).append(td1_1).append(td1_2).append(td1_3).append(td1_4);
+					tr1.append(td1_1).append(td1_2).append(td1_3).append(td1_4);
 					
 					tbody.append(tr1);
 				}
@@ -859,7 +718,6 @@ window.onclick = function(event) {
 	String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
 	String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
 	Number.prototype.zf = function(len){return this.toString().zf(len);};
-	
 </script>
 
 
