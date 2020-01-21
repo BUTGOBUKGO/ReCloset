@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
 	<c:import url="../common/commonUtil.jsp">
 		<c:param name="titleName" value="제품 상세 페이지"/>
@@ -21,6 +21,7 @@
 <body class="animsition">
 	<c:import url="../common/header.jsp"/>
 	<c:import url="../common/cart.jsp"/>
+	<c:import url="../common/search.jsp"/>
 	
 	<br><br><br>
 	
@@ -114,9 +115,9 @@
 						
 						<div class="flex-w flex-r-m p-b-10">
 							<div class="col-12 p-b-5">
-								<label class="stext-102 cl3" for="userId" align="left">작성자</label>
-								<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="userId" type="submit" name="userId" 
-								value="${goods.userId}" formaction="#" readonly required />
+									<label class="stext-102 cl3" for="userId" align="left">작성자</label>
+									<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="userId" type="submit" name="userId" 
+									value="${goods.userId}" formaction="${pageContext.request.contextPath }/sellerInfo.do" readonly required />
 							</div>
 						</div>
 						<br />

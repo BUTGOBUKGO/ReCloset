@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
 	<c:import url="../common/commonUtil.jsp">
 		<c:param name="titleName" value="장바구니 페이지"/>
@@ -193,7 +193,7 @@
 			});
  	    });
 		
-		
+		 
 		function deleteCartOne(obj){
 			var userNo = '${member.userNo}';
 			var sel = confirm("장바구니에서 해당 상품을 삭제하시겠습니까?");

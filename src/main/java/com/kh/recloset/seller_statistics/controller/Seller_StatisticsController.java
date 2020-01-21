@@ -33,8 +33,7 @@ public class Seller_StatisticsController {
 	@ResponseBody
 	public HashMap<String, Object> selectStatistics(HttpSession session, Model model) {
 		
-		//int userNo = ((Member)session.getAttribute("member")).getUserNo();
-		int userNo = 1;
+		int userNo = ((Member)session.getAttribute("member")).getUserNo();
 		// seller_StatisticsService.sellSelectMonthRevenue(userNo);
 		
 		HashMap<String, Object> hmap = new HashMap<>();

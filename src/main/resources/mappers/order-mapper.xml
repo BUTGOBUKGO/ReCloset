@@ -3,7 +3,7 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="order-mapper">
-
+  
 	<insert id="insertOrder" parameterType="Order">
 		INSERT INTO GORDER VALUES(
 		SEQ_ORDERNO.NEXTVAL, #{userNo}, 1, '', DEFAULT, #{totalPrice}, DEFAULT)
@@ -16,12 +16,12 @@
 	</select>
 	
 	<insert id="insertOrderGoods" parameterType="OrderGoods">
-		INSERT INTO ORDERGOODS VALUES(SEQ_OGOODSNO.NEXTVAL, #{orderNo}, #{goodsNo})
+		INSERT INTO ORDERGOODS VALUES(SEQ_OGOODSNO.NEXTVAL, #{orderNo}, #{goodsNo}, DEFAULT)
 	</insert>
 	
 	<insert id="insertDelivery" parameterType="Delivery">
 		INSERT INTO DELIVERY VALUES(
-		SEQ_DELIVERYNO.NEXTVAL, #{orderNo}, 1, #{userNo}, #{receiver}, 
+		SEQ_DELIVERYNO.NEXTVAL, #{orderNo}, #{userNo}, 1, #{receiver}, 
 		#{zipCode}, #{address1}, #{address2}, #{phone}, #{dMessage}, '')
 	</insert>
 	

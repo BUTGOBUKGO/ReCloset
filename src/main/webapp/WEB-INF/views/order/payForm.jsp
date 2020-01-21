@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
 	<c:import url="../common/commonUtil.jsp">
 		<c:param name="titleName" value="결제 페이지"/>
@@ -14,7 +14,7 @@
 <body class="animsition">
 	<c:import url="../common/header.jsp"/>
 	<c:import url="../common/cart.jsp"/>
-	
+	 
 	<br><br><br>
 	
 	<!-- 상세 메뉴 -->

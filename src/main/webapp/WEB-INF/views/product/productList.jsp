@@ -10,20 +10,21 @@
 		<c:param name="titleName" value="상품 페이지"/>
 	</c:import>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
+ 
 	
 <style>
 	#loadMoreBtn {
 		cursor : pointer;
 	}
-
+ 
 </style>
 	
 </head>
 <body class="animsition">
 	<c:import url="../common/header.jsp"/>
 	<c:import url="../common/cart.jsp"/>
-	
+	<c:import url="../common/search.jsp"/>
+	 
 	<br><br><br>
 	
 		<!-- Product -->

@@ -4,13 +4,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
 	<c:import url="../common/commonUtil.jsp">
 		<c:param name="titleName" value="결제 완료 페이지"/>
 	</c:import>
 	<style>
-		button {
+		button { 
 			
 			height: 30px;
 			color: white;

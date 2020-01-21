@@ -1,8 +1,8 @@
 package com.kh.recloset.sellerInfo.model.vo;
-
+ 
 import java.io.Serializable;
 import java.sql.Date;
-
+ 
 public class Review implements Serializable{
 	
 	private int reviewNo;
@@ -20,6 +20,9 @@ public class Review implements Serializable{
 	private String gColor;
 	private String gSize;
 	private int gPrice;
+	private String changeName;
+	private String userId;
+	private String ratingStar;
 	
 	public Review() {
 		super();
@@ -28,7 +31,7 @@ public class Review implements Serializable{
 
 	public Review(int reviewNo, int orderNo, int orderGoodsNo, int userNo, int sellerUserNo, String rTitle,
 			String rContent, int rating, Date rDate, String status, String userName, String gName, String gColor,
-			String gSize, int gPrice) {
+			String gSize, int gPrice, String changeName, String userId, String ratingStar) {
 		super();
 		this.reviewNo = reviewNo;
 		this.orderNo = orderNo;
@@ -45,6 +48,10 @@ public class Review implements Serializable{
 		this.gColor = gColor;
 		this.gSize = gSize;
 		this.gPrice = gPrice;
+		this.changeName = changeName;
+		this.userId = userId;
+		this.ratingStar = ratingStar;
+		
 	}
 
 	@Override
@@ -52,7 +59,8 @@ public class Review implements Serializable{
 		return "Review [reviewNo=" + reviewNo + ", orderNo=" + orderNo + ", orderGoodsNo=" + orderGoodsNo + ", userNo="
 				+ userNo + ", sellerUserNo=" + sellerUserNo + ", rTitle=" + rTitle + ", rContent=" + rContent
 				+ ", rating=" + rating + ", rDate=" + rDate + ", status=" + status + ", userName=" + userName
-				+ ", gName=" + gName + ", gColor=" + gColor + ", gSize=" + gSize + ", gPrice=" + gPrice + "]";
+				+ ", gName=" + gName + ", gColor=" + gColor + ", gSize=" + gSize + ", gPrice=" + gPrice
+				+ ", changeName=" + changeName + ", userId=" + userId + ", ratingStar=" + ratingStar + "]";
 	}
 
 	public int getReviewNo() {
@@ -175,5 +183,31 @@ public class Review implements Serializable{
 		this.gPrice = gPrice;
 	}
 
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getRatingStar() {
+		return ratingStar;
+	}
+
+	public void setRatingStar(String ratingStar) {
+		this.ratingStar = ratingStar;
+	}
+
+	
+	
 	
 }
