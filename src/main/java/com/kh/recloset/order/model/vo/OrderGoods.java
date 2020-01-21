@@ -1,7 +1,7 @@
 package com.kh.recloset.order.model.vo;
 
 import java.io.Serializable;
- 
+  
 public class OrderGoods implements Serializable {
 
 	private int orderGoodsNo;
