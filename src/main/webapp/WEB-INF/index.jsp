@@ -4,8 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
-<html>
-<head>
+<html> 
+<head>  
 	<c:import url="views/common/commonUtil.jsp">
 		<c:param name="titleName" value="메인페이지"/>
 	</c:import>
@@ -13,6 +13,7 @@
 <body class="animsition">
 	<c:import url="views/common/header.jsp"/>
 	<c:import url="views/common/cart.jsp"/>
+	<c:import url="views/common/search.jsp"/>
 	
 	<!-- Slider -->
 	<section class="section-slide">

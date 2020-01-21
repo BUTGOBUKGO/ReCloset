@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
 	<c:import url="../common/commonUtil.jsp">
 		<c:param name="titleName" value="제품 상세 페이지"/>
@@ -21,6 +21,7 @@
 <body class="animsition">
 	<c:import url="../common/header.jsp"/>
 	<c:import url="../common/cart.jsp"/>
+	<c:import url="../common/search.jsp"/>
 	
 	<br><br><br>
 	
