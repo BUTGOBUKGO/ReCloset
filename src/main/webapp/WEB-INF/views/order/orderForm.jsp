@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 	<c:import url="../common/commonUtil.jsp">
 		<c:param name="titleName" value="주문 페이지"/>
 	</c:import>

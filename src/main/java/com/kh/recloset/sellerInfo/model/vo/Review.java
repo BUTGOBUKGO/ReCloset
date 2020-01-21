@@ -2,7 +2,7 @@ package com.kh.recloset.sellerInfo.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
-
+ 
 public class Review implements Serializable{
 	
 	private int reviewNo;

@@ -10,7 +10,7 @@
 		<c:param name="titleName" value="결제 완료 페이지"/>
 	</c:import>
 	<style>
-		button {
+		button { 
 			
 			height: 30px;
 			color: white;
