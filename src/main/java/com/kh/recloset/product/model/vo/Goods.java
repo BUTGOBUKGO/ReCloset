@@ -19,17 +19,18 @@ public class Goods implements Serializable{
 	private String gSoldout;
 	private String changeName;
 	private String userId;
+	private int orderGoodsNo;
+	private int orderNo;
+	private Date oDate;
 	
 	public Goods() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
 	public Goods(int goodsNo, int categoryCode, int userNo, String gName, int gPrice, String gColor, String gSize,
 			String gSimple, String gDetail, String gStatus, Date gDate, String gSoldout, String changeName,
-			String userId) {
+			String userId, int orderGoodsNo, int orderNo, Date oDate) {
 		super();
 		this.goodsNo = goodsNo;
 		this.categoryCode = categoryCode;
@@ -45,30 +46,18 @@ public class Goods implements Serializable{
 		this.gSoldout = gSoldout;
 		this.changeName = changeName;
 		this.userId = userId;
+		this.orderGoodsNo = orderGoodsNo;
+		this.orderNo = orderNo;
+		this.oDate = oDate;
 	}
-
-
-
-	
 
 	@Override
 	public String toString() {
 		return "Goods [goodsNo=" + goodsNo + ", categoryCode=" + categoryCode + ", userNo=" + userNo + ", gName="
 				+ gName + ", gPrice=" + gPrice + ", gColor=" + gColor + ", gSize=" + gSize + ", gSimple=" + gSimple
 				+ ", gDetail=" + gDetail + ", gStatus=" + gStatus + ", gDate=" + gDate + ", gSoldout=" + gSoldout
-				+ ", changeName=" + changeName + ", userId=" + userId + "]";
-	}
-
-
-
-	public String getUserId() {
-		return userId;
-	}
-
-
-
-	public void setUserId(String userId) {
-		this.userId = userId;
+				+ ", changeName=" + changeName + ", userId=" + userId + ", orderGoodsNo=" + orderGoodsNo + ", orderNo="
+				+ orderNo + ", oDate=" + oDate + "]";
 	}
 
 	public int getGoodsNo() {
@@ -174,8 +163,38 @@ public class Goods implements Serializable{
 	public void setChangeName(String changeName) {
 		this.changeName = changeName;
 	}
-	
-	
-	
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public int getOrderGoodsNo() {
+		return orderGoodsNo;
+	}
+
+	public void setOrderGoodsNo(int orderGoodsNo) {
+		this.orderGoodsNo = orderGoodsNo;
+	}
+
+	public int getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(int orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public Date getoDate() {
+		return oDate;
+	}
+
+	public void setoDate(Date oDate) {
+		this.oDate = oDate;
+	}
+
 	
 }

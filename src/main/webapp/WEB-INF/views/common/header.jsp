@@ -76,9 +76,7 @@
 							</li>
 
 							<li>
-								<%-- <a href="${pageContext.request.contextPath }/sellerInfo.do">Seller</a> --%>
-								<c:set var="sellerUserNo" value="1"/>
-								<a href="${pageContext.request.contextPath }/default2.do?sellerUserNo=${sellerUserNo}">Seller</a>
+								<a href="${pageContext.request.contextPath }/default.do?">Default</a>
 							</li>
 
 							<li>

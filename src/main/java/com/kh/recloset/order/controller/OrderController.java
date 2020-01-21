@@ -120,15 +120,10 @@ public class OrderController {
 			System.out.println("og : " + og);
 			result = orderService.insertOrderGoods(og); // 주문상품 추가
 			
-			orderService.updateGsoldout(good.getGoodsNo()); // 주문한 상품들 판매여부 변경
+			result = orderService.updateGsoldout(good.getGoodsNo()); // 주문한 상품들 판매여부 변경
 		}
 		
 		if(result > 0) {
-			
-			for(Goods good : glist) {
-				
-				result = orderService.updateGsoldout(good.getGoodsNo()); // 주문한 상품들 판매여부 변경
-			}
 			
 			d = (Delivery)session.getAttribute("delivery");
 			

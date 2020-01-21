@@ -43,8 +43,8 @@
 						Accessories
 					</button>
 
-					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".woman">
-						Woman
+					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
+						Women
 					</button>
 
 					<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
@@ -283,7 +283,7 @@
 			<div class="row iso">
 			<c:forEach items="${goods}" var="goods">
 			
-				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 ${ goods.categoryCode == 1 ? 'Item' : goods.categoryCode == 2 ? 'acc' : goods.categoryCode == 3 ? 'woman' : goods.categoryCode == 4 ? 'men' : 'etc' }">
+				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 ${ goods.categoryCode == 1 ? 'Item' : goods.categoryCode == 2 ? 'acc' : goods.categoryCode == 3 ? 'women' : goods.categoryCode == 4 ? 'men' : 'etc' }">
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
@@ -375,7 +375,7 @@
 				    
 					for(var i in data){
 						var $div1 = $('<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item ' + 
-								(data[i].categoryCode == 2 ? 'acc' : data[i].categoryCode == 3 ? 'woman' : data[i].categoryCode == 4 ? 'men' : 'etc') + '">');
+								(data[i].categoryCode == 2 ? 'acc' : data[i].categoryCode == 3 ? 'women' : data[i].categoryCode == 4 ? 'men' : 'etc') + '">');
 						var $div2 = $('<div class="block2">');
 						var $div2_1 = $('<div class="block2-pic hov-img0">');
 						var $div2_1_1 = $('<img src="${pageContext.request.contextPath}/resources/uploadimg/' + data[i].changeName + '" alt="IMG-PRODUCT">');

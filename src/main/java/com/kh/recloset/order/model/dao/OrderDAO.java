@@ -57,7 +57,7 @@ public class OrderDAO {
 	}
 
 	public int updateGsoldout(int goodsNo) {
-		return sqlSession.update("order.mapper.updateGsoldout", goodsNo);
+		return sqlSession.update("order-mapper.updateGsoldout", goodsNo);
 	}
 
 	
