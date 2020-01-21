@@ -27,6 +27,7 @@
 			if(result == 0) {
 				result = createRandNum(Email, userId);
 			}
+			System.out.println("result : " + result);
 			
 			return result;
 		}
@@ -51,6 +52,10 @@
 		sendMail.setFrom("limjaewon92@gmail.com", "Recloset");
 		sendMail.setTo(Email_);
 		sendMail.send();
+		
+		System.out.println("check : " + email.getEmail());
+		System.out.println("check : " + email.getKey());
+		
 		
 		return 2;
 		

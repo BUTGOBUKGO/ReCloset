@@ -35,10 +35,20 @@
 								Logout
 							</a>
 						</c:if>
-						
+
 						<a href="${pageContext.request.contextPath }/myPage.do" class="flex-c-m trans-04 p-lr-25">
 								My Page
 						</a>
+						<c:if test="${ member.userCodeNo == 2 }">
+						<a href="${pageContext.request.contextPath }/sellerPage.do" class="flex-c-m trans-04 p-lr-25">
+								Seller Page
+						</a>
+						</c:if>
+						<c:if test="${ member.userCodeNo == 3 }">
+						<a href="${pageContext.request.contextPath }/adminPage.do" class="flex-c-m trans-04 p-lr-25">
+								Admin Page
+						</a>
+						</c:if>
 						
 						<a href="${pageContext.request.contextPath }/help.do" class="flex-c-m trans-04 p-lr-25">
 							Help & FAQs

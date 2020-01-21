@@ -387,7 +387,9 @@
 						alert("사용가능한 이메일입니다. 전송된 인증번호를 입력해주세요.");
 						$('#emailAuth').attr('disabled', false);
 						$('#emailAuthBtn').attr('disabled', false);
-					} 
+					} else if (data == 1) {
+						alert("이미 등록된 이메일입니다.확인 후 다시 입력해주세요.");
+					}
 				},
 				error: function(data){
 					alert("에러가 발생했습니다.");
