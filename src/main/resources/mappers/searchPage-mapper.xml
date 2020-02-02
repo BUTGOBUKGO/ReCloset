@@ -26,6 +26,7 @@
 	ON(G.GOODSNO = GA.GOODSNO) AND AGRADE = 0
     AND G.GNAME LIKE '%' || #{searchName} ||'%'
     AND G.CATEGORYCODE = #{category}
+    WHERE GSOLDOUT = 'X'
 	</select>
 	
 	<select id="sellerSearch" resultType="Goods" parameterType="SearchValue">
@@ -35,6 +36,7 @@
     AND AGRADE = 0
     AND M.MARKETNAME LIKE '%' || #{searchName} || '%'
     AND G.CATEGORYCODE = #{category}
+    WHERE GSOLDOUT = 'X'
 	</select>
 	
 	

@@ -1,5 +1,4 @@
 
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,7 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <c:import url="../common/commonUtil.jsp">
-	<c:param name="titleName" value="관리자:회원관리" />
+	<c:param name="titleName" value="관리자:블랙리스트 관리" />
 </c:import>
 
 
@@ -64,11 +63,11 @@
 						class="badge badge-primary badge-pill">14</span>
 					</li>
 
-					<!-- 통계관리 -->
- 					<li class="list-group-item d-flex justify-content-between align-items-center">
-  					<a href="${pageContext.request.contextPath}/admin_Statistics/admin_Statistics.do">통계관리</a>
- 					</li>
- 		
+					<!-- 통계관리  -->
+					<li class="list-group-item d-flex justify-content-between align-items-center">
+       				 <a href="${pageContext.request.contextPath}/admin_Statistics/admin_Statistics.do">통계관리</a>
+       				 </li>
+		
 					<!-- 블랙리스트 관리 -->
 					<li
 						class="list-group-item d-flex justify-content-between align-items-center">
@@ -78,7 +77,7 @@
 
 					<li
 						class="list-group-item d-flex justify-content-between align-items-center">
-						<a href="${pageContext.request.contextPath }/myPage.do" class="adminInfoSide">관리자정보관리</a>
+						<a href="" class="adminInfoSide">관리자정보관리</a>
 
 					</li>
 
@@ -90,8 +89,6 @@
 						<div class="respon6-next">
 							<div class="rs1-select2 bor8 bg0">
 								<select class="js-select2" name="filter" id="filter">
-									<option value="1">일반회원</option>
-									<option value="2">판매자</option>
 									<option value="4">정지회원</option>
 									<option value="0">모든회원</option>
 								</select>
@@ -102,7 +99,7 @@
 					<div class="col-8">
 						<div class="bor17 of-hidden pos-relative">
 							<input class="stext-103 cl2 plh4 size-116 p-l-28 p-r-55"
-								type="text" name="userId" id="searchId" placeholder="회원 검색">
+								type="text" name="userId" id="searchId" placeholder="회원 검색...">
 
 							<button
 								class="flex-c-m size-122 ab-t-r fs-18 cl4 hov-cl1 trans-04" id="searchIdBtn">
@@ -126,7 +123,7 @@
 										<th scope="col">회원번호</th>
 										<th scope="col">회원이름</th>
 										<th scope="col">회원등급</th>
-										<th scope="col" class="text-center">회원등급조정</th>
+										<th scope="col" class="text-center">회원정지 관리</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -146,7 +143,7 @@
 										</td>
 									
 										<td> 
-											<button class="btn btn-outline-danger memChange"> 회원등급조정 </button>
+										
 										</td>
 									
 									</tr>
@@ -161,8 +158,6 @@
 		</div>
 		<!--container end.//-->
 
-
-	
 	</section>
 
 
@@ -180,8 +175,6 @@
 	<c:import url="../common/footer.jsp" />
 
 	<script>
-
-
 		$(document).ready(function(e) {
 			$('.search-panel .dropdown-menu').find('a').click(function(e) {
 				e.preventDefault();
@@ -236,27 +229,29 @@
 								
 								var td4 = $('<td class="text-right">');
 								
-								td4.append('<button class="btn btn-outline-info memChange">회원등급조정</button>&nbsp&nbsp');
-								
-								td4.append('<button class="btn btn-danger deleteMember">삭제</button>');
+								if (data[i].memType != '정지회원'){
+									td4.append('<button class="btn btn-dark memBlock">회원 정지</button>&nbsp&nbsp');									
+								} else {
+									td4.append('<button class="btn btn-primary memUnBlock">정지 취소</button>&nbsp&nbsp');									
+								}
 								
 								tr1.append(td1).append(td2).append(td3).append(td4);
 								
 								tbody.append(tr1);
 							}
 							
-							$('.memChange').on('click', function(){                                             
+							$('.memBlock').on('click', function(){                                             
 								var userId = $($(this).parent().parent().children()[1]).text();
 								
 								$.ajax({
-									url :  '${pageContext.request.contextPath}/admin/memUpgrade.do',
+									url :  '${pageContext.request.contextPath}/admin/memBlock.do',
 									type : 'post',
 									data : { userId : userId},
 									success : function(data){
 										
 										if(data == 1){
 											tbody.empty();
-											alert("판매자로 변경 성공!");
+											alert("회원 정지 상태 변경 완료!");
 											
 										} else {
 											alert("변경에 실패하였습니다");
@@ -265,21 +260,21 @@
 									}, error : function(data){
 										console.log(data);
 									}
-								});
+								});	
 							});
 							
-							$('.deleteMember').on('click', function(){                                             
+							$('.memUnBlock').on('click', function(){                                             
 								var userId = $($(this).parent().parent().children()[1]).text();
 								
 								$.ajax({
-									url :  '${pageContext.request.contextPath}/admin/deleteMember.do',
+									url :  '${pageContext.request.contextPath}/admin/memUnBlock.do',
 									type : 'post',
 									data : { userId : userId},
 									success : function(data){
 										
 										if(data == 1){
 											tbody.empty();
-											alert("회원 탈퇴 완료!");
+											alert("회원 정지 상태 변경 완료!");
 											
 										} else {
 											alert("변경에 실패하였습니다");

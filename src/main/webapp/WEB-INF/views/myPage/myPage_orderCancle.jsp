@@ -1,3 +1,4 @@
+
      <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -142,8 +143,6 @@
 	
 	
 	<td class="text-right"> 
-	<!-- <a href="" class="btn btn-outline-danger myButton1"> 배송조회</a> -->
-	
 	
 	
 	<!-- 배송조회 Modal Start -->

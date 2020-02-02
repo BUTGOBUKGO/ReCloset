@@ -1,4 +1,3 @@
-
      <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -19,6 +18,7 @@
   #side_left{
   
  	width : 250px;
+
   
   }
 */
@@ -57,7 +57,7 @@
   		
   		<!-- 신고상세관리 -->
   		<li class="list-group-item d-flex justify-content-between align-items-center">
-  		<a href="${pageContext.request.contextPath }/adminPage_R.do" class="adminInfoSide">신고관리</a>
+  		<a href="" class="adminInfoSide">신고관리</a>
     	<span class="badge badge-primary badge-pill">14</span>
  		</li>
  		
@@ -67,7 +67,7 @@
  		
  		<!-- 블랙리스트 관리 -->
  		<li class="list-group-item d-flex justify-content-between align-items-center">
- 		<a href="${pageContext.request.contextPath }/adminPage_B.do" class="adminInfoSide">블랙리스트관리</a>
+ 		<a href="" class="adminInfoSide">블랙리스트관리</a>
     	<span class="badge badge-primary badge-pill">14</span>
  		</li>
   		
@@ -78,37 +78,46 @@
   		
  	</ul>
  </div>
- 
-   	<div class="col-md-9 content">
-  	<div class="panel panel-default">
-	<div class="panel-heading">
-		관리자님 어서오세요~*
-	</div>
-	<hr>
-	<div class="panel-body">
-	
-	<h6>오늘도 달콤입니다~*</h6>
 
-	</div>
-</div>
-</div>
- 
 
- 
- <div class="container col-9">
- <div class="form-inline" id="myorderSearch">
-
- <input type="date" id="startDate"> ~ <input type="date" id="endDate"> 
- <button class="orderSearch" id="blackS">날짜 직접 입력</button>
- </div>
- </div>
-
- 
- 
-	
-	<div class="container col-9">
-<br>  <p class="text-center"> 신고내역확인 </p>
+<div class="container col-9">
+<br>  <p class="text-center"> 블랙회원관리 </p>
 <hr>
+
+   <form method="post" id="searchForm">
+   <div class="container">
+      <div class="row">
+        
+         <div class="form-inline justify-content-center col-sm-12 col-md-9" style="height: 50px;">
+         
+<!--             <select class="form-control" id="filter" name="">
+               <option value="mem" id="mem">일반회원</option>
+               <option value='sell' id="sell">판매자</option>
+               <option value="all" id=all>모든회원</option>
+            </select> -->
+            
+            <div class="bor17 of-hidden pos-relative">
+               <input class="stext-103 cl2 plh4 size-116 p-l-28 p-r-55" type="text" name="" id="searchId" placeholder="검색할아이디입력">
+                 <button class="flex-c-m size-122 ab-t-r fs-18 cl4 hov-cl1 trans-04" id="searchIdBtn" type="button">
+                  <i class="zmdi zmdi-search"></i>
+               </button>
+            </div>
+            
+             <div class="container col-9">
+			 <div class="form-inline" id="myorderSearch">
+
+ 			<input type="date" id="startDate"> ~ <input type="date" id="endDate"> 
+ 			<button class="orderSearch" id="blackS">날짜 직접 입력</button>
+ 			</div>
+ 			</div>
+            
+         </div>
+        </div>
+ 	</div>
+ 	</form>
+ 	
+ 	<br>
+ 	<br>
 
 
 
@@ -120,38 +129,48 @@
   <th scope="col" width="100">신고한회원</th>
   <th scope="col" width="120">신고내용</th>
   <th scope="col" width="100">신고당한회원</th>
-  <th scope="col" width="100">신고글상세보기</th>
+  <th scope="col" width="100">회원등급복구</th>
 </tr>
 </thead>
 
-<%-- <c:forEach var="" items=""> --%>
 <tbody>
+<c:forEach var="adminPage" items="${BlackSearch}">
+
 <tr>
+	<!-- 신고번호 -->
 	<td>
-
+	<var class="orderNo">${BlackSearch.mReportNo}</var> 
 	</td>
 	
+	<!-- 신고한회원 -->
 	<td> 
-
+	<var class="orderNo">${BlackSearch.mReporter}</var> 
 	</td>
 	
-	<td> 
-
-	</td>
-	
+	<!-- 신고내용 -->
 	<td>
-
+	<var class="orderNo">${BlackSearch.mrReason}</var> 
 	</td>
 	
+	<!-- 신고당한회원 -->
+	<td>
+	<var class="orderNo">${BlackSearch.mDefendant}</var> 
+	</td>
+	
+	<!-- 신고당한회원 등급 -->
+	<td>
+	<var class="orderNo">${BlackSearch.memType}</var> 
+	</td>
+
 	<td class="text-right"> 
-	<a href="" class="btn btn-outline-danger"> 신고글상세보기 </a>
+	<button class="btn btn-outline-danger memChange"> 회원등급복구 </button>
 	</td>
-	
-	
 
 </tr>
+
+</c:forEach>
 </tbody>
-<%-- </c:forEach> --%>
+
 </table>
 </div> 
 
@@ -173,6 +192,9 @@
 	<c:import url="../common/footer.jsp"/>
 
 <script>
+
+
+
 
 </script>
 

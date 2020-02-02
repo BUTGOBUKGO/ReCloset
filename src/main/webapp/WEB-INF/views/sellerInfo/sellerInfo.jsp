@@ -75,6 +75,43 @@
     	height: 90px;
     }
     
+    
+          /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+    
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%; /* Could be more or less, depending on screen size */                          
+        }
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+  
 	</style>
 </head>
 <body class="animsition">
@@ -254,7 +291,45 @@
 								판매자 ID : ${seller.userId } <br /><br />
 								평균 별점 : ${ratingAverage }  <br /><br />
 								판매자홈 : www.recloset.com/ ${member.userId} <br />
+								
 							</span>
+							
+							<!-- 신고하기 임시시작 -->
+	
+							<!-- Trigger/Open The Modal -->
+						    <button class="myBtn seller">신고하기</button>
+						 
+						    <!-- The Modal -->
+						    <div id="myModal" class="modal">
+						 
+						      <!-- Modal content -->
+						      <div class="modal-content">
+						        <span class="close">&times;</span>                                                              
+						        
+						        <div class="col-md-9">
+									<div class="contact-form">
+						
+										<div class="form-group">
+										  <label class="control-label col-sm-4" for="comment"> 신고사유 </label>
+										  <div class="col-sm-10">
+											<textarea class="form-control" rows="3" id="comment"></textarea>
+										  </div>
+										</div>
+										<div class="form-group">        
+										  <div class="col-sm-offset-2 col-sm-10">
+											<button type="submit" class="btn btn-default submitReport">Submit</button>
+										  </div>
+										</div>
+									</div>
+								</div>
+								
+						        
+						      </div>
+						 
+						    </div>
+							
+							<!-- 신고하기 임시끝 -->
+							
 							
 							<hr /><br />
 
@@ -446,6 +521,8 @@
 			}
 		</script>
 		
+		
+		
 		<script>
 			$(function(){
 				var userNo = '${seller.userNo}';
@@ -468,6 +545,95 @@
 					},
 				});
 			});
+			
+			
+			/* 신고모달임시 시작 */
+
+			//Get the modal
+			var modal = document.getElementById('myModal');
+
+			//Get the button that opens the modal
+			var btn = $('.myBtn');
+
+			//Get the <span> element that closes the modal
+			var span = $(".close")[1];                                          
+
+			btn.on('click', function(){
+				modal.style.display = "block";
+				if($(this).hasClass('seller')){
+					$('#defendant').val('${seller.userId }');
+				} else {
+					$('#defendant').val($(this).attr('to'));
+				}
+			});
+			
+			//When the user clicks on the button, open the modal 
+			/*
+			btn.onclick = function() {
+			 modal.style.display = "block";
+			}
+			*/
+			//When the user clicks on <span> (x), close the modal
+			
+			$(span).on('click', function(){
+				modal.style.display = "none";
+			});
+			
+			$('.submitReport').on('click', function(){
+				modal.style.display = "none";
+				var url ='';
+				var sendData;
+				if($(this).hasClass('seller')){
+					url = '${pageContext.request.contextPath}/reportSeller.do';
+					sendData = {
+							reportCode : 2,
+							userNo : '${member.userNo}',
+							rreason : $('#comment').val(),
+							rreporter : '${member.userId}',
+							defendant : $('#defendant').val()
+					};
+				} else {
+					url = '${pageContext.request.contextPath}/reportReview.do';
+					sendData = {
+							reportCode : 1,
+							userNo : '${member.userNo}',
+							rreason : $('#comment').val(),
+							rreporter : '${member.userId}',
+							defendant : $('#defendant').val()
+					};
+				}
+				
+				console.log(sendData);
+				$.ajax({
+					url : url,
+					data : sendData, 
+					success : function(data){
+						console.log("result : " + data);
+						$('#comment').val('');
+						if(data == 1) {
+							alert('신고 성공!');
+						} else {
+							alert('신고 실패!');
+						}
+					}
+					
+				});
+			});
+			/*
+			span.onclick = function() {
+				modal.style.display = "none";
+			}
+*/
+			//When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+			 if (event.target == modal) {
+			     modal.style.display = "none";
+			 }
+			}
+
+			/* 신고모달임시 끝 */
+			
+
 		</script>
 		
 </body>
