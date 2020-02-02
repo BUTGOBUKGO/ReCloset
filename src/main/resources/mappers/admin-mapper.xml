@@ -42,55 +42,62 @@
     
     
  <!-- 판매자회원으로 승격시켜주기 -->
-  	<update id="updateSeller" parameterType="int">
-	UPDATE MEMBER
-	<set> 
-	USERCODENO = '2' WHERE USERNO = #{userNo}
-   	</set>
+  	<update id="updateSeller" parameterType="string">
+	UPDATE MEMBER SET USERCODENO = 2 
+	WHERE USERID = #{userId}
     </update>
     
     
  <!-- 회원삭제쿼리 -->
-   	<update id="deleteMember" parameterType="int">
+   	<update id="deleteMember" parameterType="string">
 	UPDATE MEMBER
 	<set> 
-	USERCODENO = '5' WHERE USERNO = #{userNo}
+	USERCODENO = '5' WHERE USERID = #{userId}
    	</set>
     </update>
     
     
  <!-- 회원검색쿼리 -->
  
-<select id="searchMember" resultType="String">
+<select id="searchMember" parameterType="MemSearch" resultType="MemSearch">
 
-SELECT M.USERNO, M.USERID, MT.MEMTYPE, M.PHONE, M.EMAIL, M.MARKETNAME, M.STATUS 
+SELECT M.USERNO, M.USERID, MT.MEMTYPE, M.STATUS 
 FROM MEMBER M
-    JOIN MEMBER_TYPE MT USING (#{userCodeNo})
+    JOIN MEMBER_TYPE MT USING (userCodeNo)
+<where>
+<if test="userCodeNo != 0">
 
-<if test="search != ' '">
-
-AND USERID LIKE '% || #{searchId} || %'
+AND USERCODENO = #{userCodeNo}
 
 </if>
 
+<if test="searchId != ''">
+
+AND USERID LIKE '%' || #{searchId} || '%'
+
+</if>
+
+</where>
+
 </select>
 
- 
- <!-- 신고된리뷰 목록
- 
-   <select id="selectMemberReport" parameterType="int" resultType="MemReport">
-   
-   
-   </select>
- 	<select id="selectSellerReport" parameterType="int" resultType="SellReport">
-   
-   
-   </select>
- -->
- <!-- 신고된판매자 목록 --> 
-  
-  
-  
+<!-- 게시글 신고 -->
+
+<insert id="insertReport" parameterType="Report">
+
+INSERT INTO REPORT VALUES 
+						(SEQ_REPORT.NEXTVAL, #{reportCode}, #{userNo},
+						#{rreason}, SYSDATE, #{rreporter}, #{defendant} )
+
+</insert>
+
+
+<select id="selectReportList" resultType="Report">
+
+    SELECT * FROM REPORT
+
+</select>
+
 
    
 </mapper>

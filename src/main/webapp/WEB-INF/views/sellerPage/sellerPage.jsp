@@ -1,3 +1,4 @@
+
      <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,9 +9,8 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 	<c:import url="../common/commonUtil.jsp">
-		<c:param name="titleName" value="마이페이지"/>
+		<c:param name="titleName" value="판매자 : 주문정보조회"/>
 	</c:import>
 
   
@@ -100,10 +100,10 @@
    		상품관리
     	<span class="badge badge-primary badge-pill">14</span>
  		</li>
+ 		
   		
   		<li class="list-group-item d-flex justify-content-between align-items-center">
-   		 매출관리
-    	<span class="badge badge-primary badge-pill">2</span>
+    	<a href="${pageContext.request.contextPath}/seller_Statistics/seller_Statistics.do">매출통계</a>
   		</li>
   		
   		<li class="list-group-item d-flex justify-content-between align-items-center">
@@ -119,18 +119,17 @@
  	</ul>
  </div>
  
-	
-	<div class="panel panel-default">
+
+   	<div class="col-md-9 content">
+  	<div class="panel panel-default">
 	<div class="panel-heading">
-		${member.userName } 님 어서오세요~*
+		${member.userName } 어서오세요~*
 	</div>
 	<hr>
 	<div class="panel-body">
-	 &nbsp;&nbsp;
-	 <button class="myInfoBar" id="cupon"> 내쿠폰 </button>
-	 &nbsp;&nbsp;
- 	 <button class="myInfoBar" id="saving"> 적립금 </button>
 	
+	<h6>오늘도 달콤입니다~*</h6>
+
 	</div>
 </div>
 </div>
@@ -170,9 +169,8 @@
 <tr>
   <th scope="col" width="100">주문번호</th>
   <th scope="col">Product</th>
-  <th scope="col" width="120">Quantity</th>
-  <th scope="col" width="120">Total Price</th>
-  <th scope="col" width="200" class="text-right">Action</th>
+  <th scope="col">Total Price</th>
+  <th scope="col" class="text-right">Action</th>
 </tr>
 </thead>
 
@@ -201,11 +199,10 @@
 	</figcaption>
 </figure> 
 	</td>
-	<td></td>
 	
 	<td> 
 		<div class="price-wrap"> 
-			<var class="price"><fmt:formatNumber value="${orderedGood.gPrice}" pattern="#,###" /></var> 
+			<fmt:formatNumber value="${orderedGood.gPrice}" pattern="#,###" />
 		</div> <!-- price-wrap .// -->
 	</td>
 	
@@ -213,11 +210,28 @@
 	<td class="text-right"> 
 	<!-- <a href="" class="btn btn-outline-danger myButton1"> 배송조회</a> -->
 	
+	<select class="orderChkNo" name="orderChkNo" for="${ orderedGood.goodNo}" data-status="${ orderedGood.orderChkNo }">
+		<option value="0">기본</option>
+		<option value="1">결제확인</option>
+		<option value="2">결제완료</option>
+		<option value="3">배송준비중</option>
+		<option value="4">배송중</option>
+		<option value="5">배송완료</option>
+		<option value="8">취소진행중</option>
+		<option value="9">취소완료</option>
+		<option value="11">환불진행중</option>
+		<option value="12">환불완료</option>
+	</select>
 	
+	&nbsp;
+	
+	<button class="btn btn-outline-primary" id="changeStatusBtn" onclick="changeStatus(this,'${orderedGood.orderNo}','${ orderedGood.goodNo}');">주문 상태 변경</button>
+	&nbsp;
+	&nbsp;
 	
 	<!-- 배송조회 Modal Start -->
 
-	<button class="btn btn-outline-danger shipBtn" name="${ orderedGood.trackingNo }"> 배송 정보 확인 </button>
+	<button class="btn btn-outline-danger shipBtn" name="${ orderedGood.trackingNo }"> 배송 정보 수정 </button>
 	<input type="hidden" class="trCodeValue" value="${ orderedGood.trCode}">
 	<input type="hidden" class="trNameValue" value="${ orderedGood.trName}">
 	<input type="hidden" class="deliveryValue" value="${ orderedGood.deliveryNo}">
@@ -246,7 +260,7 @@
       <div class="modal-content">
         <span class="close">&times;</span>
         <input type="hidden" id="deliveryNo">
-		<label id="tekbeLabel" for="tekbeCompanyName">택배 회사 명 : 
+		<label id="tekbeLabel" for="tekbeCompanyName"> 택배 회사 명 : 
 			<span id="tekbeCompanyName">
 				<select id="tekbeCompanyCode">
 				<c:forEach var="track" items="${ trlist }">
@@ -368,6 +382,10 @@ function searchShipment(myKey, trCode, trackingNo){
 }
 
 $(function(){
+	$('.orderChkNo').each(function(){
+		$(this).children('[value=' + $(this).attr('data-status') + ']').prop('selected', true);
+	});
+	
 	$('.shipBtn').on('click', function(){
 		//console.log($(this).attr('name'));
 		var trackingNo = $(this).attr('name');
@@ -400,7 +418,30 @@ $(function(){
 		modal.style.display = 'block';
 		 
 	});
+	
 });
+
+function changeStatus(obj, orderNo, goodsNo){
+	var orderChkNo = $(obj).siblings('.orderChkNo').val();
+	$.ajax({
+		url : "${pageContext.request.contextPath}/myPage/orderChkUpdate.do",
+		data : {
+			orderNo : orderNo, 
+			goodsNo : goodsNo,
+			orderChkNo : orderChkNo
+		}, 
+		success : function(data){
+			if(data == 1){
+				alert("주문 정보 변경 완료!");					
+			} else {
+				alert("주문 정보 변경 실패!");
+			}
+			
+		}, error : function(data){
+			alert("주문정보 변경 중 에러 발생!");
+		}
+	});
+}
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
@@ -418,42 +459,18 @@ window.onclick = function(event) {
 /* 배송조회 */
 
  $(document).ready(function(){
-	 // 스마트 택배 배송조회에서 발급 받은 APIKEY를 Parameter값에 추가
-    
+	 
+	    // 스마트 택배 배송조회에서 발급 받은 APIKEY를 Parameter값에 추가
     
         // 스마트 택배 배송조회 API 에서 제공받은 택배사 목록 코드를 form 창에 mapping
         // 택배사 목록 조회 api
-        
-        /*
-        $.ajax({
-            type:"GET",
-            dataType : "json",
-            url:"http://info.sweettracker.co.kr/api/v1/companylist?t_key="+myKey,
-            success:function(data){
-            	
-                    
-                    // 방법 1. JSON.parse 이용하기
-                    var parseData = JSON.parse(JSON.stringify(data));
-                     console.log(parseData.Company); // 그중 Json Array에 접근하기 위해 Array명 Company 입력
-                    
-                    // 방법 2. Json으로 가져온 데이터에 Array로 바로 접근하기
-                    var CompanyArray = data.Company; // Json Array에 접근하기 위해 Array명 Company 입력
-                    console.log(CompanyArray); 
-                    
-                    var myData="";
-                    $.each(CompanyArray,function(key,value) {
-                            myData += ('<option value='+value.Code+'>' +'key:'+key+', Code:'+value.Code+',Name:'+value.Name + '</option>');                        
-                    });
-                    $("#tekbeCompnayList").html(myData);
-            }
-        });
-        */
         
         // 택배사 코드와 운송장 번호를 Parameter(파리미터)값에 추가
         // POST 방식으로 URL을 호출
 
 		// 완성된 form 에서 택배회사를 선택하고 운송장 번호를 입력하면 배송정보를 확인가능
     
+		
         // 배송정보와 배송추적 tracking-api
         $("#myButton1").click(function() {
 			
@@ -486,13 +503,3 @@ window.onclick = function(event) {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-

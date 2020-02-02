@@ -48,6 +48,35 @@
 		DELETE FROM PSNA WHERE PSNANO = #{psnaNo}
 	</delete>
 	
+	<select id="selectpComments" parameterType="_int" resultType="PComment">
+	SELECT
+    PSNACNO, PCCONTENT, USERNO, PCDATE
+    	 FROM QUESTION_PS
+    	WHERE PSNANO = #{psnaNo} AND PCSTATUS = 'N'
+	</select>
+	
+	<insert id="insertpComment" parameterType="PComment">
+		INSERT INTO QUESTION_PS
+		VALUES(SEQ_PSCNO.NEXTVAL, 
+		   #{psnaNo},
+		   #{userNo}, 
+		   #{pcContent},
+		     DEFAULT,
+		      DEFAULT)
+	</insert>
+	
+	<update id="updatepComment" parameterType="PComment">
+		UPDATE QUESTION_PS SET PCCONTENT = #{pcContent} WHERE PSNACNO= #{psnacNo}
+	</update>
+	
+	<update id="deletepComment" parameterType="int">
+		UPDATE QUESTION_PS SET PCSTATUS = 'Y' WHERE PSNACNO = #{PSNACNO}
+	</update>
+	
+	<select id="selectpTotalContents" resultType="_int">
+		SELECT COUNT(*) FROM PSNA
+	</select>
+	
 </mapper>
 
 

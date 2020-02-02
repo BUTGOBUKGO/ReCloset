@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sellerInfo-mapper">
+  
+	<select id="selectUserNo" parameterType="String" resultType="Member">
+		SELECT * FROM MEMBER WHERE USERID = #{userId}
+	</select>
+	
+	<select id="selectReview" parameterType="_int" resultType="Review">
+		SELECT RR.*,M.USERID 
+		FROM (SELECT R.*, G.USERNO GUNO, G.GNAME, G.GPRICE, G.GCOLOR, G.GSIZE, A.CHANGENAME 
+			FROM REVIEW R 
+			JOIN ORDERGOODS OG ON(R.ORDERGOODSNO = OG.ORDERGOODSNO) 
+			JOIN GOODS G ON(OG.GOODSNO = G.GOODSNO) 
+			JOIN GATTACHMENT A ON(G.GOODSNO = A.GOODSNO) 
+			WHERE G.USERNO = #{userNo} 
+				AND G.GSOLDOUT = 'O'
+				AND A.AGRADE = 0) RR
+		JOIN MEMBER M ON(RR.USERNO = M.USERNO)
+		ORDER BY RR.REVIEWNO DESC
+	</select>
+	
+	<select id="selectSellerGoods" parameterType="_int" resultType="goods">
+		SELECT GA.* FROM 
+		(SELECT G.*, A.CHANGENAME 
+		FROM GOODS G 
+		JOIN GATTACHMENT A ON(G.GOODSNO = A.GOODSNO) 
+		WHERE G.USERNO = #{userNo} 
+			AND G.GSOLDOUT = 'X' 
+			AND A.AGRADE = 0 
+		ORDER BY G.GDATE DESC) GA 
+		<![CDATA[
+		WHERE ROWNUM <= 3
+		]]>
+	</select>
+	
+	<select id="selectOrderList" parameterType="int" resultType="Goods">
+		SELECT OG.ORDERGOODSNO, OG.ORDERNO, G.GNAME, G.GCOLOR, G.GSIZE, G.GPRICE 
+		FROM GORDER O 
+		JOIN ORDERGOODS OG ON(O.ORDERNO = OG.ORDERNO) 
+		JOIN GOODS G ON(OG.GOODSNO = G.GOODSNO) 
+		WHERE O.USERNO = #{userNo}
+			AND OG.RSTATUS = 'X'
+	</select>
+	
+	<insert id="insertReview" parameterType="Review">
+		INSERT INTO REVIEW VALUES(SEQ_REVIEWNO.NEXTVAL, #{orderNo}, #{orderGoodsNo}, #{userNo}, 
+			#{rTitle}, #{rContent}, #{rating}, DEFAULT, DEFAULT)
+	</insert>
+	
+	<update id="updateOrderGoods" parameterType="int">
+		UPDATE ORDERGOODS SET RSTATUS = 'O' WHERE ORDERGOODSNO = #{orderGoodsNo}
+	</update>
+	
+	<select id="selectGoodsListAll" parameterType="int" resultType="Goods">
+		SELECT G.*, A.CHANGENAME
+		FROM GOODS G
+		JOIN GATTACHMENT A ON(G.GOODSNO = A.GOODSNO AND AGRADE = 0)
+		WHERE G.USERNO = #{userNo} AND G.GSOLDOUT = 'X'
+	</select>
+	
+	<select id="selectGoodsList" parameterType="Goods" resultType="Goods">
+		SELECT G.*, A.CHANGENAME
+		FROM GOODS G
+		JOIN GATTACHMENT A ON(G.GOODSNO = A.GOODSNO AND AGRADE = 0)
+		WHERE G.USERNO = #{userNo} AND CATEGORYCODE = #{categoryCode} AND G.GSOLDOUT = 'X'
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+

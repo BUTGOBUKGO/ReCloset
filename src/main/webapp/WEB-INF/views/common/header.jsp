@@ -61,7 +61,7 @@
 				<nav class="limiter-menu-desktop container">
 					
 					<!-- Logo desktop -->		
-					<a href="#" class="logo">
+					<a href="${pageContext.request.contextPath}" class="logo">
 						<img src="${pageContext.request.contextPath}/resources/images/icons/logo-01.png" alt="IMG-LOGO">
 					</a>
 
@@ -70,11 +70,6 @@
 						<ul class="main-menu">
 							<li class="active-menu">
 								<a href="${pageContext.request.contextPath}">Home</a>
-								<ul class="sub-menu">
-									<li><a href="index.html">Homepage 1</a></li>
-									<li><a href="home-02.html">Homepage 2</a></li>
-									<li><a href="home-03.html">Homepage 3</a></li>
-								</ul>
 							</li>
 
 							<li>
@@ -85,31 +80,33 @@
 								<a href="${pageContext.request.contextPath }/cart/features.do">Features</a>
 							</li>
 
+							<c:if test="${ member.userCodeNo == 2 }">
 							<li>
-								<a href="${pageContext.request.contextPath }/default.do?">Default</a>
+								<a href="${pageContext.request.contextPath }/sellerInfo.do?userId=${member.userId}">
+										Seller
+								</a>
 							</li>
-
+							</c:if>
+							
 							<li>
 								<a href="about.html">About</a>
 							</li>
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a href="${pageContext.request.contextPath }/gogogogo.do">Contact</a>
 							</li>
 						</ul>
 					</div>	
 
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m">
-						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-							<i class="zmdi zmdi-search"></i>
-						</div>
+
 
 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="0">
 							<i class="zmdi zmdi-shopping-cart"></i>
 						</div>
 
-						<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
+						<a href="${pageContext.request.contextPath }/like/likePage.do?userNo=${member.userNo}" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti go-like-List" data-notify="0">
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 					</div>
@@ -132,11 +129,11 @@
 					<i class="zmdi zmdi-search"></i>
 				</div>
 				
-				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
+				<div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="0">
 					<i class="zmdi zmdi-shopping-cart"></i>
 				</div>
 				
-				<a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
+				<a href="${pageContext.request.contextPath}/like/likePage.do" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti go-like-List" data-notify="0">
 					<i class="zmdi zmdi-favorite-outline"></i>
 				</a>
 				
@@ -234,4 +231,24 @@
 				</form>
 			</div>
 		</div>
+		<script>
+		$(function(){
+			
+			var userNo = "${member.userNo}";
+			
+	 		 $.ajax({
+       	      url: "${pageContext.request.contextPath}/like/myLikeCount.do",
+       	      data: {
+       	         userNo : userNo,
+       	      },
+       	      success: function(data){
+       	    	  
+       	    	  console.log("datadatadatadatadatadatadata : "+data);
+
+       	         $('.go-like-List').attr("data-notify", data);
+
+       	      }
+       	   });
+	 	})
+		</script>
 	</header>

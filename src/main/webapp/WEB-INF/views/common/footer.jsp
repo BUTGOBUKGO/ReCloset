@@ -9,31 +9,25 @@
 			<div class="row">
 				<div class="col-sm-6 col-lg-3 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
-						Categories
+						Terms and Conditions
 					</h4>
 
 					<ul>
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Women
+							<a href="${pageContext.request.contextPath}/service.do" class="stext-107 cl7 hov-cl1 trans-04">
+								서비스 이용약관
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Men
+							<a href="${pageContext.request.contextPath}/termsofUse.do" class="stext-107 cl7 hov-cl1 trans-04">
+								사이트 이용 약관
 							</a>
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Shoes
-							</a>
-						</li>
-
-						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Watches
+							<a href="${pageContext.request.contextPath}/userterms.do" class="stext-107 cl7 hov-cl1 trans-04">
+								사용자 이용약관
 							</a>
 						</li>
 					</ul>
@@ -52,7 +46,7 @@
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+							<a href="${pageContext.request.contextPath }/help.do" class="stext-107 cl7 hov-cl1 trans-04">
 								FAQs
 							</a>
 						</li>
@@ -72,51 +66,52 @@
 					</p>
 
 					<div class="p-t-27">
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+						<a href="https://www.facebook.com/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
 							<i class="fa fa-facebook"></i>
 						</a>
 
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+						<a href="https://www.instagram.com/?hl=ko" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
 							<i class="fa fa-instagram"></i>
 						</a>
 
-						<a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
-							<i class="fa fa-pinterest-p"></i>
+						<a href="https://twitter.com/?lang=ko" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+							<i class="fa fa-twitter"></i>
 						</a>
 					</div>
 				</div>
 
 				<div class="col-sm-6 col-lg-3 p-b-50">
 					<h4 class="stext-301 cl0 p-b-30">
-						Newsletter
+						Company Information
 					</h4>
 
-					<form>
+					
 						<div class="wrap-input1 w-full p-b-4">
-							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" placeholder="email@example.com">
+							<input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email" value="(주) RE-CLOSET 대표 이사  Daniel Yu" readonly>
 							<div class="focus-input1 trans-04"></div>
 						</div>
-
-						<div class="p-t-18">
-							<button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
-								Subscribe
-							</button>
+						<br />
+						<div class="stext-107 cl7 size-201">
+							<p>서울특별시 강남구 테헤란로 130 호산빌딩 <br />
+								5F 352CLASS <br />
+								사업자 등록번호 : 111-11-111111 <br />
+								통신판매업신고 : 2020-서울강남-1111</p>
 						</div>
-					</form>
+					
 				</div>
 			</div>
 
 			<div class="p-t-40">
 				<div class="flex-c-m flex-w p-b-18">
-					<a href="#" class="m-all-1">
+					<a href="https://www.paypal.com/kr/home" class="m-all-1">
 						<img src="${pageContext.request.contextPath}/resources/images/icons/icon-pay-01.png" alt="ICON-PAY">
 					</a>
 
-					<a href="#" class="m-all-1">
+					<a href="https://usa.visa.com/" class="m-all-1">
 						<img src="${pageContext.request.contextPath}/resources/images/icons/icon-pay-02.png" alt="ICON-PAY">
 					</a>
 
-					<a href="#" class="m-all-1">
+					<a href="https://usa.visa.com/" class="m-all-1">
 						<img src="${pageContext.request.contextPath}/resources/images/icons/icon-pay-03.png" alt="ICON-PAY">
 					</a>
 
@@ -154,7 +149,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
 <!--===============================================================================================-->	
-	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
+	
 <!--===============================================================================================-->
 	<script src="${pageContext.request.contextPath}/resources/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
@@ -273,6 +268,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	    			} else {
 	    				$('.cartHeader').empty();
 		    			for(var i in data){
+		    				var gprice = data[i].gPrice;
 		    				var innerDiv1 = '<li class="header-cart-item flex-w flex-t m-b-12">'
 										+ '<div class="header-cart-item-img">'
 										+ '<img src="${ pageContext.request.contextPath }/resources/uploadimg/' + data[i].changeName + '" alt="IMG">'
@@ -281,7 +277,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 										+ '<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">'
 										+ data[i].gName + '</a>'
 										+ '<span class="header-cart-item-info">'
-										+ data[i].gPrice
+										+ gprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원'
 										+ '</span>'
 										+ '</div>'
 										+ '</li>';
@@ -293,7 +289,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		    				totalAmount += data[i].gPrice;
 		    			}
 		    			var innerDiv2 = '<div class="header-cart-total w-full p-tb-40">'
-									+ 'Total : ' + totalAmount + '원'
+									+ 'Total : ' + totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '원'
 									+ '</div>'
 									+ '<div class="header-cart-buttons flex-w w-full">'
 									+ '<a href="/recloset/cart/features.do" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">'

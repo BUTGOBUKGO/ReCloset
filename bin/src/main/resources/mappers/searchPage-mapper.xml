@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="searchPage-mapper">
+	
+	<insert id="insertSearch" parameterType="Search">
+	INSERT INTO SEARCH VALUES(SEQ_SEARCHNO.NEXTVAL, REGEXP_REPLACE(#{searchName}, '[[:punct:]]'), #{userNo}, SYSTIMESTAMP)
+	</insert>
+	
+	<select id="realtimeSearchRanking" resultType="SearchRank">
+	SELECT ROWNUM RANKNO, SEARCHNAME FROM(SELECT COUNT(*) CNT, SEARCHNAME FROM 
+    (SELECT COUNT(*),S.SEARCHNAME, USERNO 
+    <![CDATA[
+    FROM SEARCH S WHERE TO_CHAR(SUBSTR(SYSTIMESTAMP - SEARCHDATE,10,1)) < 1 
+    ]]>
+    GROUP BY S.USERNO, SEARCHNAME)
+    <![CDATA[
+	GROUP BY SEARCHNAME ORDER BY CNT DESC) WHERE ROWNUM<11
+	]]>
+	
+	</select>
+	
+	<select id="gnameSearch" resultType="Goods" parameterType="SearchValue">
+	SELECT G.*, GA.CHANGENAME FROM GOODS G JOIN GATTACHMENT GA 
+	ON(G.GOODSNO = GA.GOODSNO) AND AGRADE = 0
+    AND G.GNAME LIKE '%' || #{searchName} ||'%'
+    AND G.CATEGORYCODE = #{category}
+	</select>
+	
+	<select id="sellerSearch" resultType="Goods" parameterType="SearchValue">
+	SELECT G.*, GA.CHANGENAME FROM GOODS G, GATTACHMENT GA, MEMBER M 
+	WHERE G.GOODSNO = GA.GOODSNO
+    AND G.USERNO = M.USERNO
+    AND AGRADE = 0
+    AND M.MARKETNAME LIKE '%' || #{searchName} || '%'
+    AND G.CATEGORYCODE = #{category}
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+

@@ -164,7 +164,7 @@
   		</li>
   		
   		<li class="list-group-item d-flex justify-content-between align-items-center">
-  		<a href="" class="myInfoSide">내정보관리</a>
+  		<a href="${pageContext.request.contextPath }/member/memberView.do" class="myInfoSide">내정보관리</a>
   		</li>
   		
  	</ul>
@@ -222,7 +222,7 @@
 <tr>
   <th scope="col" width="100">주문번호</th>
   <th scope="col">Product</th>
-  <th scope="col" width="120">Quantity</th>
+  <th scope="col" width="120">주문 상태</th>
   <th scope="col" width="120">Total Price</th>
   <th scope="col" width="200" class="text-right">Action</th>
 </tr>
@@ -247,7 +247,7 @@
 	</div>
 
 	<figcaption class="media-body">
-		<h6 class="title text-truncate">${MyPage.gName}</h6>
+		<h6 class="title text-truncate"><a href="${pageContext.request.contextPath }/product/productView.do?goodsNo=${MyPage.goodsNo}">${MyPage.gName}</a></h6>
 		<dl class="param param-inline small">
 		  <dt>${MyPage.gName}</dt>
 		</dl>
@@ -258,7 +258,7 @@
 </figure> 
 	</td>
 	
-	<td></td>
+	<td>${ MyPage.orderChk }</td>
 	
 	<td> 
 		<div class="price-wrap"> 
@@ -664,7 +664,7 @@ window.onclick = function(event) {
 							+ '<var class="price">' + numberWithCommas(data[i].gPrice) + '</var>'
 							+ '</div>');
 					
-					var td1_3 = $('<td>');
+					var td1_3 = $('<td>').text(data[i].orderChk);
 					
 					var td1_4 = $('<td class="text-right">');
 					

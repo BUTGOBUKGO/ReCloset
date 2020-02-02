@@ -23,7 +23,7 @@ public class Admin_StatisticsDAO {
 		List<MonthRevenue> list = new ArrayList<>();
 		list = sqlSession.selectList("admin_statistics-mapper.adminSelectMonthRevenue");
 		
-		String[][] arr = new String[12][2];
+		String[][] arr = new String[13][2];
 
 		for(int i = 0; i < list.size(); i++) {
 			arr[i][0] = list.get(i).getMon();
@@ -84,7 +84,7 @@ public class Admin_StatisticsDAO {
 		List<AdminSelectTOP3> list = new ArrayList<>();
 		list = sqlSession.selectList("admin_statistics-mapper.adminSelectTOP3");
 		
-		String[][][]arr = new String[12][10][4];
+		String[][][]arr = new String[13][3][4];
 
 		for(int i = 0, mon = 0;  i < list.size() - 1; i++) {
 			arr[mon][list.get(i).getRank() - 1][0] = list.get(i).getMon();

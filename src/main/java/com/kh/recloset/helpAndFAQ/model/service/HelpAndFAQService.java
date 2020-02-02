@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.kh.recloset.helpAndFAQ.exception.HelpAndFAQException;
 import com.kh.recloset.helpAndFAQ.model.dao.HelpAndFAQDAO;
+import com.kh.recloset.helpAndFAQ.model.vo.Comment;
 import com.kh.recloset.helpAndFAQ.model.vo.HelpAndFAQ;
+import com.kh.recloset.helpAndFAQ.model.vo.PComment;
 import com.kh.recloset.helpAndFAQ.model.vo.Post;
 import com.kh.recloset.product.model.vo.Attachment;
 
@@ -44,15 +46,15 @@ public class HelpAndFAQService {
 	}
 	
 
-	public List<HelpAndFAQ> faq() {
+	public List<HelpAndFAQ> faq(int cPage) {
 		
-		return helpDAO.qselectList();
+		return helpDAO.qselectList(cPage);
 	}
 
 
-	public List<Post> post() {
+	public List<Post> post(int cPage) {
 		
-		return helpDAO.pselectList();
+		return helpDAO.pselectList(cPage);
 	}
 
 	public HelpAndFAQ selectHelp(int qnaNo) {
@@ -84,24 +86,81 @@ public class HelpAndFAQService {
 		return helpDAO.deletePost(psnaNo);
 	}
 
+	public int selectTotalContents() {
+	
+		return helpDAO.selectTotalContents();
+	}
+	
+	public int selectpTotalContents() {
+		
+		return helpDAO.selectpTotalContents();
+	}
+
+	/* ----------------------------------------------------- */
+	
+	public int insertqComment(Comment cmt) {
+		
+		return helpDAO.insertqComment(cmt);
+	}
+
+	public int insertpComment(PComment pcmt) {
+		
+		return helpDAO.insertpComment(pcmt);
+	}
+
+	
+	
+	 public List<Comment> selectqComments(int qnaNo) {
+	 
+	 return helpDAO.selectqComments(qnaNo); 
+	 }
+	 
+	 public List<PComment> selectpComments(int psnaNo) {
+		
+		 return helpDAO.selectpComments(psnaNo);
+	 }
+
+	public int updateqComment(Comment cmt) {
+
+		return helpDAO.updateqComment(cmt);
+	}
+	
+	public int updatepComment(PComment pcmt) {
+
+		return helpDAO.updatepComment(pcmt);
+	}
+	
+
+	public int deleteqComment(int cNo) {
+
+		int result = 0;
+		
+		result = helpDAO.deleteqComment(cNo);
+	      if(result < 1) throw new HelpAndFAQException("댓글 삭제 실패");
+	      
+	      return result;
+	}
+
+	public int deletepComment(int psnacNo) {
+		int result = 0;
+		
+		result = helpDAO.deletepComment(psnacNo);
+		if(result < 1)throw new HelpAndFAQException("댓글 삭제 실패");
+		
+		return result;
+	}
+
+	
+
+
+
 
 
 	
 	
 		
 
-	/*
-	 * public List<Map<String, String>> selectList(int cPage, int numPerPage) {
-	 * 
-	 * return helpDAO.selectList(cPage, numPerPage); }
-	 * 
-	 * 
-	 * public int selectTotalContents() {
-	 * 
-	 * return helpDAO.selectTotalContents(); }
-	 */
-
-	
 
 }
+
 

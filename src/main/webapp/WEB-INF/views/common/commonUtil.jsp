@@ -38,3 +38,5 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/Button.css">
 <!--===============================================================================================-->
+
+<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery-3.2.1.min.js"></script>

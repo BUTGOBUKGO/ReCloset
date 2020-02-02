@@ -1,3 +1,4 @@
+
      <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -8,7 +9,6 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 	<c:import url="../common/commonUtil.jsp">
 		<c:param name="titleName" value="관리자페이지"/>
 	</c:import>
@@ -19,7 +19,6 @@
   #side_left{
   
  	width : 250px;
-
   
   }
 */
@@ -58,13 +57,17 @@
   		
   		<!-- 신고상세관리 -->
   		<li class="list-group-item d-flex justify-content-between align-items-center">
-  		<a href="" class="adminInfoSide">신고관리</a>
+  		<a href="${pageContext.request.contextPath }/adminPage_R.do" class="adminInfoSide">신고관리</a>
     	<span class="badge badge-primary badge-pill">14</span>
+ 		</li>
+ 		
+ 		<li class="list-group-item d-flex justify-content-between align-items-center">
+  		<a href="${pageContext.request.contextPath}/admin_Statistics/admin_Statistics.do">통계관리</a>
  		</li>
  		
  		<!-- 블랙리스트 관리 -->
  		<li class="list-group-item d-flex justify-content-between align-items-center">
- 		<a href="" class="adminInfoSide">블랙리스트관리</a>
+ 		<a href="${pageContext.request.contextPath }/adminPage_B.do" class="adminInfoSide">블랙리스트관리</a>
     	<span class="badge badge-primary badge-pill">14</span>
  		</li>
   		
@@ -84,9 +87,8 @@
 	<hr>
 	<div class="panel-body">
 	
-	<h6>ㅎ</h6>
-	<h6>ㅋ</h6>
-	<h6>ㅎ</h6>
+	<h6>오늘도 달콤입니다~*</h6>
+
 	</div>
 </div>
 </div>
@@ -100,7 +102,7 @@
  <button class="orderSearch" id="blackS">날짜 직접 입력</button>
  </div>
  </div>
- 
+
  
  
 	

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order-mapper">
+  
+	<insert id="insertOrder" parameterType="Order">
+		INSERT INTO GORDER VALUES(
+		SEQ_ORDERNO.NEXTVAL, #{userNo}, 1, '', DEFAULT, #{totalPrice}, DEFAULT)
+	</insert>
+
+	<select id="selectOrder" parameterType="int" resultType="Order">
+		SELECT * FROM
+		(SELECT * FROM GORDER WHERE USERNO = #{userNo} ORDER BY ODATE DESC)
+		WHERE ROWNUM = 1
+	</select>
+	
+	<insert id="insertOrderGoods" parameterType="OrderGoods">
+		INSERT INTO ORDERGOODS VALUES(SEQ_OGOODSNO.NEXTVAL, #{orderNo}, #{goodsNo}, DEFAULT)
+	</insert>
+	
+	<insert id="insertDelivery" parameterType="Delivery">
+		INSERT INTO DELIVERY VALUES(
+		SEQ_DELIVERYNO.NEXTVAL, #{orderNo}, #{userNo}, 1, #{receiver}, 
+		#{zipCode}, #{address1}, #{address2}, #{phone}, #{dMessage}, '')
+	</insert>
+	
+	<select id="selectCartList" resultType="int">
+		SELECT GOODSNO FROM CART WHERE USERNO = #{userNo}
+	</select>
+	
+	<select id="selectGoods" parameterType="int" resultType="Goods">
+		SELECT G.*, A.CHANGENAME
+		FROM GOODS G
+		JOIN GATTACHMENT A ON(G.GOODSNO = A.GOODSNO AND AGRADE = 0)
+		WHERE G.GOODSNO = #{goodsNo} 
+	</select>
+	
+	<select id="selectAddressList" parameterType="int" resultType="Delivery">
+		SELECT * FROM 
+		(SELECT * FROM DELIVERY WHERE USERNO = #{userNo} ORDER BY DELIVERYNO DESC)
+		WHERE ROWNUM &lt;= 3 
+	</select>
+	
+	<select id="selectDelivery" parameterType="int" resultType="Delivery">
+		SELECT * FROM DELIVERY WHERE ORDERNO = #{orderNo}
+	</select>
+	
+	<delete id="deleteCart" parameterType="int">
+		DELETE FROM CART WHERE USERNO = #{userNo}
+	</delete>
+	
+	<update id="updateGsoldout" parameterType="int">
+		UPDATE GOODS SET GSOLDOUT = 'O' WHERE GOODSNO = #{goodsNo}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product-mapper">
+
+	<resultMap id="reusltproduct" type="Goods">
+      <result column="GOODSNO" property="goodsNo"/>
+      <result column="CATEGORYCODE" property="categoryCode"/>
+      <result column="USERNO" property="userNo"/>
+      <result column="GNAME" property="gName"/>
+      <result column="GPRICE" property="gPrice"/>
+      <result column="GCOLOR" property="gColor"/>
+      <result column="GSIZE" property="gSize"/>
+      <result column="GSIMPLE" property="gSimple"/>
+      <result column="GDETAIL" property="gDetail"/>
+      <result column="GSTATUS" property="gStatus"/>
+      <result column="GDATE" property="gDate"/>
+       <result column="USERID" property="userID"/>
+</resultMap>
+
+	
+
+<insert id="insertProduct" parameterType="Goods">
+		INSERT INTO GOODS 
+		VALUES(SEQ_GOODSNO.NEXTVAL, 
+				#{categoryCode},
+		       #{userNo}, 
+		       #{gName},
+		       #{gPrice},
+		       #{gColor},
+		       #{gSize},
+		       #{gSimple},
+		       #{gDetail},
+		       DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+	<insert id="insertAttachment" parameterType="Attachment">
+		<selectKey keyProperty="goodsNo" resultType="int" order="BEFORE">
+			SELECT SEQ_GOODSNO.CURRVAL FROM DUAL
+		</selectKey>
+		INSERT INTO GATTACHMENT
+		VALUES (SEQ_GATTACH.NEXTVAL,
+				 #{goodsNo},
+				#{originName}, 
+				#{changeName},
+				DEFAULT, #{aGrade}, DEFAULT)
+	</insert>
+	
+	<select id="selectList" resultType="Goods">
+	SELECT G.*, GA.CHANGENAME FROM GOODS G JOIN GATTACHMENT GA 
+	ON(G.GOODSNO = GA.GOODSNO AND AGRADE = 0)
+	</select>
+	 
+	<select id="selectOnePro" parameterType="_int" resultType="Goods">
+		SELECT M.USERID, G.* FROM GOODS G
+		JOIN MEMBER M ON (M.USERNO=G.USERNO)
+        WHERE G.GOODSNO = #{goodsNo}
+	</select>
+	
+	<select id="selectAttachment" parameterType="_int" resultType="Attachment">
+		SELECT * FROM GATTACHMENT WHERE GOODSNO = #{goodsNo}
+	</select>
+	
+	<update id="updateProduct" parameterType="Goods">
+		UPDATE GOODS
+		SET CATEGORYCODE = #{categoryCode},
+			GNAME = #{gName},
+			GPRICE = #{gPrice},
+		    GCOLOR = #{gColor},
+		    GSIZE = #{gSize},
+		    GSIMPLE = #{gSimple},
+		    GDETAIL = #{gDetail}
+		WHERE GOODSNO = #{goodsNo}
+	
+	</update>
+	
+	<insert id="updateAttachment" parameterType="Goods">
+		INSERT INTO GATTACHMENT
+		VALUES (SEQ_GATTACH.NEXTVAL, 
+				#{goodsNo},
+				#{originName},
+				#{changeName},
+				DEFAULT, #{aGrade}, DEFAULT)
+	
+	</insert>
+	
+	<delete id="deleteGoods" parameterType="_int">
+		DELETE FROM GOODS WHERE GOODSNO = #{goodsNo}
+	</delete>
+	
+	<delete id="daleteAttachment" parameterType="_int">
+		DELETE FROM GATTACHMENT WHERE GOODSNO = #{goodsNo}
+	</delete>
+	
+	<select id="totalCount" resultType="int">
+		SELECT COUNT(*) FROM GOODS
+	</select>
+	
+	<select id="selectList4LoadMore" resultType="Goods">
+		SELECT G.*, GA.CHANGENAME FROM GOODS G JOIN GATTACHMENT GA 
+		ON(G.GOODSNO = GA.GOODSNO AND AGRADE = 0)
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+

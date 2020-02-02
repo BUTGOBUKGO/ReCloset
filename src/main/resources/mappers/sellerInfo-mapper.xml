@@ -68,6 +68,12 @@
 		WHERE G.USERNO = #{userNo} AND CATEGORYCODE = #{categoryCode} AND G.GSOLDOUT = 'X'
 	</select>
 	
+	<select id="selectSellerCategoryCount" parameterType="Goods" resultType="int">
+		SELECT COUNT(*) 
+		FROM GOODS 
+		WHERE CATEGORYCODE = #{categoryCode} AND USERNO = #{userNo} AND GSOLDOUT = 'X'
+	</select>
+	
 </mapper>
 
 

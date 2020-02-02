@@ -54,6 +54,10 @@ public class SellerInfoService {
 		return sellerInfoDAO.selectGoodsList(g);
 	}
 
+	public int selectSellerCategoryCount(Goods g) {
+		return sellerInfoDAO.selectSellerCategoryCount(g);
+	}
+
 	
 
 

@@ -35,7 +35,7 @@
 		    $(".showHome").on("click",function(){
 		       var qnaNo = $(this).attr("id");
 		       console.log("qnaNo="+ qnaNo);
-		       location.href = "${pageContext.request.contextPath}/help/helpView.do?no="+qnaNo;
+		       location.href = "${pageContext.request.contextPath}/help/helpView.do?qnaNo="+qnaNo;
 		    });
 		    
 		   
@@ -61,13 +61,13 @@
                       <a class="nav-item nav-link" style="color:#6C6C6C;" id="nav-notice-tab" data-toggle="tab" href="#nav-notice" role="tab" aria-controls="nav-notice" aria-selected="false">공지사항</a>
                     </div>
                   </nav>
-                  <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                  <div id="test" class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
                   <!-- 첫번째 태그 -->
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     
          <div id="container">
          <section id="board-container-1" class="container">
-            <p>총  <span id="homeCnt">${list.size()}</span> 건의 게시물이 있습니다.</p>
+            <p>총  <span id="homeCnt">${totalContents}</span> 건의 게시물이 있습니다.</p>
             <input type="button" value="글쓰기" id="btn-add" class="btn btn-light" style="float:right";  onclick="helpForm();"/>
             <br /><br />
             <table id="tbl-board-home" class="table table-striped table-hover" style="width:100%";>
@@ -77,7 +77,7 @@
                   <th>아이디</th>
                   <th>등록일자</th>
                </tr>
-               <c:forEach items="${faqList}" var="q"> 
+               <c:forEach items="${list}" var="q"> 
                <tr id="${q.qnaNo}" class="showHome">
                     <td>${q.qnaNo}</td>
                  <td>${q.qTitle}</td>
@@ -88,6 +88,9 @@
                </tr>
                </c:forEach>
             </table>
+            <div class="pageBar">
+            	<c:out value="${pageBar}" escapeXml="false"/>
+            </div>
          </section> 
                </div>
                     </div>
@@ -109,6 +112,10 @@
               
             </table>
          </section> 
+         	<div class="pageBar">
+            	<c:out value="${pageBar}" escapeXml="false"/>
+            </div>
+         
                </div>
             </div>
                   
@@ -237,7 +244,7 @@
                      
                      dotoli4058@nate.com <-- 확인 후 메일 주세요. <br><br> 
                      
-                     !!--------------꼭 상세 내용을 확인 하신 뒤 입점 신청해주세요~^.^----------------------!!
+                     !!----------------꼭 상세 내용을 확인 하신 뒤 입점 신청해주세요~^.^----------------------!!
                     </div>
                  
                   </div>
@@ -249,6 +256,14 @@
                      
 </section>
    <script>
+   $('.nav-item').each(function(){
+	  $(this).click(function(){
+
+		  var tabName = $(this).attr('id').substring(0, $(this).attr('id').indexOf('-tab'));
+		  $('.tab-pane').hide();
+		  $('#' + tabName).show();
+	  }); 
+   });
    function helpForm(){
       location.href = "${pageContext.request.contextPath}/helpForm.do";
    }
@@ -257,28 +272,34 @@
    }
    
    // 최근 게시글 목록 꺼내기
-   function showHome(){
+   function showHome(cPage){
+	   var $table = $('#tbl-board-home');
+       $table.empty();
+       
+       $('#tbl-board-post').empty();
+	
+       
       $.ajax({
          url : '${pageContext.request.contextPath}/help/faqList.do',
          type : 'get',
+         data : {cPage : cPage},
          success : function(data){
             
             console.log(data);
             
-            var $table = $('#tbl-board-home');
-            $table.empty();
+           
             $table.append('<tr>' +
                               '<th>번호</th>' +
                               '<th>제목</th>' +
                               '<th>작성자</th>' +
                               '<th>등록일자</th>' +
                               '</tr>');
-            for(var i in data){
-               var $trHelpAndFAQ = $('<tr class="showHome" id="' + data[i].qnaNo + '">');
-               var $tdqnaNo = $('<td>').text(data[i].qnaNo);
-               var $tdqTitle = $('<td>').text(data[i].qTitle);
-               var $tduserId = $('<td>').text(data[i].userId);
-               var $tdqDate = $('<td>').text(moment(data[i].qDate).format('YYYY-MM-DD'));
+            for(var i in data.list){
+               var $trHelpAndFAQ = $('<tr class="showHome" id="' + data.list[i].qnaNo + '">');
+               var $tdqnaNo = $('<td>').text(data.list[i].qnaNo);
+               var $tdqTitle = $('<td>').text(data.list[i].qTitle);
+               var $tduserId = $('<td>').text(data.list[i].userId);
+               var $tdqDate = $('<td>').text(moment(data.list[i].qDate).format('YYYY-MM-DD'));
                
                
                $trHelpAndFAQ.append($tdqnaNo)
@@ -289,7 +310,9 @@
                $table.append($trHelpAndFAQ);
                
             }
-            $('#homeCnt').text(data.length);
+            $('#homeCnt').text(data.totalContents);
+            $('.pageBar').empty();
+            $('.pageBar').html(data.pageBar);
             $(".showHome").on("click",function(){
  		       var qnaNo = $(this).attr("id");
  		       console.log("qnaNo="+ qnaNo);
@@ -305,46 +328,53 @@
       });
    }
    
-   function showPost(){
+   function showPost(cPage){
+	   
+	   var $table = $('#tbl-board-home');
+       $table.empty();
+       
+       $('#tbl-board-post').empty();
       $.ajax({
          url : '${pageContext.request.contextPath}/post/postList.do',
          type : 'get',
+         data : {cPage : cPage},
          success : function(data){
             
             console.log(data);
             
-            var $table = $('#tbl-board-post');
-            $table.empty();
+            
             $table.append('<tr>' +
                         '<th>번호</th>' +
                         '<th>제목</th>' +
                         '<th>작성자</th>' +
                         '<th>등록일자</th>' +
                         '</tr>');
-            for(var i in data){
+            for(var i in data.list){
                console.log(data[i]);
                
-               var $trPost = $('<tr class="showPost" id="' + data[i].psnaNo + '">');
-               var $tdpsnano = $('<td>').text(data[i].psnaNo);
-               var $tdpstitle = $('<td>').text(data[i].psTitle);
-               var $tduserId = $('<td>').text(data[i].userId);
-               var $tdpsdate = $('<td>').text(moment(data[i].psdate).format('YYYY-MM-DD'));
+               var $trPost = $('<tr class="showPost" id="' + data.list[i].psnaNo + '">');
+               var $tdpsnaNo = $('<td>').text(data.list[i].psnaNo);
+               var $tdpstitle = $('<td>').text(data.list[i].psTitle);
+               var $tduserId = $('<td>').text(data.list[i].userId);
+               var $tdpsdate = $('<td>').text(moment(data.list[i].psdate).format('YYYY-MM-DD'));
                
-               $trPost.append($tdpsnano)
+               $trPost.append($tdpsnaNo)
                .append($tdpstitle)
                .append($tduserId)
                .append($tdpsdate);
                
-               $table.append($trPost);
+               $('#tbl-board-post').append($trPost);
             }
+            $('#postCnt').text(data.totalContents);
+            $('.pageBar').empty();
+            $('.pageBar').html(data.pageBar);
             $(".showPost").on("click",function(){
- 		       var psnano = $(this).attr("id");
- 		       console.log("psnano="+ psnano);
- 		       location.href = "${pageContext.request.contextPath}/post/postView.do?no="+psnano;
+ 		       var psnaNo = $(this).attr("id");
+ 		       console.log("psnaNo="+ psnaNo);
+ 		       location.href = "${pageContext.request.contextPath}/post/postView.do?psnaNo="+psnaNo;
  		    });
             $('#postCnt').text(data.length);
                $('.table-striped tr:nth-of-type(odd)').css('background-color', 'rgba(0,0,0,.05)');
-            
          }, error : function(request){
             
             console.log("에러났어요.");

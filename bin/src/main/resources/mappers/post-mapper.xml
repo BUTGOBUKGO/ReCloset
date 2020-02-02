@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="post-mapper">
+
+<resultMap id="reusltpost" type="Post">
+      <result column="PSNANO" property="psnaNo"/>
+      <result column="USERNO" property="userNo"/>
+      <result column="PSTITLE" property="psTitle"/>
+      <result column="PSCONTENT" property="psContent"/>
+      <result column="PSDATE" property="psDate"/>
+      <result column="PSCHECK" property="psCheck"/>
+      <result column="USERID" property="userId"/>
+      
+</resultMap>
+
+	<insert id="insertPOST" parameterType="Post">
+		INSERT INTO PSNA
+		VALUES(SEQ_PSNA.NEXTVAL, 
+				#{userNo},
+		       #{psTitle}, 
+		       #{psContent},
+		       DEFAULT, DEFAULT)
+	</insert>
+	
+		<select id="postList" resultMap="reusltpost">
+	SELECT M.USERID, PS.*, (SELECT COUNT(*) 
+             FROM GATTACHMENT 
+             WHERE PS.PSNANO = PSNANO) FILECOUNT 
+		FROM PSNA PS
+        JOIN MEMBER M ON(M.USERNO=PS.USERNO)
+		ORDER BY PSDATE DESC
+	</select>
+	
+	<select id="selectPost" parameterType="_int" resultType="Post">
+	SELECT * FROM PSNA WHERE PSNANO = #{psnaNo}
+	</select>
+	
+	<update id="updatePost" parameterType="Post">
+	UPDATE PSNA
+	SET PSTITLE = #{psTitle},
+		PSCONTENT = #{psContent}
+		WHERE PSNANO = #{psnaNo}
+	</update>
+	
+	<delete id="deletePost" parameterType="_int" >
+		DELETE FROM PSNA WHERE PSNANO = #{psnaNo}
+	</delete>
+	
+</mapper>
+
+

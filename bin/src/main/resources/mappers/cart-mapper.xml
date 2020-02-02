@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cart-mapper">
+  
+	<insert id="insertCart" parameterType="Cart">
+		INSERT INTO CART VALUES(#{userNo}, #{goodsNo})
+	</insert>
+	
+	<select id="selectCartQty" resultType="int">
+		SELECT COUNT(*) FROM CART WHERE USERNO = #{userNo}
+	</select>
+	
+	<select id="selectCartExist" parameterType="Cart" resultType="int">
+		SELECT COUNT(*) FROM CART 
+		WHERE USERNO = #{userNo} AND GOODSNO = #{goodsNo}
+	</select>
+	
+	<select id="selectCartList" resultType="int">
+		SELECT GOODSNO FROM CART WHERE USERNO = #{userNo}
+	</select>
+	
+	<select id="selectGoodsList" parameterType="int" resultType="Goods">
+		SELECT G.*, A.CHANGENAME
+		FROM GOODS G
+		JOIN GATTACHMENT A ON(G.GOODSNO = A.GOODSNO AND AGRADE = 0)
+		WHERE G.GOODSNO = #{goodsNo} 
+	</select>
+	
+	<delete id="deleteCart" parameterType="Cart">
+		DELETE FROM CART WHERE USERNO = #{userNo} AND GOODSNO = #{goodsNo}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+

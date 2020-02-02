@@ -22,7 +22,7 @@
 	<insert id="insertDelivery" parameterType="Delivery">
 		INSERT INTO DELIVERY VALUES(
 		SEQ_DELIVERYNO.NEXTVAL, #{orderNo}, #{userNo}, 1, #{receiver}, 
-		#{zipCode}, #{address1}, #{address2}, #{phone}, #{dMessage}, '')
+		#{zipCode}, #{address1}, #{address2}, #{phone}, #{dMessage}, '', '')
 	</insert>
 	
 	<select id="selectCartList" resultType="int">

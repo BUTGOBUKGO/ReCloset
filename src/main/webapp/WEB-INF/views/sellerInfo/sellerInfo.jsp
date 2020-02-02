@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
-<html>  
+<html>
 <head>
 	<c:import url="../common/commonUtil.jsp">
 		<c:param name="titleName" value="기본 페이지"/>
@@ -75,6 +75,43 @@
     	height: 90px;
     }
     
+    
+          /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+    
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%; /* Could be more or less, depending on screen size */                          
+        }
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+  
 	</style>
 </head>
 <body class="animsition">
@@ -121,11 +158,8 @@
 			<div class="row">
 				<div class="col-md-8 col-lg-9 p-b-80">
 					<div class="p-r-45 p-r-0-lg">
-						<!--  -->
-						
 
 						<div class="p-t-32">
-							
 							<h4 class="ltext-109 cl2 p-b-28">
 								Review
 							</h4>
@@ -149,57 +183,55 @@
 							</div>
 						</div>
 
-						<!-- Trigger/Open The Modal -->
-    
  
-    <!-- The Modal -->
-    <div id="myAddModal" class="addModal">
+					   
+					
  
-      <!-- Modal content -->
-      <div class="addModal-content" style="width: 650px; height:auto;">
-        <span class="close">&times;</span>                                                               
-        
-        <h3 style="text-align:center;">주문내역 목록</h3>
-        <br /><br />
-        <table id="recentlyAddress" style="text-align: center; width:600px;">
-        
-                  <thead>
-                   <tr id="theadtr" style="border-bottom:1px solid black; height: 40px;">
-                       <th>주문번호</th>
-                       <th>상품명</th>
-                       <th>총금액</th>
-                       <th>선택</th>
-                   </tr>
-                  </thead>
-                  <tbody id="address">
-                  
-                  	<c:forEach var="goods" items="${goodsList }">
-                  		<tr>
-                           <td>
-                          		<input type="hidden" id="orderGoodsNo" name="orderGoodsNo" value="${goods.orderGoodsNo }"/>
-                               <strong class="receiverName" name="orderNo" >${goods.orderNo}</strong><br />
-                               <p>${goods.oDate }</p>
-                           </td>
-                           <td>
-                               <span class="rZipCode">${goods.gName}</span><br />
-                               <span class="rAddress1">${goods.gColor}  |  ${goods.gSize}</span>
-                           </td>
-                           <td>
-                           	${goods.gPrice}
-                           </td>
-                           <td>
-                               <button type="button" class="addSelectBtn" onclick="addSelect(this);">선택</button>
-                           </td>
-                       </tr>
-                  	</c:forEach>
-                  
-                   </tbody>
-        </table>
-        
-        
-      </div>
- 
-    </div>
+					    <!-- 모달 시작했다 -->
+					    <div id="myAddModal" class="addModal">
+					 
+					      <!-- Modal content -->
+					      <div class="addModal-content" style="width: 650px; height:auto;">
+					        <span class="close">&times;</span>                                                               
+					        
+					        <h3 style="text-align:center;">주문내역 목록</h3>
+					        <br /><br />
+					        <table id="recentlyAddress" style="text-align: center; width:600px;">
+				                  <thead>
+				                   <tr id="theadtr" style="border-bottom:1px solid black; height: 40px;">
+				                       <th>주문번호</th>
+				                       <th>상품명</th>
+				                       <th>총금액</th>
+				                       <th>선택</th>
+				                   </tr>
+				                  </thead>
+				                  <tbody id="address">
+				                  
+				                  	<c:forEach var="goods" items="${goodsList }">
+				                  		<tr>
+				                           <td>
+				                          		<input type="hidden" id="orderGoodsNo" name="orderGoodsNo" value="${goods.orderGoodsNo }"/>
+				                               <strong class="receiverName" name="orderNo" >${goods.orderNo}</strong><br />
+				                               <p>${goods.oDate }</p>
+				                           </td>
+				                           <td>
+				                               <span class="rZipCode">${goods.gName}</span><br />
+				                               <span class="rAddress1">${goods.gColor}  |  ${goods.gSize}</span>
+				                           </td>
+				                           <td>
+				                           	${goods.gPrice}
+				                           </td>
+				                           <td>
+				                               <button type="button" class="addSelectBtn" onclick="addSelect(this);">선택</button>
+				                           </td>
+				                       </tr>
+				                  	</c:forEach>
+				                   </tbody>
+					        </table>
+					      </div>
+					    </div>
+					    <!-- 모달 끝났다 -->
+					
 					
 						<div class="p-t-100">
 							<h5 class="mtext-113 cl2 p-b-12">
@@ -259,7 +291,45 @@
 								판매자 ID : ${seller.userId } <br /><br />
 								평균 별점 : ${ratingAverage }  <br /><br />
 								판매자홈 : www.recloset.com/ ${member.userId} <br />
+								
 							</span>
+							
+							<!-- 신고하기 임시시작 -->
+	
+							<!-- Trigger/Open The Modal -->
+						    <button class="myBtn seller">신고하기</button>
+						 
+						    <!-- The Modal -->
+						    <div id="myModal" class="modal">
+						 
+						      <!-- Modal content -->
+						      <div class="modal-content">
+						        <span class="close">&times;</span>                                                              
+						        
+						        <div class="col-md-9">
+									<div class="contact-form">
+						
+										<div class="form-group">
+										  <label class="control-label col-sm-4" for="comment"> 신고사유 </label>
+										  <div class="col-sm-10">
+											<textarea class="form-control" rows="3" id="comment"></textarea>
+										  </div>
+										</div>
+										<div class="form-group">        
+										  <div class="col-sm-offset-2 col-sm-10">
+											<button type="submit" class="btn btn-default submitReport">Submit</button>
+										  </div>
+										</div>
+									</div>
+								</div>
+								
+						        
+						      </div>
+						 
+						    </div>
+							
+							<!-- 신고하기 임시끝 -->
+							
 							
 							<hr /><br />
 
@@ -299,11 +369,11 @@
 
 						<div class="p-t-55">
 							<h4 class="mtext-112 cl2 p-b-20">
-								Archive
+								Product Category
 							</h4>
 
 							<ul>
-								<li class="p-b-7">
+								<li class="p-b-7 fasionItem">
 									<a href="${pageContext.request.contextPath }/sellerProductList.do?userNo=${seller.userNo}&cCode=1" class="flex-w flex-sb-m stext-115 cl6 hov-cl1 trans-04 p-tb-2">
 										<span>
 											Fashion Item
@@ -315,7 +385,7 @@
 									</a>
 								</li>
 
-								<li class="p-b-7">
+								<li class="p-b-7 accessories">
 									<a href="${pageContext.request.contextPath }/sellerProductList.do?userNo=${seller.userNo}&cCode=2" class="flex-w flex-sb-m stext-115 cl6 hov-cl1 trans-04 p-tb-2">
 										<span>
 											Accessories
@@ -327,7 +397,7 @@
 									</a>
 								</li>
 
-								<li class="p-b-7">
+								<li class="p-b-7 women">
 									<a href="${pageContext.request.contextPath }/sellerProductList.do?userNo=${seller.userNo}&cCode=3" class="flex-w flex-sb-m stext-115 cl6 hov-cl1 trans-04 p-tb-2">
 										<span>
 											Women
@@ -339,7 +409,7 @@
 									</a>
 								</li>
 
-								<li class="p-b-7">
+								<li class="p-b-7 men">
 									<a href="${pageContext.request.contextPath }/sellerProductList.do?userNo=${seller.userNo}&cCode=4" class="flex-w flex-sb-m stext-115 cl6 hov-cl1 trans-04 p-tb-2">
 										<span>
 											Men
@@ -351,7 +421,7 @@
 									</a>
 								</li>
 
-								<li class="p-b-7">
+								<li class="p-b-7 etc">
 									<a href="${pageContext.request.contextPath }/sellerProductList.do?userNo=${seller.userNo}&cCode=5" class="flex-w flex-sb-m stext-115 cl6 hov-cl1 trans-04 p-tb-2">
 										<span>
 											Etc
@@ -366,6 +436,7 @@
 								</ul>
 						</div>
 
+				
 						
 					</div>
 				</div>
@@ -448,6 +519,121 @@
 					
 				}
 			}
+		</script>
+		
+		
+		
+		<script>
+			$(function(){
+				var userNo = '${seller.userNo}';
+				$.ajax({
+					url: "${pageContext.request.contextPath}/sellerCategory.do",
+					dataType: "json",
+					data: { userNo : userNo },
+					success: function(data){
+						console.log(data);
+						$('.fasionItem').children().children().eq(1).text("");
+						$('.fasionItem').children().children().eq(1).text("( " + data[0] + " )");
+						$('.accessories').children().children().eq(1).text("");
+						$('.accessories').children().children().eq(1).text("( " + data[1] + " )");
+						$('.women').children().children().eq(1).text("");
+						$('.women').children().children().eq(1).text("( " + data[2] + " )");
+						$('.men').children().children().eq(1).text("");
+						$('.men').children().children().eq(1).text("( " + data[3] + " )");
+						$('.etc').children().children().eq(1).text("");
+						$('.etc').children().children().eq(1).text("( " + data[4] + " )");
+					},
+				});
+			});
+			
+			
+			/* 신고모달임시 시작 */
+
+			//Get the modal
+			var modal = document.getElementById('myModal');
+
+			//Get the button that opens the modal
+			var btn = $('.myBtn');
+
+			//Get the <span> element that closes the modal
+			var span = $(".close")[1];                                          
+
+			btn.on('click', function(){
+				modal.style.display = "block";
+				if($(this).hasClass('seller')){
+					$('#defendant').val('${seller.userId }');
+				} else {
+					$('#defendant').val($(this).attr('to'));
+				}
+			});
+			
+			//When the user clicks on the button, open the modal 
+			/*
+			btn.onclick = function() {
+			 modal.style.display = "block";
+			}
+			*/
+			//When the user clicks on <span> (x), close the modal
+			
+			$(span).on('click', function(){
+				modal.style.display = "none";
+			});
+			
+			$('.submitReport').on('click', function(){
+				modal.style.display = "none";
+				var url ='';
+				var sendData;
+				if($(this).hasClass('seller')){
+					url = '${pageContext.request.contextPath}/reportSeller.do';
+					sendData = {
+							reportCode : 2,
+							userNo : '${member.userNo}',
+							rreason : $('#comment').val(),
+							rreporter : '${member.userId}',
+							defendant : $('#defendant').val()
+					};
+				} else {
+					url = '${pageContext.request.contextPath}/reportReview.do';
+					sendData = {
+							reportCode : 1,
+							userNo : '${member.userNo}',
+							rreason : $('#comment').val(),
+							rreporter : '${member.userId}',
+							defendant : $('#defendant').val()
+					};
+				}
+				
+				console.log(sendData);
+				$.ajax({
+					url : url,
+					data : sendData, 
+					success : function(data){
+						console.log("result : " + data);
+						$('#comment').val('');
+						if(data == 1) {
+							alert('신고 성공!');
+						} else {
+							alert('신고 실패!');
+						}
+					}
+					
+				});
+			});
+			/*
+			span.onclick = function() {
+				modal.style.display = "none";
+			}
+*/
+			//When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+			 if (event.target == modal) {
+			     modal.style.display = "none";
+			 }
+			}
+
+			/* 신고모달임시 끝 */
+			
+
 		</script>
 		
 </body>

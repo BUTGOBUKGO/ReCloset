@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="like-mapper">
+
+	 <select id="favoriteCount" resultType="int">
+       SELECT COUNT(*) FROM LIKE_GOODS WHERE USERNO = #{userNo}
+   </select>
+
+	<select id="likeCount" resultType="int">
+                SELECT COUNT(*)
+      FROM LIKE_GOODS
+      WHERE GOODSNO = #{goodsNo} AND LSTATUS = 'Y'
+   </select>
+
+   <select id="selectLike" parameterType="Like" resultType="Like">
+      SELECT * FROM LIKE_GOODS
+      WHERE GOODSNO = #{goodsNo} AND USERNO = #{userNo}
+   </select>
+
+	<insert id="insertLike" parameterType="Like">
+      INSERT INTO LIKE_GOODS VALUES(#{goodsNo}, #{userNo}, DEFAULT)
+   </insert>
+
+	<update id="updateLike" parameterType="Like">
+      UPDATE LIKE_GOODS SET LSTATUS = 'Y'
+      WHERE USERNO = #{userNo} AND GOODSNO = #{goodsNo}
+   </update>
+   
+   <update id="cencelLike" parameterType="Like">
+      UPDATE LIKE_GOODS SET LSTATUS = 'N'
+      WHERE USERNO = #{userNo} AND GOODSNO = #{goodsNo}
+   </update>
+   
+   <select id="likeList" resultType="int">
+		SELECT G.* 
+		FROM LIKE_GOODS L
+		JOIN GOODS G ON(L.GOODSNO = G.GOODSNO)
+		WHERE LSTATUS = 'Y' AND L.USERNO = #{userNo}
+	</select>
+
+	<select id="selectGoods" parameterType="int" resultType="Goods">
+		SELECT G.*, A.CHANGENAME
+		FROM GOODS G
+		JOIN GATTACHMENT A ON(G.GOODSNO = A.GOODSNO AND AGRADE = 0)
+		WHERE G.GOODSNO = #{goodsNo} 
+	</select>
+	
+	<delete id="deleteList" parameterType="List">
+		DELETE FROM LIKE_GOODS WHERE USERNO = #{userNo} AND GOODSNO = #{goodsNo}
+	</delete>
+	
+	<select id="myLikeCount" resultType="int">
+		SELECT COUNT(*)
+		FROM LIKE_GOODS
+      	WHERE USERNO = #{userNo} AND LSTATUS = 'Y' 
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+

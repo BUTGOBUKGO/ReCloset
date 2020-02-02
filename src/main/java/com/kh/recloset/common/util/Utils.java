@@ -67,7 +67,8 @@ public class Utils {
 		//fn_paging함수
 		pageBar += "<script>";
 		pageBar += "function fn_paging(cPage,numPerPage){";
-		pageBar += "location.href='"+url+"?cPage='+cPage;";
+		if(url.equals("showHome")) pageBar += " showHome(cPage)";
+		if(url.equals("showPost")) pageBar += " showPost(cPage)";
 		pageBar += "}";
 		pageBar += "</script>";
 		
