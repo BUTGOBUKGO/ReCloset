@@ -11,6 +11,9 @@
 	</c:import>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<style>
+	input {
+		padding-left: 10px;
+	}
 	span {
 		margin-right: 20px;
 		/* margin-bottom: 10px; */
@@ -166,9 +169,6 @@
 						
 						<br /><br /><br />
 						
-						
-						
-						
 						<h3>배송지 정보</h3><br />
 							<span>주문자 정보와 동일한 경우 체크 &nbsp;<input type="checkbox" id="addCheck" style="display:inline-block;"/></span>
 							<button type="button" id="addBtn">최근 배송지</button>
@@ -234,7 +234,7 @@
 							<div class="flex-w flex-m m-r-20 m-tb-5">
 								<span>연락처</span>							
 								<div class="phone">
-									<input type="text" id="phone" name="phone">
+									<input type="text" id="phone" name="phone" placeholder="'-'는 제외하고 입력해 주세요.">
 								</div>
 							</div>
 						</div>
@@ -242,7 +242,7 @@
 						<div class="">
 							<div class="flex-w flex-m m-r-20 m-tb-5">
 								<span>주소</span> 								
-								<div class="">
+								<div class="zipCode">
 									<input class="add r1" id="zipCode" type="text" name="zipCode" onclick="addrSearch();" 
 									       placeholder="클릭하세요!" style="background: lightgoldenrodyellow; cursor:pointer;" readonly>
 									<input class="add" id="address1" type="text" name="address1" placeholder="시군구" style="width:450px;">
@@ -254,7 +254,7 @@
 						<div class="">
 							<div class="flex-w flex-m m-r-20 m-tb-5">
 								<span>배송 메시지</span>							
-								<div class="">
+								<div class="dMessage">
 									<textarea name="dMessage" id="dmessage" cols="50" rows="5"></textarea>
 								</div>
 							</div>
@@ -270,12 +270,13 @@
 						</h4>
 
 							
-						<table id="orderinfo" style="width:400px;">
+						<table id="orderinfo" style="width:450px;">
 						<c:forEach var="goods" items="${goodsList }">
 							<tr id="orderTotal">
 		    					<td style="width:30%;"><img src="${ pageContext.request.contextPath }/resources/uploadimg/${goods.changeName }" style="width:120px;"></td>
 		    					<td style="width:45%; text-align:center;">${goods.gName }</td>
-		    					<td style="width:25%; text-align:right;"><strong>${goods.gPrice }</strong>&nbsp;원</td>
+		    					<%-- <td style="width:25%; text-align:right;"><strong>${goods.gPrice }</strong>&nbsp;원</td> --%>
+		    					<td style="width:25%; text-align:right;"><strong><fmt:formatNumber value="${goods.gPrice }" pattern="#,##0" /></strong>&nbsp;원</td>
 		    				</tr>
 						</c:forEach>
 						</table>
@@ -293,7 +294,8 @@
 
 							<div class="size-209">
 								<span class="mtext-110 cl2 subtotalPrice">
-									${subtotal} 원
+									<fmt:formatNumber value="${subtotal}" pattern="#,##0" />
+									 원
 								</span>
 							</div>
 						</div>
@@ -307,7 +309,7 @@
 							
 							<div class="size-209">
 								<span class="mtext-110 cl2">
-									2500 원
+									2,500 원
 								</span>
 							</div>
 						</div>
@@ -321,7 +323,8 @@
 							<c:set var="totalPrice" value="${subtotal + 2500}" />
 							<div class="size-209 p-t-1">
 								<span class="mtext-110 cl2 totalPrice">
-									${totalPrice } 원
+									<fmt:formatNumber value="${totalPrice}" pattern="#,##0" />
+									원
 								</span>
 								<input type="hidden" id="totalPrice" name="totalPrice" value="${totalPrice }" />
 							</div>
@@ -361,39 +364,7 @@
 				}
 			});
 		});
-
 		
-			/* $(function(){
-			var userNo = '${member.userNo}';
-			$.ajax({
-				url: "${pageContext.request.contextPath}/cart/cartList.do",
-	    		dataType: "json",
-	    		data: { userNo : userNo },
-	    		success : function(data){
-	    			console.log(data);
-	    			if(data.length == 0) {
-	    			
-	    			} else {
-	    				$('#orderinfo').empty();
-	    				var subtotal = 0;
-		    			for(var i in data){
-		    				var innerDiv = '<tr id="orderTotal">'
-		    							+ '<td style="width:30%;"><img src="/recloset/images/item-cart-01.jpg" ></td>'
-		    							+ '<td style="width:45%;">' + data[i].gName + '</td>'
-		    							+ '<td style="width:25%; text-align:right;"><strong>' + data[i].gPrice + '</strong>&nbsp;원</td>'
-		    							+ '</tr>';
-		    				$('#orderinfo').append(innerDiv);
-		    				subtotal += data[i].gPrice;
-		    			}
-		    			$('.subtotalPrice').html(subtotal + "&nbsp;원");
-		    			
-		    			$('.totalPrice').html((subtotal + 2500) + "&nbsp;원");
-		    			$('#totalPrice').val(subtotal + 2500);
-	    			}
-	    		}
-			});
-		});	 */
-	
 	</script>
 	
 	<script>

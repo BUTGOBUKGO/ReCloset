@@ -13,21 +13,16 @@ public class MyPage implements Serializable {
 	private String oderChk;
 	private String startDate;
 	private String endDate;
-	private String trackingNo; /* 송장 번호 */
-	private String trCode;     /* 택배사 코드 */
-	private String trName;     /* 택배사 명 */
-	private String changeName;
 	
 	
 	public MyPage() {
 		super();
 		// TODO Auto-generated constructor stub
-
 	}
 
 
 	public MyPage(int userNo, Date oDate, int orderNo, String gName, int gPrice, String oderChk, String startDate,
-			String endDate, String trackingNo, String trCode, String trName, String changeName) {
+			String endDate) {
 		super();
 		this.userNo = userNo;
 		this.oDate = oDate;
@@ -37,10 +32,6 @@ public class MyPage implements Serializable {
 		this.oderChk = oderChk;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.trackingNo = trackingNo;
-		this.trCode = trCode;
-		this.trName = trName;
-		this.changeName = changeName;
 	}
 
 
@@ -48,8 +39,7 @@ public class MyPage implements Serializable {
 	public String toString() {
 		return "MyPage [userNo=" + userNo + ", oDate=" + oDate + ", orderNo=" + orderNo + ", gName=" + gName
 				+ ", gPrice=" + gPrice + ", oderChk=" + oderChk + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", trackingNo=" + trackingNo + ", trCode=" + trCode + ", trName=" + trName + ", changeName="
-				+ changeName + "]";
+				+ "]";
 	}
 
 
@@ -131,48 +121,13 @@ public class MyPage implements Serializable {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-
-
-	public String getTrackingNo() {
-		return trackingNo;
-	}
-
-
-	public void setTrackingNo(String trackingNo) {
-		this.trackingNo = trackingNo;
-	}
-
-
-	public String getTrCode() {
-		return trCode;
-	}
-
-
-	public void setTrCode(String trCode) {
-		this.trCode = trCode;
-	}
-
-
-	public String getTrName() {
-		return trName;
-	}
-
-
-	public void setTrName(String trName) {
-		this.trName = trName;
-	}
-
-
-	public String getChangeName() {
-		return changeName;
-	}
-
-
-	public void setChangeName(String changeName) {
-		this.changeName = changeName;
-	}
 	
 	
 	
+	
+	
+	
+	
+
 	
 }

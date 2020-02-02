@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
-<html>  
+<html>
 <head>
 	<c:import url="../common/commonUtil.jsp">
 		<c:param name="titleName" value="기본 페이지"/>
@@ -121,11 +121,8 @@
 			<div class="row">
 				<div class="col-md-8 col-lg-9 p-b-80">
 					<div class="p-r-45 p-r-0-lg">
-						<!--  -->
-						
 
 						<div class="p-t-32">
-							
 							<h4 class="ltext-109 cl2 p-b-28">
 								Review
 							</h4>
@@ -149,57 +146,55 @@
 							</div>
 						</div>
 
-						<!-- Trigger/Open The Modal -->
-    
  
-    <!-- The Modal -->
-    <div id="myAddModal" class="addModal">
+					   
+					
  
-      <!-- Modal content -->
-      <div class="addModal-content" style="width: 650px; height:auto;">
-        <span class="close">&times;</span>                                                               
-        
-        <h3 style="text-align:center;">주문내역 목록</h3>
-        <br /><br />
-        <table id="recentlyAddress" style="text-align: center; width:600px;">
-        
-                  <thead>
-                   <tr id="theadtr" style="border-bottom:1px solid black; height: 40px;">
-                       <th>주문번호</th>
-                       <th>상품명</th>
-                       <th>총금액</th>
-                       <th>선택</th>
-                   </tr>
-                  </thead>
-                  <tbody id="address">
-                  
-                  	<c:forEach var="goods" items="${goodsList }">
-                  		<tr>
-                           <td>
-                          		<input type="hidden" id="orderGoodsNo" name="orderGoodsNo" value="${goods.orderGoodsNo }"/>
-                               <strong class="receiverName" name="orderNo" >${goods.orderNo}</strong><br />
-                               <p>${goods.oDate }</p>
-                           </td>
-                           <td>
-                               <span class="rZipCode">${goods.gName}</span><br />
-                               <span class="rAddress1">${goods.gColor}  |  ${goods.gSize}</span>
-                           </td>
-                           <td>
-                           	${goods.gPrice}
-                           </td>
-                           <td>
-                               <button type="button" class="addSelectBtn" onclick="addSelect(this);">선택</button>
-                           </td>
-                       </tr>
-                  	</c:forEach>
-                  
-                   </tbody>
-        </table>
-        
-        
-      </div>
- 
-    </div>
+					    <!-- 모달 시작했다 -->
+					    <div id="myAddModal" class="addModal">
+					 
+					      <!-- Modal content -->
+					      <div class="addModal-content" style="width: 650px; height:auto;">
+					        <span class="close">&times;</span>                                                               
+					        
+					        <h3 style="text-align:center;">주문내역 목록</h3>
+					        <br /><br />
+					        <table id="recentlyAddress" style="text-align: center; width:600px;">
+				                  <thead>
+				                   <tr id="theadtr" style="border-bottom:1px solid black; height: 40px;">
+				                       <th>주문번호</th>
+				                       <th>상품명</th>
+				                       <th>총금액</th>
+				                       <th>선택</th>
+				                   </tr>
+				                  </thead>
+				                  <tbody id="address">
+				                  
+				                  	<c:forEach var="goods" items="${goodsList }">
+				                  		<tr>
+				                           <td>
+				                          		<input type="hidden" id="orderGoodsNo" name="orderGoodsNo" value="${goods.orderGoodsNo }"/>
+				                               <strong class="receiverName" name="orderNo" >${goods.orderNo}</strong><br />
+				                               <p>${goods.oDate }</p>
+				                           </td>
+				                           <td>
+				                               <span class="rZipCode">${goods.gName}</span><br />
+				                               <span class="rAddress1">${goods.gColor}  |  ${goods.gSize}</span>
+				                           </td>
+				                           <td>
+				                           	${goods.gPrice}
+				                           </td>
+				                           <td>
+				                               <button type="button" class="addSelectBtn" onclick="addSelect(this);">선택</button>
+				                           </td>
+				                       </tr>
+				                  	</c:forEach>
+				                   </tbody>
+					        </table>
+					      </div>
+					    </div>
+					    <!-- 모달 끝났다 -->
+					
 					
 						<div class="p-t-100">
 							<h5 class="mtext-113 cl2 p-b-12">
@@ -299,11 +294,11 @@
 
 						<div class="p-t-55">
 							<h4 class="mtext-112 cl2 p-b-20">
-								Archive
+								Product Category
 							</h4>
 
 							<ul>
-								<li class="p-b-7">
+								<li class="p-b-7 fasionItem">
 									<a href="${pageContext.request.contextPath }/sellerProductList.do?userNo=${seller.userNo}&cCode=1" class="flex-w flex-sb-m stext-115 cl6 hov-cl1 trans-04 p-tb-2">
 										<span>
 											Fashion Item
@@ -315,7 +310,7 @@
 									</a>
 								</li>
 
-								<li class="p-b-7">
+								<li class="p-b-7 accessories">
 									<a href="${pageContext.request.contextPath }/sellerProductList.do?userNo=${seller.userNo}&cCode=2" class="flex-w flex-sb-m stext-115 cl6 hov-cl1 trans-04 p-tb-2">
 										<span>
 											Accessories
@@ -327,7 +322,7 @@
 									</a>
 								</li>
 
-								<li class="p-b-7">
+								<li class="p-b-7 women">
 									<a href="${pageContext.request.contextPath }/sellerProductList.do?userNo=${seller.userNo}&cCode=3" class="flex-w flex-sb-m stext-115 cl6 hov-cl1 trans-04 p-tb-2">
 										<span>
 											Women
@@ -339,7 +334,7 @@
 									</a>
 								</li>
 
-								<li class="p-b-7">
+								<li class="p-b-7 men">
 									<a href="${pageContext.request.contextPath }/sellerProductList.do?userNo=${seller.userNo}&cCode=4" class="flex-w flex-sb-m stext-115 cl6 hov-cl1 trans-04 p-tb-2">
 										<span>
 											Men
@@ -351,7 +346,7 @@
 									</a>
 								</li>
 
-								<li class="p-b-7">
+								<li class="p-b-7 etc">
 									<a href="${pageContext.request.contextPath }/sellerProductList.do?userNo=${seller.userNo}&cCode=5" class="flex-w flex-sb-m stext-115 cl6 hov-cl1 trans-04 p-tb-2">
 										<span>
 											Etc
@@ -366,6 +361,7 @@
 								</ul>
 						</div>
 
+				
 						
 					</div>
 				</div>
@@ -448,6 +444,30 @@
 					
 				}
 			}
+		</script>
+		
+		<script>
+			$(function(){
+				var userNo = '${seller.userNo}';
+				$.ajax({
+					url: "${pageContext.request.contextPath}/sellerCategory.do",
+					dataType: "json",
+					data: { userNo : userNo },
+					success: function(data){
+						console.log(data);
+						$('.fasionItem').children().children().eq(1).text("");
+						$('.fasionItem').children().children().eq(1).text("( " + data[0] + " )");
+						$('.accessories').children().children().eq(1).text("");
+						$('.accessories').children().children().eq(1).text("( " + data[1] + " )");
+						$('.women').children().children().eq(1).text("");
+						$('.women').children().children().eq(1).text("( " + data[2] + " )");
+						$('.men').children().children().eq(1).text("");
+						$('.men').children().children().eq(1).text("( " + data[3] + " )");
+						$('.etc').children().children().eq(1).text("");
+						$('.etc').children().children().eq(1).text("( " + data[4] + " )");
+					},
+				});
+			});
 		</script>
 		
 </body>

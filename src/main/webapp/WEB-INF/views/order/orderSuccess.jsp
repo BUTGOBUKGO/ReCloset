@@ -65,7 +65,7 @@
 							<td style="width: 120px;"><strong>주문번호</strong></td>
 							<td style="color: #9EA6E1;"><h3><strong>${order.orderNo}</strong></h3></td>
 						</tr>
-						<tr style="height:130px;">
+						<tr style="height:160px;">
 							<td><strong>배송지정보</strong></td>
 							<td>
 								${delivery.receiver } <br />
@@ -75,10 +75,12 @@
 								${delivery.address2 }
 							</td>
 						</tr>
-						<tr style="height:80px;">
+						<tr style="height:100px;">
 							<td><strong>신용카드</strong></td>
 							<td>
 								일시불 <br />
+								신한카드 1234-5678-1234-5678 <br />
+								결제금액 : &nbsp; <fmt:formatNumber value="${order.totalPrice}" pattern="#,##0" />원 <br />
 								승인일시 : &nbsp; ${order.oDate }
 							</td>
 						</tr>
@@ -106,7 +108,7 @@
 							<tr id="orderTotal">
 								<td style="width:30%;"><img src="${ pageContext.request.contextPath }/resources/uploadimg/${goods.changeName }" style="width:120px;" ></td>
 	   							<td style="width:45%; text-align:center;">${goods.gName }</td>
-	   							<td style="width:25%; text-align:right;"><strong>${goods.gPrice }</strong>&nbsp;원</td>
+	   							<td style="width:25%; text-align:right;"><strong><fmt:formatNumber value="${goods.gPrice }" pattern="#,##0" />원</strong></td>
 	   						</tr>
 						</c:forEach>
 					</table>
@@ -124,7 +126,8 @@
 
 						<div class="size-209">
 							<span class="mtext-110 cl2 subtotalPrice">
-								${order.totalPrice - 2500} &nbsp; 원
+								<fmt:formatNumber value="${order.totalPrice - 2500}" pattern="#,##0" />
+									 원
 							</span>
 						</div>
 					</div>
@@ -138,7 +141,7 @@
 
 						<div class="size-209">
 							<span class="mtext-110 cl2">
-								2500 원
+								2,500 원
 							</span>
 						</div>
 					</div>
@@ -152,7 +155,8 @@
 
 						<div class="size-209 p-t-1">
 							<span class="mtext-110 cl2 totalPrice">
-								${order.totalPrice } &nbsp; 원
+								<fmt:formatNumber value="${order.totalPrice }" pattern="#,##0" />
+									원
 							</span>
 						</div>
 					</div>

@@ -50,6 +50,7 @@
 	<select id="selectList" resultType="Goods">
 	SELECT G.*, GA.CHANGENAME FROM GOODS G JOIN GATTACHMENT GA 
 	ON(G.GOODSNO = GA.GOODSNO AND AGRADE = 0)
+	AND G.GSOLDOUT = 'X'
 	</select>
 	 
 	<select id="selectOnePro" parameterType="_int" resultType="Goods">

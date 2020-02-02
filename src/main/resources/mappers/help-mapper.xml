@@ -51,6 +51,32 @@
 		SELECT COUNT(*) FROM QNA
 	</select>	
 		
+		
+	<insert id="insertqComment" parameterType="Comment">
+	INSERT INTO QUESTION_CO
+	VALUES(SEQ_QCNO.NEXTVAL, 
+		   #{qnaNo},
+		   #{userNo}, 
+		   #{qcContent},
+		     DEFAULT,
+		      DEFAULT)
+	</insert>
+	
+	<select id="selectqComments" parameterType="_int" resultType="Comment">
+	SELECT
+    CNO, QCCONTENT, USERNO, QCDATE
+    	 FROM QUESTION_CO
+    	WHERE QNANO = #{qnaNo} AND QSTATUS = 'N'
+	</select>
+	
+	<update id="updateqComment" parameterType="Comment">
+		UPDATE QUESTION_CO SET QCCONTENT = #{qcContent} WHERE CNO= #{cNo}
+	</update>
+	
+	<update id="deleteqComment" parameterType="int">
+		UPDATE QUESTION_CO SET QSTATUS = 'Y' WHERE CNO = #{cNo}
+	</update>
+	
 </mapper>
 
 

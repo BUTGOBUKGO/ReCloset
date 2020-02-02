@@ -27,12 +27,11 @@
 		<typeAlias type="com.kh.recloset.searchRank.model.vo.SearchRank" alias="SearchRank"/>
 		<typeAlias type="com.kh.recloset.search.model.vo.Search" alias="Search"/>
 		<typeAlias type="com.kh.recloset.search.model.vo.SearchValue" alias="SearchValue"/>
-		<typeAlias type="com.kh.recloset.sellerInfo.model.vo.Review" alias="Review" />
 		<typeAlias type="com.kh.recloset.myPage.model.vo.MyPage" alias="MyPage"/>
-		<typeAlias type="com.kh.recloset.admin.model.vo.MemReport" alias="MemReport"/>
-		<typeAlias type="com.kh.recloset.admin.model.vo.SellReport" alias="SellReport"/>
-		<typeAlias type="com.kh.recloset.myPage.model.vo.TrackCompany" alias="TrackCompany"/>
-		<typeAlias type="com.kh.recloset.myPage.model.vo.OrderedGoods" alias="OrderedGoods"/>
+		<typeAlias type="com.kh.recloset.sellerInfo.model.vo.Review" alias="Review" />
+		<typeAlias type="com.kh.recloset.like.model.vo.Like" alias="Like" />
+		<typeAlias type="com.kh.recloset.helpAndFAQ.model.vo.Comment" alias="Comment"/>
+		<typeAlias type="com.kh.recloset.helpAndFAQ.model.vo.PComment" alias="PComment"/>
 	</typeAliases>
 </configuration>
 

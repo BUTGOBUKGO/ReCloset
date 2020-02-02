@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.recloset.cart.model.vo.Cart;
+import com.kh.recloset.member.model.vo.Member;
 import com.kh.recloset.order.model.service.OrderService;
 import com.kh.recloset.order.model.vo.Delivery;
 import com.kh.recloset.order.model.vo.Order;
@@ -26,7 +27,7 @@ public class OrderController {
 	
 	@RequestMapping("/order/orderFormOne.do")
 	public String orderFormOne(@RequestParam("userNo") int userNo, 
-						@RequestParam("goodsNo") int goodsNo, Model model) {
+								@RequestParam("goodsNo") int goodsNo, Model model) {
 		Goods goods = new Goods();
 		List<Goods> gList = new ArrayList<>();
 		
@@ -53,7 +54,6 @@ public class OrderController {
 		List<Integer> goodsNolist = orderService.cartList(userNo);
 		List<Goods> gList = new ArrayList<>();
 		int subtotal = 0;
-		// Goods goods = new Goods();
 		
 		for(int goodsNo : goodsNolist) {
 			
@@ -64,7 +64,6 @@ public class OrderController {
 			subtotal += goods.getgPrice();
 			gList.add(goods);
 		}
-		
 		List<Delivery> deliveryList = orderService.addressList(userNo);
 		
 		model.addAttribute("deliveryList", deliveryList);
@@ -76,8 +75,6 @@ public class OrderController {
 	
 	@RequestMapping("/order/payForm.do")
 	public String payForm(Delivery delivery, Order order, Model model, HttpSession session) {
-		
-		System.out.println("delivery : " + delivery);
 		
 		session.setAttribute("delivery", delivery);
 		session.setAttribute("order", order);
@@ -96,7 +93,6 @@ public class OrderController {
 		for(int goodsNo : goodsNolist) {
 			
 			g = orderService.selectGoods(goodsNo);
-			
 			glist.add(g);
 		}
 		
@@ -105,7 +101,7 @@ public class OrderController {
 		
 		Order o = (Order)session.getAttribute("order");
 		o.setUserNo(userNo);
-		System.out.println("o : " + o);
+
 		int result = orderService.insertOrder(o); // 주문 추가
 		
 		if(result > 0) {
@@ -117,9 +113,8 @@ public class OrderController {
 			
 			og.setOrderNo(o.getOrderNo());
 			og.setGoodsNo(good.getGoodsNo());
-			System.out.println("og : " + og);
+
 			result = orderService.insertOrderGoods(og); // 주문상품 추가
-			
 			result = orderService.updateGsoldout(good.getGoodsNo()); // 주문한 상품들 판매여부 변경
 		}
 		
@@ -135,13 +130,9 @@ public class OrderController {
 		
 		if(result > 0) {
 			d = orderService.selectDelivery(o.getOrderNo()); // 추가된 배송정보 조회
-			System.out.println("d : " + d);
 		}
 		
 		result = orderService.deleteCart(userNo); // 주문한 상품들 장바구니에서 삭제
-		System.out.println(result);
-		
-		
 		
 		model.addAttribute("order", o);
 		model.addAttribute("goodsList", glist);

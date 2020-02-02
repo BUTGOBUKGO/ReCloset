@@ -59,6 +59,10 @@ public class SellerInfoDAO {
 		return sqlSession.selectList("sellerInfo-mapper.selectGoodsList", g);
 	}
 
+	public int selectSellerCategoryCount(Goods g) {
+		return sqlSession.selectOne("sellerInfo-mapper.selectSellerCategoryCount", g);
+	}
+
 
 
 

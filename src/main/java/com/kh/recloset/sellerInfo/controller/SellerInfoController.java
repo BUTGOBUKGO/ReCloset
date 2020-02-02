@@ -23,7 +23,6 @@ public class SellerInfoController {
 	@Autowired
 	SellerInfoService sellerInfoService;
 
-	
 	@RequestMapping("/sellerInfo.do")
 	public String sellerInfo(HttpSession session, @RequestParam("userId") String userId,
 			Model model) {
@@ -102,10 +101,6 @@ public class SellerInfoController {
 		
 		System.out.println(gList); // 왜 날짜 못불러오징..?
 		
-		/*
-		 * Goods g = new Goods(); int result =
-		 * sellerInfoService.selectGoodsQty(ms.getUserNo());
-		 */
 		
 		model.addAttribute("reviewList", rList);
 		model.addAttribute("sellerGoodsList", sgList); // 판매자의 판매상품 목록
@@ -160,5 +155,24 @@ public class SellerInfoController {
 		return "product/productList";
 	}
 	
+	@RequestMapping("/sellerCategory.do")
+	@ResponseBody
+	public int[] sellerCategory(@RequestParam("userNo") int userNo) {
+		
+		int[] result = new int[5];
+		Goods g = new Goods();
+		int cnt = 1;
+		
+		for(int i = 0; i < 4; i++) {
+			
+			g.setCategoryCode(cnt);
+			g.setUserNo(userNo);
+			result[i] = sellerInfoService.selectSellerCategoryCount(g);
+			cnt++;
+		}
+		System.out.println("result : " + result);
+		
+		return result;
+	}
 	
 }

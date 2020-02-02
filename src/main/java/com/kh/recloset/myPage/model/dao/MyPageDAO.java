@@ -1,6 +1,5 @@
 package com.kh.recloset.myPage.model.dao;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.recloset.myPage.model.vo.MyPage;
-import com.kh.recloset.myPage.model.vo.OrderedGoods;
-import com.kh.recloset.myPage.model.vo.TrackCompany;
 	
 	@Repository
 	public class MyPageDAO {
@@ -42,30 +39,11 @@ import com.kh.recloset.myPage.model.vo.TrackCompany;
 		
 	}
 	
-	public List selectMySOrderList(HashMap<String, Object> hmap) {
+	public List selectMySOrderList(MyPage my) {
 		
-		return sqlSession.selectList("mypage-mapper.selectMySOrderList", hmap);
+		return sqlSession.selectList("mypage-mapper.select1MOrderList", my);
 		
 	}
-	
-
-	public List<OrderedGoods> selectOrderedList(int userNo) {
-		
-		return sqlSession.selectList("mypage-mapper.selectOrderedList", userNo);
-	}
-
-
-	public List<TrackCompany> selectTrackCompany() {
-		
-		return sqlSession.selectList("mypage-mapper.selectTrackCompany");
-	}
-
-
-	public int updateDelivery(OrderedGoods orderedGood) {
-
-		return sqlSession.update("mypage-mapper.updateDelivery", orderedGood);
-	}
-
 
 	
 	

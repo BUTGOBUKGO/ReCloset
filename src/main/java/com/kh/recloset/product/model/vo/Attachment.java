@@ -1,10 +1,10 @@
 package com.kh.recloset.product.model.vo;
- 
+
 import java.io.Serializable;
 import java.sql.Date;
 
 public class Attachment implements Serializable{
-	 
+	
 	private int fNo;
 	private int goodsNo;
 	private String originName;

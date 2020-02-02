@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE configuration PUBLIC
+"-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="com.kh.recloset.cart.model.vo.Cart" alias="Cart"/>
+		<typeAlias type="com.kh.recloset.product.model.vo.Goods" alias="Goods"/>
+		<typeAlias type="com.kh.recloset.helpAndFAQ.model.vo.HelpAndFAQ" alias="HelpAndFAQ"/>
+		<typeAlias type="com.kh.recloset.helpAndFAQ.model.vo.Post" alias="Post"/>
+		<typeAlias type="com.kh.recloset.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.recloset.email.model.vo.Email" alias="Email"/>
+		<typeAlias type="com.kh.recloset.product.model.vo.Attachment" alias="Attachment"/>
+		<typeAlias type="com.kh.recloset.order.model.vo.Delivery" alias="Delivery"/>
+		<typeAlias type="com.kh.recloset.order.model.vo.Order" alias="Order"/>
+		<typeAlias type="com.kh.recloset.order.model.vo.OrderGoods" alias="OrderGoods"/>
+		<typeAlias type="com.kh.recloset.seller_statistics.model.vo.GenderRatio" alias="GenderRatio"/>
+		<typeAlias type="com.kh.recloset.seller_statistics.model.vo.MonthRevenue" alias="MonthRevenue"/>
+		<typeAlias type="com.kh.recloset.seller_statistics.model.vo.SelectRevenue" alias="SelectRevenue"/>
+		<typeAlias type="com.kh.recloset.admin_statistics.model.vo.SelectAgeRatio" alias="SelectAgeRatio"/>
+		<typeAlias type="com.kh.recloset.admin_statistics.model.vo.AdminSelectTOP3" alias="AdminSelectTOP3"/>
+		<typeAlias type="com.kh.recloset.searchRank.model.vo.SearchRank" alias="SearchRank"/>
+		<typeAlias type="com.kh.recloset.search.model.vo.Search" alias="Search"/>
+		<typeAlias type="com.kh.recloset.search.model.vo.SearchValue" alias="SearchValue"/>
+		<typeAlias type="com.kh.recloset.sellerInfo.model.vo.Review" alias="Review" />
+		<typeAlias type="com.kh.recloset.myPage.model.vo.MyPage" alias="MyPage"/>
+		<typeAlias type="com.kh.recloset.admin.model.vo.MemReport" alias="MemReport"/>
+		<typeAlias type="com.kh.recloset.admin.model.vo.SellReport" alias="SellReport"/>
+		<typeAlias type="com.kh.recloset.myPage.model.vo.TrackCompany" alias="TrackCompany"/>
+		<typeAlias type="com.kh.recloset.myPage.model.vo.OrderedGoods" alias="OrderedGoods"/>
+	</typeAliases>
+</configuration>
+
+
+
+
+
+
+
+
+
+

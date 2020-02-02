@@ -16,15 +16,14 @@
 	#loadMoreBtn {
 		cursor : pointer;
 	}
- 
+
 </style>
 	
 </head>
 <body class="animsition">
 	<c:import url="../common/header.jsp"/>
 	<c:import url="../common/cart.jsp"/>
-	<c:import url="../common/search.jsp"/>
-	 
+	
 	<br><br><br>
 	
 		<!-- Product -->
@@ -287,8 +286,8 @@
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 ${ goods.categoryCode == 1 ? 'Item' : goods.categoryCode == 2 ? 'acc' : goods.categoryCode == 3 ? 'woman' : goods.categoryCode == 4 ? 'men' : 'etc' }">
 					<!-- Block2 -->
 					<div class="block2">
-						<div class="block2-pic hov-img0">
-							<img src="${ pageContext.request.contextPath }/resources/uploadimg/${goods.changeName}">
+						<div class="block2-pic hov-img0 d-flex" style="height:320px;">
+							<img class="mx-auto my-auto" src="${ pageContext.request.contextPath }/resources/uploadimg/${goods.changeName}">
 
 							<a href="${pageContext.request.contextPath}/product/productView.do?goodsNo=${goods.goodsNo}" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
 								Detail View

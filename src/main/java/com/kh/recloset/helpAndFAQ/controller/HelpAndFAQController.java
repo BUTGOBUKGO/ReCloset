@@ -10,12 +10,14 @@ import java.net.UnknownHostException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +26,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.recloset.common.util.Utils;
 import com.kh.recloset.helpAndFAQ.model.service.HelpAndFAQService;
+import com.kh.recloset.helpAndFAQ.model.vo.Comment;
 import com.kh.recloset.helpAndFAQ.model.vo.HelpAndFAQ;
+import com.kh.recloset.helpAndFAQ.model.vo.PComment;
 import com.kh.recloset.helpAndFAQ.model.vo.Post;
 import com.kh.recloset.product.model.vo.Attachment;
 
@@ -38,9 +42,18 @@ public class HelpAndFAQController {
 	@RequestMapping("/help.do")
 	public String customerAnswer(Model model) {
 		
-		List<HelpAndFAQ> list = helpService.faq();
+		int cPage = 1;
+		int limit = 10;
+		
+		
+		List<HelpAndFAQ> list = helpService.faq(cPage);
+		int totalContent = helpService.selectTotalContents();
 		  //List<Post> list = helpService.post(); 
-		model.addAttribute("faqList", list);
+		
+		model.addAttribute("list", list)
+		.addAttribute("totalContents", totalContent)
+		.addAttribute("pageBar", Utils.getPageBar(totalContent, cPage, limit, "showHome"));
+		
 		System.out.println(list);
 		
 		return "helpAndFAQ/help";
@@ -209,42 +222,86 @@ public class HelpAndFAQController {
 
 	   @RequestMapping("/help/faqList.do")
 	   @ResponseBody
-	   public List<HelpAndFAQ> gofaqList() {
+	   public Map<String, Object> gofaqList
+	   (@RequestParam(value="cPage", 
+	              required=false, 
+	              defaultValue="1") int cPage) {
 		   
-		   List<HelpAndFAQ> list = helpService.faq();
+		   int numPerPage = 10;
+		   
+		   List<HelpAndFAQ> list = helpService.faq(cPage);
 		  
-		   return list;
+		   int totalContents = helpService.selectTotalContents();
+		   
+		   String pageBar 
+			  = Utils.getPageBar(totalContents, cPage, numPerPage, "showHome");
+			
+		   System.out.println(pageBar);
+		   Map<String, Object> map = new HashMap<>();
+		   map.put("list", list);
+		   map.put("totalContents", totalContents);
+		   map.put("numPerPage", numPerPage);
+		   map.put("pageBar", pageBar);
+		   
+		   return map;
 		   
 	   }
 	   
 	   
 	   @RequestMapping("/post/postList.do")
 	   @ResponseBody
-	   public List<Post> gopostList(Model model){
+	   public Map<String, Object> gopostList
+	   (@RequestParam(value="cPage", 
+	              required=false, 
+	              defaultValue="1") int cPage){
 	   
-	   List<Post> list = helpService.post(); 
-	  System.out.println(list); 
+		   int numPerPage = 10;
+		   
+	   List<Post> golist = helpService.post(cPage); 
 	  
-	   return list;
+	   int totalContents = helpService.selectpTotalContents();
+	  
+	   String pageBar 
+		  = Utils.getPageBar(totalContents, cPage, numPerPage, "showPost");
+	   
+	   System.out.println(pageBar);
+	   Map<String, Object> map = new HashMap<>();
+	   map.put("list", golist);
+	   map.put("totalContents", totalContents);
+	   map.put("numPerPage", numPerPage);
+	   map.put("pageBar", pageBar);
+	   
+	   return map;
 	   }
 	   
 	   @RequestMapping("/help/helpView.do")
-	   public String selectOneHelp(@RequestParam("no") int qnaNo, Model model) {
+	   public String selectOneHelp(@RequestParam("qnaNo") int qnaNo, Model model) {
 	   
 	   HelpAndFAQ h = helpService.selectHelp(qnaNo);
+	   List<Comment> plist = helpService.selectqComments(qnaNo); 
+	   model.addAttribute("helpandfaq" , h)
+	   		.addAttribute("hlist", plist);
 	   
-	   model.addAttribute("helpandfaq" , h);
-	   		
+	   	
 	   return "helpAndFAQ/faqView";
 	   }
 	   
 	   @RequestMapping("/post/postView.do")
-	   public String selectOnePost(@RequestParam("no") int psnaNo, Model model) {
+	   public String selectOnePost(@RequestParam("psnaNo") int psnaNo, Model model) {
 		   
-		   Post p = helpService.selectPost(psnaNo);
+		 Post p = helpService.selectPost(psnaNo);
+		 List<PComment> alist = helpService.selectpComments(psnaNo);
+		 
+		/*
+		 * for(PComment pc : alist) { System.out.println("pcpcpcpcpc : " + pc); }
+		 */
+		 
+		   model.addAttribute("post", p)
+		   .addAttribute("plist", alist);
 		   
-		   model.addAttribute("post", p);
-		   
+		/*
+		 * System.out.println(p); System.out.println(alist);
+		 */
 		   
 		return "helpAndFAQ/postView";
 	   }
@@ -360,5 +417,120 @@ public class HelpAndFAQController {
 		   return "common/msg";
 		   
 	   }
+	   
+	   /*------------------------------------------------------*/
+	   
+	   @RequestMapping("/comment/insertComment.do")
+	   public String insertComment(Comment cmt, Model model) {
+			System.out.println(cmt);
+			
+			int result = helpService.insertqComment(cmt);
+			String msg = "";
+			String loc = "/help/helpView.do?qnaNo="+cmt.getQnaNo();
+			
+			if(result > 0)	{
+				msg = "댓글 작성 성공!";
+			} else {
+				msg = "댓글 작성 실패!";
+			}
+			
+			model.addAttribute("msg", msg)
+			     .addAttribute("loc", loc);
+		   
+		   return "common/msg";
+
+		} 
+	   
+	   @RequestMapping("/pcomment/insertComment.do")
+	   public String insertpComment(PComment pcmt, Model model) {
+			System.out.println("pcmtpcmtpcmt : "+pcmt);
+			
+			int result = helpService.insertpComment(pcmt);
+			
+			System.out.println("resultresult : " + result);
+			String msg = "";
+			String loc = "/post/postView.do?psnaNo="+pcmt.getPsnaNo();
+			
+			if(result > 0)	{
+				msg = "댓글 작성 성공!";
+			} else {
+				msg = "댓글 작성 실패!";
+			}
+			
+			model.addAttribute("msg", msg)
+			     .addAttribute("loc", loc);
+		   
+		   return "common/msg";
+
+		}
+	   
+	   @RequestMapping("/comment/updateComment.do")
+		public String updateComment(Comment cmt, Model model) {
+			System.out.println(cmt);
+			
+			int result = helpService.updateqComment(cmt);
+			
+			String msg = "";
+			String loc = "/help/helpView.do?qnaNo="+cmt.getQnaNo();
+			
+			if(result > 0)	{
+				msg = "댓글 작성 성공!";
+			} else {
+				msg = "댓글 작성 실패!";
+			}
+			
+			model.addAttribute("msg", msg)
+			     .addAttribute("loc", loc);
+		   
+		   return "common/msg";
+		}
+	   
+	   @RequestMapping("/comment/updatepComment.do")
+		public String updatepComment(PComment pcmt, Model model) {
+			System.out.println(pcmt);
+			
+			int result = helpService.updatepComment(pcmt);
+			
+			String msg = "";
+			String loc = "/post/postView.do?psnaNo="+pcmt.getPsnaNo();
+			
+			if(result > 0)	{
+				msg = "댓글 작성 성공!";
+			} else {
+				msg = "댓글 작성 실패!";
+			}
+			
+			model.addAttribute("msg", msg)
+			     .addAttribute("loc", loc);
+		   
+		   return "common/msg";
+		}
+	   
+	   @RequestMapping("/comment/deleteComment.do")
+		   @ResponseBody
+		   public int deleteComment(@RequestParam int cNo){
+		   
+		      int result = helpService.deleteqComment(cNo);
+		      
+		      return result;
+		   
+	   }
+	   
+	   
+	   @RequestMapping("/comment/deletepComment.do")
+	   @ResponseBody
+	   public int deletepComment(@RequestParam int psnacNo){
+	   
+	      int result = helpService.deletepComment(psnacNo);
+	      
+	      return result;
+	   
+   }
+	   
+	   
+	   
+	   
+	   
+	   
 
 }

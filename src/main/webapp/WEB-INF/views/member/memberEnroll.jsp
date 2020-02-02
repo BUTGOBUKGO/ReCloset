@@ -33,8 +33,8 @@
     .wrap-loading div{ /*로딩 이미지*/
 
         position: fixed;
-        top:39%;
-        left:47%;
+        top:50%;
+        left:50%;
         margin-left: -20px;
         margin-top: -21px;
     }
@@ -47,7 +47,7 @@
 <body class="animsition">
 	
 <div class="wrap-loading display-none">
-    <div><img style="z-index:5201;" src="${pageContext.request.contextPath}/resources/images/loading3.gif" /></div>
+    <div><img style="z-index:5001;" src="${pageContext.request.contextPath}/resources/images/loading3.gif" /></div>
 </div>    
 
 	<c:import url="../common/header.jsp"/>
@@ -112,7 +112,7 @@
 													<label class="stext-102 cl3" for="userPwd">Password</label>
 												</div>
 												<div class="col-6 p-b-7">
-													<input class="size-102 bor8 stext-102 cl2 p-lr-10" id="userPwd" type="password" name="userPwd" >
+													<input class="size-102 bor8 stext-102 cl2 p-lr-10" id="userPwd_" type="password" name="userPwd">
 												</div>
 												<div class="col-2 p-b-7"></div>	
 												<!--  -->
@@ -297,10 +297,10 @@
 			$(function(){
 				
 				$("#userPwd2").blur(function(){
-					var p1=$("#userPwd").val(), p2=$("#userPwd2").val();
-					if(p1!=p2 ){
+					var p1=$("#userPwd_").val(), p2=$("#userPwd2").val();
+					if(p1!=p2){
 						alert("패스워드가 일치하지 않습니다.");
-						$("#userPwd").focus();
+						$("#userPwd_").focus();
 					}
 				});
 				
@@ -387,9 +387,7 @@
 						alert("사용가능한 이메일입니다. 전송된 인증번호를 입력해주세요.");
 						$('#emailAuth').attr('disabled', false);
 						$('#emailAuthBtn').attr('disabled', false);
-					} else if (data == 1) {
-						alert("이미 등록된 이메일입니다.확인 후 다시 입력해주세요.");
-					}
+					} 
 				},
 				error: function(data){
 					alert("에러가 발생했습니다.");
