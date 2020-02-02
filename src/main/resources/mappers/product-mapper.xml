@@ -103,6 +103,26 @@
 		ON(G.GOODSNO = GA.GOODSNO AND AGRADE = 0)
 	</select>
 	
+		<select id="selectMainWomanGoods" resultType="Goods">
+	SELECT G.*, GA.CHANGENAME FROM GOODS G JOIN GATTACHMENT GA 
+	ON(G.GOODSNO = GA.GOODSNO AND AGRADE = 0) WHERE CATEGORYCODE = 3
+	</select>
+	
+	<select id="selectMainManGoods" resultType="Goods">
+	SELECT G.*, GA.CHANGENAME FROM GOODS G JOIN GATTACHMENT GA 
+	ON(G.GOODSNO = GA.GOODSNO AND AGRADE = 0) WHERE CATEGORYCODE = 4
+	</select>
+	
+	<select id="selectMainAcGoods" resultType="Goods">
+	SELECT G.*, GA.CHANGENAME FROM GOODS G JOIN GATTACHMENT GA 
+	ON(G.GOODSNO = GA.GOODSNO AND AGRADE = 0) WHERE CATEGORYCODE = 2
+	</select>
+	
+	<select id="selectMainAllGoods" resultType="Goods">
+	SELECT G.*, GA.CHANGENAME FROM GOODS G JOIN GATTACHMENT GA 
+	ON(G.GOODSNO = GA.GOODSNO AND AGRADE = 0 )ORDER BY G.GOODSNO DESC
+	</select>
+	
 </mapper>
 
 
